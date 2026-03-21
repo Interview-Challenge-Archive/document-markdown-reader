@@ -31,12 +31,10 @@ jobs:
           # Extract major version from latest LTS
           LATEST_MAJOR_VERSION=$(echo "$LATEST_VERSION" | cut -d'.' -f1)
 
-          # Generate array of supported even-major Node.js versions from MIN_VERSION to LATEST_MAJOR_VERSION
+          # Generate array of major versions from MIN_VERSION to LATEST_MAJOR_VERSION
           VERSIONS=""
           for ((i=MIN_VERSION; i<=LATEST_MAJOR_VERSION; i++)); do
-            if (( i % 2 == 0 )); then
-              VERSIONS="$VERSIONS\"$i\","
-            fi
+            VERSIONS="$VERSIONS\"$i\","
           done
           # Remove trailing comma and wrap in brackets
           MATRIX="[${VERSIONS%,}]"
@@ -68,3 +66,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+        env:
+          # Node 21 does not accept util.styleText style arrays, but Vite 8's Rolldown dependency uses them.
+          NODE_OPTIONS: ${{ matrix.node-version == 21 && '--import ./test/node21-styletext-polyfill.mjs' || '' }}
