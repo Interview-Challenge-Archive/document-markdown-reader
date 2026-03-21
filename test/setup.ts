@@ -1,24 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JSDOM } from 'jsdom';
 
-// Create a JSDOM instance to get DOMMatrix and other globals
-const dom = new JSDOM('<!DOCTYPE html>');
+// Create a JSDOM instance with full browser APIs
+const dom = new JSDOM('<!DOCTYPE html>', {
+  pretendToBeVisual: true,
+  runScripts: 'dangerously'
+});
 const { window } = dom;
 
-// Polyfill globalThis with missing browser APIs from jsdom
-// Using any cast to avoid constructor issues across different Node versions
-if (typeof globalThis.DOMMatrix === 'undefined') {
-  // @ts-expect-error - jsdom DOMMatrix constructor
+// Set up globalThis with all browser APIs from jsdom BEFORE any imports
+// This must happen before pdfjs-dist or any other library tries to use these
+Object.getOwnPropertyNames(window).forEach((key) => {
+  if (!(key in globalThis)) {
+    try {
+      // @ts-expect-error - dynamic property access
+      globalThis[key] = window[key];
+    } catch {
+      // Some properties can't be copied
+    }
+  }
+});
+
+// Explicitly ensure these critical APIs are available
+if (!globalThis.DOMMatrix) {
+  // @ts-expect-error - jsdom DOMMatrix
   globalThis.DOMMatrix = window.DOMMatrix;
 }
-if (typeof globalThis.DOMRect === 'undefined') {
-  // @ts-expect-error - jsdom DOMRect constructor
+if (!globalThis.DOMRect) {
+  // @ts-expect-error - jsdom DOMRect
   globalThis.DOMRect = window.DOMRect;
 }
-if (typeof globalThis.Path2D === 'undefined') {
-  // @ts-expect-error - jsdom Path2D constructor
+if (!globalThis.Path2D) {
+  // @ts-expect-error - jsdom Path2D
   globalThis.Path2D = window.Path2D;
 }
-if (typeof globalThis.ImageData === 'undefined') {
+if (!globalThis.ImageData) {
   globalThis.ImageData = window.ImageData;
+}
+
+// Also set up process.getBuiltinModule if needed for pdfjs-dist
+if (typeof process !== 'undefined' && typeof process.getBuiltinModule === 'undefined') {
+  // @ts-expect-error - Node.js internal
+  process.getBuiltinModule = (module: string) => require(module);
 }
