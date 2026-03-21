@@ -1,0 +1,17 @@
+{
+  "name": "typescript-vanilla-parcel",
+  "version": "1.0.0",
+  "description": "TypeScript Vanilla Parcel example",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "document-markdown-reader": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "typescript": "^5.3.0"
+  }
+}

@@ -24,184 +24,15 @@ Instead of struggling with different file formats, this library automatically de
 npm install document-markdown-reader
 ```
 
-## TypeScript usage
+## Examples
 
-### HTML Setup
+Check out the [examples](./examples) folder for complete working examples. Each example includes:
+- A `README.md` with instructions and explanations
+- A `package.json` with all required dependencies
 
-First, add a file input to your HTML:
+Examples are organized by language, framework, and build tool in the format: `examples/{language}/{framework}/{tool}`.
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Document Reader Example</title>
-</head>
-<body>
-    <h1>Upload a Document</h1>
-    <input type="file" id="summary-file" accept=".pdf,.docx,.doc,.txt,.md,.html,.rtf,.odt,.pages">
-    <button id="convert-btn">Convert to Markdown</button>
-    <pre id="output"></pre>
-    
-    <script src="your-typescript-script.js"></script>
-</body>
-</html>
-```
-
-### TypeScript Code
-
-Now, in your TypeScript file:
-
-```ts
-import { documentMarkdownReader } from 'document-markdown-reader'
-
-// Define types for better type safety
-interface HTMLElementEvent<T extends HTMLElement> extends Event {
-  target: T
-}
-
-async function readDocument(file: File): Promise<string> {
-  try {
-    // This line converts your document (Word, PDF, etc.) to markdown text
-    return await documentMarkdownReader.readDocument(file)
-  } catch (error) {
-    console.error('Failed to read document:', error)
-    throw error
-  }
-}
-
-// Get references to HTML elements with proper typing
-const fileInput = document.querySelector<HTMLInputElement>('#summary-file')!
-const convertBtn = document.querySelector<HTMLButtonElement>('#convert-btn')!
-const output = document.querySelector<HTMLPreElement>('#output')!
-
-// Handle button click with proper event typing
-convertBtn.addEventListener('click', (event: MouseEvent) => {
-  const file = fileInput.files?.[0] // Get the selected file (optional chaining)
-  
-  if (file) {
-    // Show loading message
-    output.textContent = 'Converting...'
-    
-    // Convert the file and display the result
-    readDocument(file)
-      .then(markdown => {
-        output.textContent = markdown // Show converted text
-      })
-      .catch((error: Error) => {
-        output.textContent = 'Error: ' + error.message
-      })
-  } else {
-    output.textContent = 'Please select a file first'
-  }
-})
-
-// Optional: Check supported formats
-console.log('Supported extensions:', documentMarkdownReader.supportedExtensions)
-console.log('HTML accept attribute:', documentMarkdownReader.acceptedExtensions)
-```
-
-**How it works step by step:**
-1. **User selects a file** using the `<input type="file">` element
-2. **User clicks the "Convert" button** which triggers our TypeScript code
-3. **TypeScript gets the file** from `fileInput.files[0]` with proper typing
-4. **File object (type: File)** contains the file name, size, and content
-5. **We pass this file object** to `documentMarkdownReader.readDocument()`
-6. **Library reads the file content** and converts it to markdown
-7. **Result is displayed** in the `<pre>` element
-
-**TypeScript advantages:**
-- **Type safety** - `document.querySelector<HTMLInputElement>()` ensures correct element type
-- **Optional chaining** - `fileInput.files?.[0]` safely handles null cases
-- **Error typing** - `(error: Error)` provides proper error type
-- **File type** - `file: File` parameter ensures correct file object type
-- **Better IDE support** - Autocomplete and error checking
-
-**Key points:**
-- `!` (non-null assertion) tells TypeScript we know the element exists
-- `fileInput.files?.[0]` safely gets the first selected file
-- The `File` type is built into TypeScript for file objects
-- All DOM elements are properly typed for better development experience
-
-## JavaScript usage
-
-### HTML Setup
-
-First, add a file input to your HTML:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Document Reader Example</title>
-</head>
-<body>
-    <h1>Upload a Document</h1>
-    <input type="file" id="summary-file" accept=".pdf,.docx,.doc,.txt,.md,.html,.rtf,.odt,.pages">
-    <button id="convert-btn">Convert to Markdown</button>
-    <pre id="output"></pre>
-    
-    <script src="your-script.js"></script>
-</body>
-</html>
-```
-
-### JavaScript Code
-
-Now, in your JavaScript file:
-
-```js
-const { documentMarkdownReader } = require('document-markdown-reader')
-
-async function readDocument(file) {
-  try {
-    // This line converts your document (Word, PDF, etc.) to markdown text
-    return await documentMarkdownReader.readDocument(file)
-  } catch (error) {
-    console.error('Failed to read document:', error)
-    throw error
-  }
-}
-
-// Get references to HTML elements
-const fileInput = document.querySelector('#summary-file')
-const convertBtn = document.querySelector('#convert-btn')
-const output = document.querySelector('#output')
-
-// Handle button click
-convertBtn.addEventListener('click', () => {
-  const file = fileInput.files[0] // Get the selected file
-  
-  if (file) {
-    // Show loading message
-    output.textContent = 'Converting...'
-    
-    // Convert the file and display the result
-    readDocument(file)
-      .then(markdown => {
-        output.textContent = markdown // Show converted text
-      })
-      .catch(error => {
-        output.textContent = 'Error: ' + error.message
-      })
-  } else {
-    output.textContent = 'Please select a file first'
-  }
-})
-```
-
-**How it works step by step:**
-1. **User selects a file** using the `<input type="file">` element
-2. **User clicks the "Convert" button** which triggers our JavaScript
-3. **JavaScript gets the file** from `fileInput.files[0]` (this is an array of selected files)
-4. **File object contains** the file name, size, and content
-5. **We pass this file object** to `documentMarkdownReader.readDocument()`
-6. **Library reads the file content** and converts it to markdown
-7. **Result is displayed** in the `<pre>` element
-
-**Key points:**
-- `fileInput.files[0]` gives you the first selected file
-- The file object includes the actual file content that gets read
-- No need to manually read the file - the library handles that internally
+For a complete overview of all examples, see [examples/README.md](./examples/README.md).
 
 ## API Reference
 
@@ -266,3 +97,4 @@ We use a few simple commands to keep everything running smoothly:
 - **Tell us about it**: When you open your pull request, give us a quick summary of what you've done and why it's helpful.
 
 We're excited to see what you build! Thanks for being part of the community.
+make

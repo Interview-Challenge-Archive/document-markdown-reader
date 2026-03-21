@@ -1,0 +1,20 @@
+{
+  "name": "document-markdown-reader-javascript-react-parcel",
+  "version": "1.0.0",
+  "private": true,
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "dependencies": {
+    "document-markdown-reader": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "process": "^0.11.10"
+  }
+}

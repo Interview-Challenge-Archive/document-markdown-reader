@@ -1,0 +1,16 @@
+{
+  "name": "javascript-svelte-parcel",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "devDependencies": {
+    "svelte": "^4.2.0",
+    "parcel": "^2.10.0"
+  },
+  "dependencies": {
+    "document-markdown-reader": "file:../.."
+  }
+}

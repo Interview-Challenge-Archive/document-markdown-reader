@@ -1,0 +1,22 @@
+{
+  "name": "typescript-solidjs-rollup",
+  "version": "1.0.0",
+  "description": "TypeScript SolidJS Rollup example",
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "solid-js": "^1.8.0",
+    "document-markdown-reader": "^1.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.9.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "typescript": "^5.3.0",
+    "tslib": "^2.6.0"
+  }
+}

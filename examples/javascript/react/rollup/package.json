@@ -1,0 +1,22 @@
+{
+  "name": "javascript-react-rollup",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "document-markdown-reader": "file:../..",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.9.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  }
+}

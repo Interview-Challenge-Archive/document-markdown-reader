@@ -1,0 +1,16 @@
+{
+  "name": "javascript-vanilla-parcel",
+  "version": "1.0.0",
+  "description": "JavaScript Vanilla Parcel Example",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "document-markdown-reader": "file:../.."
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
