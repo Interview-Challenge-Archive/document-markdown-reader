@@ -52,7 +52,7 @@ export class OpenDocumentImportStrategy extends DocumentImportStrategy {
       }
 
       return await this.openDocumentConversionService.convertOdtToMarkdown(await file.arrayBuffer())
-    } catch (error) {
+    } catch {
       throw new InvalidOdtError()
     }
   }
