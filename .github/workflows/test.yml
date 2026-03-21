@@ -32,7 +32,7 @@ jobs:
           MATRIX="[\"$MIN_VERSION\", \"$LATEST_VERSION\"]"
 
           # Remove duplicates if versions are the same
-          MATRIX=$(echo "$MATRIX" | jq 'unique')
+           MATRIX=$(echo "$MATRIX" | jq -c 'unique')
 
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
