@@ -6,14 +6,14 @@ const { window } = dom;
 
 // Polyfill globalThis with missing browser APIs from jsdom
 if (typeof globalThis.DOMMatrix === 'undefined') {
-  globalThis.DOMMatrix = window.DOMMatrix as any;
+  globalThis.DOMMatrix = window.DOMMatrix as globalThis.DOMMatrix;
 }
 if (typeof globalThis.DOMRect === 'undefined') {
-  globalThis.DOMRect = window.DOMRect as any;
+  globalThis.DOMRect = window.DOMRect as globalThis.DOMRect;
 }
 if (typeof globalThis.Path2D === 'undefined') {
-  globalThis.Path2D = window.Path2D as any;
+  globalThis.Path2D = window.Path2D as globalThis.Path2D;
 }
 if (typeof globalThis.ImageData === 'undefined') {
-  globalThis.ImageData = window.ImageData as any;
+  globalThis.ImageData = window.ImageData as globalThis.ImageData;
 }
