@@ -43,7 +43,7 @@ const config = {
     }
   },
   test: {
-    environment: 'jsdom',
+    environment: 'node',
     include: ['test/**/*.spec.ts'],
     setupFiles: ['./test/setup.ts']
   }
