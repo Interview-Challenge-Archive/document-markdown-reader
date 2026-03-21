@@ -44,7 +44,7 @@ jobs:
   test:
     needs: setup-matrix
     runs-on: ubuntu-latest
-     strategy:
+    strategy:
       max-parallel: 2
       matrix:
         node-version: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
