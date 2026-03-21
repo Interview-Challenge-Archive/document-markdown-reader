@@ -1,42 +1,70 @@
-import { JSDOM } from 'jsdom';
+import { DOMParser as XmlDomParser } from '@xmldom/xmldom'
 
-// Create a JSDOM instance with full browser APIs
-const dom = new JSDOM('<!DOCTYPE html>', {
-  pretendToBeVisual: true,
-  runScripts: 'dangerously'
-});
-const { window } = dom;
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, '\'')
+}
 
-// Set up globalThis with all browser APIs from jsdom BEFORE any imports
-// This must happen before pdfjs-dist or any other library tries to use these
-Object.getOwnPropertyNames(window).forEach((key) => {
-  if (!(key in globalThis)) {
-    try {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - dynamic property access
-      globalThis[key] = window[key];
-    } catch {
-      // Some properties can't be copied
+function toPlainText(value: string): string {
+  return decodeHtmlEntities(String(value ?? ''))
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+class TestDOMParser {
+  parseFromString(value: string, mimeType: string) {
+    if (mimeType === 'text/html') {
+      return {
+        body: {
+          textContent: toPlainText(value)
+        }
+      }
     }
+
+    const xmlDocument = new XmlDomParser().parseFromString(value, mimeType)
+    const parserErrors = xmlDocument.getElementsByTagName('parsererror')
+
+    return Object.assign(xmlDocument, {
+      querySelector(selector: string) {
+        if (selector !== 'parsererror') {
+          return null
+        }
+
+        return parserErrors.length > 0
+          ? parserErrors[0]
+          : null
+      }
+    })
   }
-});
-
-// Explicitly ensure these critical APIs are available
-if (!globalThis.DOMMatrix) {
-  globalThis.DOMMatrix = window.DOMMatrix;
-}
-if (!globalThis.DOMRect) {
-  globalThis.DOMRect = window.DOMRect;
-}
-if (!globalThis.Path2D) {
-  globalThis.Path2D = window.Path2D;
-}
-if (!globalThis.ImageData) {
-  globalThis.ImageData = window.ImageData;
 }
 
-// Also set up process.getBuiltinModule if needed for pdfjs-dist
+if (typeof globalThis.DOMParser === 'undefined') {
+  globalThis.DOMParser = TestDOMParser as unknown as typeof DOMParser
+}
+
+if (typeof globalThis.DOMMatrix === 'undefined') {
+  globalThis.DOMMatrix = class DOMMatrix {} as unknown as typeof DOMMatrix
+}
+
+if (typeof globalThis.DOMRect === 'undefined') {
+  globalThis.DOMRect = class DOMRect {} as unknown as typeof DOMRect
+}
+
+if (typeof globalThis.Path2D === 'undefined') {
+  globalThis.Path2D = class Path2D {} as unknown as typeof Path2D
+}
+
+if (typeof globalThis.ImageData === 'undefined') {
+  globalThis.ImageData = class ImageData {} as unknown as typeof ImageData
+}
+
 if (typeof process !== 'undefined' && typeof process.getBuiltinModule === 'undefined') {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  process.getBuiltinModule = (module: string) => require(module);
+  process.getBuiltinModule = (module: string) => require(module)
 }
