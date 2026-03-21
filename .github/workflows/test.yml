@@ -39,7 +39,7 @@ jobs:
           # Remove trailing comma and wrap in brackets
           MATRIX="[${VERSIONS%,}]"
 
-        echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
   test:
     needs: setup-matrix
