@@ -24,7 +24,7 @@ jobs:
         run: |
           # Get minimum supported major version from package.json.
           # The current toolchain supports active LTS majors, not odd-numbered current releases.
-          MIN_VERSION=$(node -p "const engines = require('./package.json').engines?.node; const match = engines?.match(/\\d+/); if (!match) { throw new Error('Unable to determine the minimum supported Node.js version from package.json'); } match[0]")
+          MIN_VERSION=$(node -p "const engines = require('./package.json').engines?.node; const [minimumRange] = engines.split('||').map((range) => range.trim()); const match = minimumRange.match(/^(?:\\^|>=)?(\\d+)/); if (!match) { throw new Error('Unable to determine the minimum supported Node.js version from package.json'); } match[1]")
 
           # Get supported LTS major versions from Node.js API
           LTS_MAJORS=$(curl -s https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts) | .version | ltrimstr(\"v\") | split(\".\")[0] | tonumber] | unique | .[]')
