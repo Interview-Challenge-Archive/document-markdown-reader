@@ -21,18 +21,23 @@ jobs:
 
       - name: Setup Node.js matrix
         id: setup-matrix
-        run: |
-          # Get minimum version from package.json
-          MIN_VERSION=$(node -p "require('./package.json').engines.node.replace('>=', '')")
+         run: |
+           # Get minimum version from package.json
+           MIN_VERSION=$(node -p "require('./package.json').engines.node.replace('>=', '')")
 
-          # Get latest LTS version from Node.js API
-          LATEST_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '.[] | select(.lts) | .version' | head -n1 | cut -d'v' -f2)
+           # Get latest LTS version from Node.js API
+           LATEST_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '.[] | select(.lts) | .version' | head -n1 | cut -d'v' -f2)
 
-          # Create matrix array
-          MATRIX="[\"$MIN_VERSION\", \"$LATEST_VERSION\"]"
+           # Extract major version from latest LTS
+           LATEST_MAJOR_VERSION=$(echo "$LATEST_VERSION" | cut -d'.' -f1)
 
-          # Remove duplicates if versions are the same
-           MATRIX=$(echo "$MATRIX" | jq -c 'unique')
+           # Generate array of major versions from MIN_VERSION to LATEST_MAJOR_VERSION
+           VERSIONS=""
+           for ((i=MIN_VERSION; i<=LATEST_MAJOR_VERSION; i++)); do
+             VERSIONS="$VERSIONS\"$i\","
+           done
+           # Remove trailing comma and wrap in brackets
+           MATRIX="[${VERSIONS%,}]"
 
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
