@@ -1,18 +1,32 @@
 import { DOMParser as XmlDomParser } from '@xmldom/xmldom'
+import { parse } from 'parse5'
 
-function decodeHtmlEntities(value: string): string {
-  return value
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, '\'')
-}
+const IMAGE_DATA_BYTES_PER_PIXEL = 4
 
 function toPlainText(value: string): string {
-  return decodeHtmlEntities(String(value ?? ''))
-    .replace(/<[^>]*>/g, ' ')
+  const textNodes: string[] = []
+  const parsedDocument = parse(value)
+  const pendingNodes: Array<{ childNodes?: unknown[]; nodeName?: string; value?: string }> = [parsedDocument]
+
+  while (pendingNodes.length > 0) {
+    const currentNode = pendingNodes.pop()
+
+    if (!currentNode) {
+      continue
+    }
+
+    if (currentNode.nodeName === '#text' && typeof currentNode.value === 'string') {
+      textNodes.push(currentNode.value)
+    }
+
+    if (Array.isArray(currentNode.childNodes)) {
+      pendingNodes.push(...currentNode.childNodes as Array<typeof currentNode>)
+    }
+  }
+
+  return textNodes
+    .join(' ')
+    .replace(/\u00a0/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -53,7 +67,14 @@ if (typeof globalThis.DOMMatrix === 'undefined') {
 }
 
 if (typeof globalThis.DOMRect === 'undefined') {
-  globalThis.DOMRect = class DOMRect {} as unknown as typeof DOMRect
+  globalThis.DOMRect = class DOMRect {
+    constructor(
+      public x = 0,
+      public y = 0,
+      public width = 0,
+      public height = 0
+    ) {}
+  } as unknown as typeof DOMRect
 }
 
 if (typeof globalThis.Path2D === 'undefined') {
@@ -61,7 +82,25 @@ if (typeof globalThis.Path2D === 'undefined') {
 }
 
 if (typeof globalThis.ImageData === 'undefined') {
-  globalThis.ImageData = class ImageData {} as unknown as typeof ImageData
+  globalThis.ImageData = class ImageData {
+    readonly colorSpace = 'srgb'
+    readonly data: Uint8ClampedArray
+    readonly height: number
+    readonly width: number
+
+    constructor(dataOrWidth: number | Uint8ClampedArray, widthOrHeight: number, height?: number) {
+      if (typeof dataOrWidth === 'number') {
+        this.width = dataOrWidth
+        this.height = widthOrHeight
+        this.data = new Uint8ClampedArray(this.width * this.height * IMAGE_DATA_BYTES_PER_PIXEL)
+        return
+      }
+
+      this.data = dataOrWidth
+      this.width = widthOrHeight
+      this.height = height ?? Math.max(1, Math.floor(this.data.length / (this.width * IMAGE_DATA_BYTES_PER_PIXEL)))
+    }
+  } as unknown as typeof ImageData
 }
 
 if (typeof process !== 'undefined' && typeof process.getBuiltinModule === 'undefined') {
