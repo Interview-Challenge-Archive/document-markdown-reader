@@ -6,7 +6,7 @@ import { defineConfig, type UserConfig } from 'vite'
 import swc from 'unplugin-swc'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-type ExtendedUserConfig = UserConfig & {
+type ViteConfigWithTest = UserConfig & {
   test: {
     environment: string
     include: string[]
@@ -47,6 +47,6 @@ const config = {
     include: ['test/**/*.spec.ts'],
     setupFiles: ['./test/setup.ts']
   }
-} satisfies ExtendedUserConfig
+} satisfies ViteConfigWithTest
 
 export default defineConfig(config)
