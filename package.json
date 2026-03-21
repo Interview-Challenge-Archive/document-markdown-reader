@@ -53,6 +53,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@swc/core": "^1.15.18",
+    "@types/jsdom": "^28.0.1",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^24.7.2",
     "@types/turndown": "^5.0.6",
