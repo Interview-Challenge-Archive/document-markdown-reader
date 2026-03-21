@@ -1,6 +1,6 @@
-# TypeScript Vanilla Parcel
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vanilla/parcel)
+
+# TypeScript Vanilla Parcel
 
 This example demonstrates how to use Document Markdown Reader in a TypeScript project with Parcel.
 

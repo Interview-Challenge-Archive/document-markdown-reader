@@ -1,6 +1,6 @@
-# JavaScript Vue Vite Example
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/vite)
+
+# JavaScript Vue Vite Example
 
 This example shows how to use the document-markdown-reader library in a web application built with [Vue.js](https://vuejs.org/) and [Vite](https://vitejs.dev/).
 

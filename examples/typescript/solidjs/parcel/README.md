@@ -1,6 +1,6 @@
-# TypeScript SolidJS Parcel Example
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/solidjs/parcel)
+
+# TypeScript SolidJS Parcel Example
 
 This example shows how to use the document-markdown-reader library in a web application built with [SolidJS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Parcel](https://parceljs.org/).
 

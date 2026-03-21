@@ -1,6 +1,6 @@
-# JavaScript Vanilla Vite Example
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/vite)
+
+# JavaScript Vanilla Vite Example
 
 This example shows how to use the document-markdown-reader library in a web application built with vanilla JavaScript and [Vite](https://vitejs.dev/).
 

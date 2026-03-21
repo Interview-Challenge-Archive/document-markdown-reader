@@ -1,6 +1,6 @@
-# TypeScript Vanilla Rollup
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vanilla/rollup)
+
+# TypeScript Vanilla Rollup
 
 This example demonstrates how to use Document Markdown Reader in a TypeScript project with Rollup.
 

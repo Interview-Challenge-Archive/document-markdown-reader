@@ -1,6 +1,6 @@
-# JavaScript - React - Rollup
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/rollup)
+
+# JavaScript - React - Rollup
 
 This example demonstrates how to use the Document Markdown Reader library with React and Rollup bundler.
 

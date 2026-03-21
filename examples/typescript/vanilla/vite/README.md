@@ -1,6 +1,6 @@
-# TypeScript + Vite Example
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vanilla/vite)
+
+# TypeScript + Vite Example
 
 A TypeScript example using [Vite](https://vitejs.dev/) as the build tool for fast development and optimized production builds.
 

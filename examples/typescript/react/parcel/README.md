@@ -1,6 +1,6 @@
-# TypeScript + React + Parcel
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/parcel)
+
+# TypeScript + React + Parcel
 
 This example demonstrates how to use `document-markdown-reader` with React 18 and TypeScript, bundled with Parcel.
 

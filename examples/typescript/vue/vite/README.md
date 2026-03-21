@@ -1,6 +1,6 @@
-# TypeScript + Vue + Vite Example
-
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/vite)
+
+# TypeScript + Vue + Vite Example
 
 A TypeScript example using [Vue 3](https://vuejs.org/) as the UI framework with Vite as the build tool.
 
