@@ -1,0 +1,62 @@
+name: test
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup-matrix:
+    name: Setup matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js matrix
+        id: setup-matrix
+        run: |
+          # Get minimum version from package.json
+          MIN_VERSION=$(node -p "require('./package.json').engines.node.replace('>=', '')")
+
+          # Get latest LTS version from Node.js API
+          LATEST_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '.[] | select(.lts) | .version' | head -n1 | cut -d'v' -f2)
+
+          # Create matrix array
+          MATRIX="[\"$MIN_VERSION\", \"$LATEST_VERSION\"]"
+
+          # Remove duplicates if versions are the same
+          MATRIX=$(echo "$MATRIX" | jq 'unique')
+
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  test:
+    needs: setup-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+
+    name: Test with Node.js ${{ matrix.node-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
