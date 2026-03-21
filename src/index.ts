@@ -1,0 +1,27 @@
+import 'reflect-metadata'
+import { Container } from '@freshgum/typedi'
+import { DocumentMarkdownReader } from './DocumentMarkdownReader'
+import './strategies/HtmlDocumentImportStrategy'
+import './strategies/MarkdownDocumentImportStrategy'
+import './strategies/OpenDocumentImportStrategy'
+import './strategies/PagesDocumentImportStrategy'
+import './strategies/PdfDocumentImportStrategy'
+import './strategies/PlainTextDocumentImportStrategy'
+import './strategies/RtfDocumentImportStrategy'
+import './strategies/WordDocumentImportStrategy'
+
+export const documentMarkdownReader = new DocumentMarkdownReader(Container)
+
+export { DocumentImportStrategy } from './strategies/DocumentImportStrategy'
+export { DocumentMarkdownReader } from './DocumentMarkdownReader'
+export { DocumentImportError } from './errors/DocumentImportError'
+export { InvalidDocxError } from './errors/InvalidDocxError'
+export { InvalidOdtError } from './errors/InvalidOdtError'
+export { InvalidPagesError } from './errors/InvalidPagesError'
+export { InvalidPdfError } from './errors/InvalidPdfError'
+export { UnreadableDocError } from './errors/UnreadableDocError'
+export { UnreadablePagesError } from './errors/UnreadablePagesError'
+export { UnreadablePdfError } from './errors/UnreadablePdfError'
+export { UnsupportedFormatError } from './errors/UnsupportedFormatError'
+
+export type { DocumentFileLike } from './types/DocumentFileLike'
