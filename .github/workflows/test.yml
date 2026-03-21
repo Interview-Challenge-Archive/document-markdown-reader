@@ -22,8 +22,9 @@ jobs:
       - name: Setup Node.js matrix
         id: setup-matrix
         run: |
-          # Get minimum version from package.json
-          MIN_VERSION=$(node -p "require('./package.json').engines.node.replace('>=', '')")
+          # Get minimum supported major version from package.json.
+          # Odd-numbered Node.js releases are not supported by the current test toolchain.
+          MIN_VERSION=$(node -p "const match = require('./package.json').engines.node.match(/\\d+/); match ? match[0] : '20'")
 
           # Get latest LTS version from Node.js API
           LATEST_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '.[] | select(.lts) | .version' | head -n1 | cut -d'v' -f2)
@@ -31,9 +32,12 @@ jobs:
           # Extract major version from latest LTS
           LATEST_MAJOR_VERSION=$(echo "$LATEST_VERSION" | cut -d'.' -f1)
 
-          # Generate array of major versions from MIN_VERSION to LATEST_MAJOR_VERSION
+          # Generate array of supported even major versions from MIN_VERSION to LATEST_MAJOR_VERSION
+          if (( MIN_VERSION % 2 != 0 )); then
+            MIN_VERSION=$((MIN_VERSION + 1))
+          fi
           VERSIONS=""
-          for ((i=MIN_VERSION; i<=LATEST_MAJOR_VERSION; i++)); do
+          for ((i=MIN_VERSION; i<=LATEST_MAJOR_VERSION; i+=2)); do
             VERSIONS="$VERSIONS\"$i\","
           done
           # Remove trailing comma and wrap in brackets
