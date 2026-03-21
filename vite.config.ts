@@ -1,8 +1,20 @@
-import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
+/// <reference types="vitest/config" />
+
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { defineConfig, type UserConfig } from 'vite'
 import swc from 'unplugin-swc'
 
-export default defineConfig({
+const __dirname = dirname(fileURLToPath(import.meta.url))
+type ExtendedUserConfig = UserConfig & {
+  test: {
+    environment: string
+    include: string[]
+    setupFiles: string[]
+  }
+}
+
+const config = {
   plugins: [
     swc.vite({
       jsc: {
@@ -14,8 +26,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'DocumentMarkdownReader',
-      formats: ['es', 'cjs'],
-      fileName: (format) => (format === 'es' ? 'index.js' : 'index.cjs')
+      formats: ['es', 'cjs'] as const,
+      fileName: (format: string) => (format === 'es' ? 'index.js' : 'index.cjs')
     },
     sourcemap: true,
     rollupOptions: {
@@ -35,4 +47,6 @@ export default defineConfig({
     include: ['test/**/*.spec.ts'],
     setupFiles: ['./test/setup.ts']
   }
-})
+} satisfies ExtendedUserConfig
+
+export default defineConfig(config)
