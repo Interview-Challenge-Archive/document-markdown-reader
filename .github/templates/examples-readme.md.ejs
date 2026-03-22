@@ -45,15 +45,12 @@ const languageNames = {
 };
 
 const repo = inputs.github_repo || '';
-const entries = (inputs.folders || [])
-  .map((folder) => folder.replace(/^examples\//, ''))
-  .map((folder) => folder.split('/'))
-  .filter((parts) => parts.length === 3)
-  .map((parts) => ({
-    language: parts[0],
-    framework: parts[1],
-    buildTool: parts[2]
-  }));
+const entries = (inputs.entries || []).filter((entry) =>
+  entry &&
+  entry.language &&
+  entry.framework &&
+  entry.buildTool
+);
 
 function uniq(values) {
   return [...new Set(values)];
@@ -64,17 +61,21 @@ const languages = uniq(entries.map((entry) => entry.language));
 <% languages.forEach((language) => { %>
 ## <%- languageNames[language] || language %> Examples
 
-<% const frameworks = uniq(entries.filter((entry) => entry.language === language).map((entry) => entry.framework)); %>
+<% const languageEntries = entries.filter((entry) => entry.language === language); %>
+<% const frameworks = uniq(languageEntries.map((entry) => entry.framework)); %>
 <% frameworks.forEach((framework) => { %>
-### <%- frameworkNames[framework] || framework %>
+<% const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework); %>
+<% const frameworkEntryWithName = frameworkEntries.find((entry) => entry.frameworkName); %>
+### <%- frameworkEntryWithName?.frameworkName || frameworkNames[framework] || framework %>
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-<% const buildTools = uniq(entries.filter((entry) => entry.language === language && entry.framework === framework).map((entry) => entry.buildTool)); %>
+<% const buildTools = uniq(frameworkEntries.map((entry) => entry.buildTool)); %>
 <% buildTools.forEach((buildTool) => { %>
+<% const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildTool); %>
 <% const path = `${language}/${framework}/${buildTool}`; %>
-<% const buildToolName = buildToolNames[buildTool] || buildTool; %>
-<% const buildToolLink = buildToolLinks[buildTool] || '#'; %>
+<% const buildToolName = exampleEntry?.buildToolName || buildToolNames[buildTool] || buildTool; %>
+<% const buildToolLink = exampleEntry?.buildToolLink || buildToolLinks[buildTool] || '#'; %>
 <% const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`; %>
 | [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
 <% }); %>

@@ -25,13 +25,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
-      - name: Collect example folders
-        id: collect-folders
+      - name: Collect example metadata
+        id: collect-metadata
         env:
           GITHUB_REPO: ${{ github.repository }}
         run: |
-          folders_json=$(find examples -mindepth 1 -maxdepth 3 -type d | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          data=$(jq -cn --argjson folders "$folders_json" --arg github_repo "$GITHUB_REPO" '{ folders: $folders, github_repo: $github_repo }')
+          entries_file="$(mktemp)"
+
+          while IFS= read -r folder; do
+            relative_path="${folder#examples/}"
+            package_json_path="${folder}/package.json"
+
+            if [[ -f "$package_json_path" ]]; then
+              readme_meta="$(jq -c '.readmeMeta // {}' "$package_json_path")"
+            else
+              readme_meta='{}'
+            fi
+
+            jq -cn \
+              --arg relative_path "$relative_path" \
+              --argjson readme_meta "$readme_meta" \
+              '
+              ($relative_path | split("/")) as $parts
+              | select(($parts | length) == 3)
+              | {
+                  language: $parts[0],
+                  framework: $parts[1],
+                  buildTool: $parts[2],
+                  frameworkName: ($readme_meta.frameworkName // null),
+                  buildToolName: ($readme_meta.buildToolName // null),
+                  buildToolLink: ($readme_meta.buildToolLink // null)
+                }
+              ' >> "$entries_file"
+          done < <(find examples -mindepth 1 -maxdepth 3 -type d | sort)
+
+          entries_json="$(jq -s -c '.' "$entries_file")"
+          data=$(jq -cn --argjson entries "$entries_json" --arg github_repo "$GITHUB_REPO" '{ entries: $entries, github_repo: $github_repo }')
           echo "data=$data" >> "$GITHUB_OUTPUT"
 
       - name: Render examples README template
@@ -39,7 +68,7 @@ jobs:
         uses: kikyous/template-action@v2.0.0
         with:
           template-path: '.github/templates/examples-readme.md.ejs'
-          ext-inputs: '${{ steps.collect-folders.outputs.data }}'
+          ext-inputs: '${{ steps.collect-metadata.outputs.data }}'
 
       - name: Write examples README
         env:
