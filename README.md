@@ -7,6 +7,12 @@ A simple JavaScript library that converts various document formats into clean, r
 
 Instead of struggling with different file formats, this library automatically detects the file type and converts it to Markdown for you. Whether your users upload Word documents, PDFs, HTML files, or plain text, you'll always get consistent Markdown output that's easy to display or process further.
 
+## Install
+
+```bash
+npm install document-markdown-reader
+```
+
 ## Supported file formats
 
 - **Microsoft Word** - `.doc`, `.docx`, `.docm`
@@ -17,12 +23,6 @@ Instead of struggling with different file formats, this library automatically de
 - **OpenDocument** - `.odt`, `.fodt`
 - **Plain Text** - `.txt`
 - **Apple Pages** - `.pages`
-
-## Install
-
-```bash
-npm install document-markdown-reader
-```
 
 ## Examples
 
