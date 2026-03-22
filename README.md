@@ -32,7 +32,7 @@ Check out the [examples](./examples) folder for complete working examples. Each 
 
 Examples are organized by language, framework, and build tool in the format: `examples/{language}/{framework}/{tool}`.
 
-For a complete overview of all examples, see [examples/README.md](./examples/README.md).
+For a complete overview of all examples, see [examples](./examples/).
 
 ## API Reference
 
