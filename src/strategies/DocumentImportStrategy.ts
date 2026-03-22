@@ -5,6 +5,7 @@ export const DOCUMENT_IMPORT_STRATEGY_SERVICE_ID = 'document-import-strategy'
 export abstract class DocumentImportStrategy {
   static readonly SERVICE_ID = DOCUMENT_IMPORT_STRATEGY_SERVICE_ID
 
+  abstract readonly name: string
   abstract readonly supportedMimeTypes: ReadonlyArray<string>
   abstract readonly supportedExtensions: ReadonlyArray<string>
   abstract canRead(file: DocumentFileLike): boolean

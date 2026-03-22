@@ -17,14 +17,7 @@ npm install document-markdown-reader
 
 | Format | Extensions |
 |--------|------------|
-| HTML | `.html`, `.htm` |
-| Markdown | `.md`, `.markdown`, `.mdx` |
-| OpenDocument | `.odt`, `.fodt` |
-| Apple Pages | `.pages` |
-| PDF | `.pdf` |
-| Plain Text | `.txt` |
-| Rich Text Format | `.rtf` |
-| Word Document | `.doc`, `.docx`, `.docm` |
+<%- extInputs.formats.map(f => `| ${f.name} | ${f.extensions.map(e => '`.' + e + '`').join(', ')} |`).join('\n') %>
 
 ## Examples
 

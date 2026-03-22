@@ -25,6 +25,7 @@ export class RtfDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'Rich Text Format'
   readonly supportedMimeTypes = [
     'application/rtf',
     'text/rtf',

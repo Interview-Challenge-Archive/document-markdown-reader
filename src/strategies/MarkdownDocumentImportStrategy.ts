@@ -16,6 +16,7 @@ export class MarkdownDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'Markdown'
   readonly supportedMimeTypes = [
     'text/markdown',
     'text/x-markdown',

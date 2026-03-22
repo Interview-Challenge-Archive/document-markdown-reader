@@ -9,6 +9,7 @@ class TestDocumentImportStrategy extends DocumentImportStrategy {
   static readonly supportedMimeTypes = ['application/test']
   static readonly supportedExtensions = ['test']
 
+  readonly name = 'Test'
   readonly supportedMimeTypes = ['application/test']
   readonly supportedExtensions = ['test']
 
