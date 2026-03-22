@@ -1,5 +1,6 @@
 import type { ContainerInstance } from '@freshgum/typedi'
 import { DocumentReadStrategyResolver } from './resolvers/DocumentReadStrategyResolver'
+import type { SupportedFormat } from './resolvers/DocumentReadStrategyResolver'
 import type { DocumentFileLike } from './types/DocumentFileLike'
 
 export class DocumentMarkdownReader {
@@ -13,6 +14,10 @@ export class DocumentMarkdownReader {
 
   get supportedExtensions(): ReadonlyArray<string> {
     return this.resolver.supportedExtensions
+  }
+
+  get supportedFormats(): ReadonlyArray<SupportedFormat> {
+    return this.resolver.supportedFormats
   }
 
   get acceptedExtensions(): string {

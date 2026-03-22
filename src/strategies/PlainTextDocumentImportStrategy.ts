@@ -18,6 +18,7 @@ export class PlainTextDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'Plain Text'
   readonly supportedMimeTypes = ['text/plain']
 
   readonly supportedExtensions = ['txt']
