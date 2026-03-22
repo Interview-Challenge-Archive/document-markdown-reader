@@ -34,6 +34,7 @@ export class PagesDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'Apple Pages'
   readonly supportedMimeTypes = [
     'application/vnd.apple.pages',
     'application/x-iwork-pages-sffpages'

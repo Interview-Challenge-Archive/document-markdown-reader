@@ -15,7 +15,9 @@ npm install document-markdown-reader
 
 ## Supported file formats
 
-<%- extInputs.extensions.map(e => '- `.' + e + '`').join('\n') %>
+| Format | Extensions |
+|--------|------------|
+<%- extInputs.formats.map(f => `| ${f.name} | ${f.extensions.map(e => '`.' + e + '`').join(', ')} |`).join('\n') %>
 
 ## Examples
 

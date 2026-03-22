@@ -22,6 +22,7 @@ export class PdfDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'PDF'
   readonly supportedMimeTypes = ['application/pdf']
 
   readonly supportedExtensions = ['pdf']

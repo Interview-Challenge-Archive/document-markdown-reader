@@ -14,6 +14,7 @@ export const documentMarkdownReader = new DocumentMarkdownReader(Container)
 
 export { DocumentImportStrategy } from './strategies/DocumentImportStrategy'
 export { DocumentMarkdownReader } from './DocumentMarkdownReader'
+export type { SupportedFormat } from './resolvers/DocumentReadStrategyResolver'
 export { DocumentImportError } from './errors/DocumentImportError'
 export { InvalidDocumentError } from './errors/InvalidDocumentError'
 export { InvalidDocxError } from './errors/InvalidDocxError'

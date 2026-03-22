@@ -32,6 +32,7 @@ export class WordDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'Word Document'
   readonly supportedMimeTypes = [
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',

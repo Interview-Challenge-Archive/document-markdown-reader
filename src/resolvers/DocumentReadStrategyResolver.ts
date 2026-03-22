@@ -8,6 +8,11 @@ import {
 import type { DocumentFileLike } from '../types/DocumentFileLike'
 import { UnsupportedFormatError } from '../errors/UnsupportedFormatError'
 
+export interface SupportedFormat {
+  name: string
+  extensions: ReadonlyArray<string>
+}
+
 @Service(
   { id: DocumentReadStrategyResolver.SERVICE_ID },
   [
@@ -19,6 +24,7 @@ import { UnsupportedFormatError } from '../errors/UnsupportedFormatError'
 export class DocumentReadStrategyResolver {
   static readonly SERVICE_ID = 'document-read-strategy-resolver'
   readonly supportedExtensions: ReadonlyArray<string>
+  readonly supportedFormats: ReadonlyArray<SupportedFormat>
 
   constructor(
     private readonly mimeTypeService: MimeTypeService,
@@ -26,6 +32,7 @@ export class DocumentReadStrategyResolver {
     private readonly strategies: ReadonlyArray<DocumentImportStrategy>
   ) {
     this.supportedExtensions = this.collectSupportedExtensions(strategies)
+    this.supportedFormats = this.collectSupportedFormats(strategies)
   }
 
   get acceptedExtensions(): string {
@@ -84,5 +91,16 @@ export class DocumentReadStrategyResolver {
     }
 
     return Object.freeze(Array.from(resolvedExtensions).sort())
+  }
+
+  private collectSupportedFormats(
+    strategies: ReadonlyArray<DocumentImportStrategy>
+  ): ReadonlyArray<SupportedFormat> {
+    return Object.freeze(
+      strategies.map((strategy) => ({
+        name: strategy.name,
+        extensions: Object.freeze([...strategy.supportedExtensions])
+      }))
+    )
   }
 }

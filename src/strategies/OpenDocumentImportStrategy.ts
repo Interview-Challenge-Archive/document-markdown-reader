@@ -23,6 +23,7 @@ export class OpenDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'OpenDocument'
   readonly supportedMimeTypes = [
     'application/vnd.oasis.opendocument.text',
     'application/vnd.oasis.opendocument.text-flat-xml'

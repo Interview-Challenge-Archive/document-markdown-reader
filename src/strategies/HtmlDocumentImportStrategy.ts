@@ -18,6 +18,7 @@ export class HtmlDocumentImportStrategy extends DocumentImportStrategy {
     super()
   }
 
+  readonly name = 'HTML'
   readonly supportedMimeTypes = ['text/html', 'application/xhtml+xml']
 
   readonly supportedExtensions = ['html', 'htm']
