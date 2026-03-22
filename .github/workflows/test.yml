@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.setup-matrix.outputs.matrix }}
+      min_version: ${{ steps.setup-matrix.outputs.min_version }}
 
 
     steps:
@@ -46,6 +47,7 @@ jobs:
           MATRIX="[${VERSIONS%,}]"
 
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "min_version=$MIN_VERSION" >> $GITHUB_OUTPUT
 
   test:
     needs: setup-matrix
@@ -79,3 +81,30 @@ jobs:
         env:
           # Node 21 does not accept util.styleText style arrays, but Vite 8's Rolldown dependency uses them.
           NODE_OPTIONS: ${{ matrix.node-version == 21 && '--import ./test/node21-styletext-polyfill.mjs' || '' }}
+
+  build:
+    needs: setup-matrix
+    runs-on: ubuntu-latest
+    name: Build and verify with Node.js ${{ needs.setup-matrix.outputs.min_version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js ${{ needs.setup-matrix.outputs.min_version }}
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: ${{ needs.setup-matrix.outputs.min_version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify ESM build with node
+        run: node -e "import('./dist/index.js').then(m => { if (typeof m.documentMarkdownReader === 'undefined') throw new Error('documentMarkdownReader export missing'); console.log('ESM build OK') })"
+
+      - name: Verify CJS build with node
+        run: node --input-type=commonjs -e "const m = require('./dist/index.cjs'); if (typeof m.documentMarkdownReader === 'undefined') throw new Error('documentMarkdownReader export missing'); console.log('CJS build OK')"

@@ -32,9 +32,10 @@ const config = {
     sourcemap: true,
     rollupOptions: {
       external: [
+        '@iarna/rtf-to-html',
         '@jose.espana/docstream',
         'jszip',
-        'mammoth/mammoth.browser',
+        'mammoth/mammoth.browser.js',
         'marked',
         'pdfjs-dist/legacy/build/pdf.mjs',
         'turndown',

@@ -1,4 +1,4 @@
-declare module 'mammoth/mammoth.browser' {
+declare module 'mammoth/mammoth.browser.js' {
   interface MammothResult {
     value?: string | null
   }
