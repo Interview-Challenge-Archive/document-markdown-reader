@@ -1,0 +1,56 @@
+name: Update README
+
+on:
+  push:
+    paths:
+      - 'src/strategies/**'
+      - '.github/templates/root-readme.md'
+      - '.github/workflows/update-readme.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-readme:
+    name: Update README
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get supported extensions
+        id: get_extensions
+        run: |
+          EXTENSIONS=$(npx tsx -e "import { documentMarkdownReader } from './src/index.ts'; console.log(JSON.stringify(documentMarkdownReader.supportedExtensions))")
+          echo "extensions=$EXTENSIONS" >> $GITHUB_OUTPUT
+
+      - name: Render README template
+        id: render_readme
+        uses: kikyous/template-action@v2.0.5
+        with:
+          template-path: .github/templates/root-readme.md
+          ext-inputs: '{"extensions": ${{ steps.get_extensions.outputs.extensions }}}'
+
+      - name: Write README
+        run: node -e "require('fs').writeFileSync('README.md', process.env.CONTENT)"
+        env:
+          CONTENT: ${{ steps.render_readme.outputs.content }}
+
+      - name: Commit updated README
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: README.md
+          message: 'docs: update README with supported extensions'
