@@ -50,6 +50,7 @@ Reads a document file and returns its content as Markdown.
 - `InvalidDocumentError` - When a DOCX/DOCM, ODT/FODT, Pages, or PDF file is invalid or corrupted
 - `UnreadableDocumentError` - When a DOC, Pages, or PDF file content cannot be read
 
+
 ### Properties
 
 - `supportedExtensions: ReadonlyArray<string>` - Array of all supported file extensions

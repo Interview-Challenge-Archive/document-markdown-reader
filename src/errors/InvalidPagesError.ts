@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { InvalidDocumentError } from './InvalidDocumentError'
 
-export class InvalidPagesError extends DocumentImportError {
+export class InvalidPagesError extends InvalidDocumentError {
   constructor() {
-    super('invalid-pages', 'Invalid Apple Pages file.')
+    super('pages')
   }
 }
