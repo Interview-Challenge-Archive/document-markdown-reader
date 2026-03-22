@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { InvalidDocumentError } from './InvalidDocumentError'
 
-export class InvalidPdfError extends DocumentImportError {
+export class InvalidPdfError extends InvalidDocumentError {
   constructor() {
-    super('invalid-pdf', 'Invalid PDF file.')
+    super('pdf')
   }
 }

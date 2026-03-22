@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { InvalidDocumentError } from './InvalidDocumentError'
 
-export class InvalidOdtError extends DocumentImportError {
+export class InvalidOdtError extends InvalidDocumentError {
   constructor() {
-    super('invalid-odt', 'Invalid ODT or FODT file.')
+    super('odt')
   }
 }
