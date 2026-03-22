@@ -12,7 +12,112 @@ Each example includes:
 Examples are organized by language, framework, and build tool:
 - `{language}/{framework}/{build-tool}`
 
-<%- inputs.examples_content %>
+<%
+const buildToolLinks = {
+  vite: 'https://vitejs.dev/',
+  webpack: 'https://webpack.js.org/',
+  parcel: 'https://parceljs.org/',
+  rollup: 'https://rollupjs.org/',
+  rspack: 'https://rspack.dev/',
+  turbopack: 'https://turbo.build/pack'
+};
+
+const buildToolNames = {
+  vite: 'Vite',
+  webpack: 'Webpack',
+  parcel: 'Parcel',
+  rollup: 'Rollup',
+  rspack: 'Rspack',
+  turbopack: 'Turbopack'
+};
+
+const frameworkNames = {
+  vanilla: 'Vanilla (No Framework)',
+  react: 'React',
+  vue: 'Vue',
+  svelte: 'Svelte',
+  solidjs: 'SolidJS'
+};
+
+const languageNames = {
+  javascript: 'JavaScript',
+  typescript: 'TypeScript'
+};
+
+const languageOrder = ['javascript', 'typescript'];
+const frameworkOrder = ['vanilla', 'react', 'vue', 'svelte', 'solidjs'];
+const buildToolOrder = ['vite', 'webpack', 'rspack', 'turbopack', 'parcel', 'rollup'];
+
+const repo = inputs.github_repo || '';
+const folders = inputs.folders || [];
+
+const examplesTree = {};
+folders.forEach((folder) => {
+  const parts = folder.replace(/^examples\//, '').split('/');
+  if (parts.length !== 3) {
+    return;
+  }
+
+  const language = parts[0];
+  const framework = parts[1];
+  const buildTool = parts[2];
+
+  if (!examplesTree[language]) {
+    examplesTree[language] = {};
+  }
+
+  if (!examplesTree[language][framework]) {
+    examplesTree[language][framework] = [];
+  }
+
+  if (!examplesTree[language][framework].includes(buildTool)) {
+    examplesTree[language][framework].push(buildTool);
+  }
+});
+
+function sortByOrder(values, order) {
+  return values.slice().sort((a, b) => {
+    const aIndex = order.indexOf(a);
+    const bIndex = order.indexOf(b);
+
+    if (aIndex === -1 && bIndex === -1) {
+      return a.localeCompare(b);
+    }
+
+    if (aIndex === -1) {
+      return 1;
+    }
+
+    if (bIndex === -1) {
+      return -1;
+    }
+
+    return aIndex - bIndex;
+  });
+}
+
+const languages = sortByOrder(Object.keys(examplesTree), languageOrder);
+%>
+<% languages.forEach((language) => { %>
+## <%- languageNames[language] || language %> Examples
+
+<% const frameworks = sortByOrder(Object.keys(examplesTree[language]), frameworkOrder); %>
+<% frameworks.forEach((framework) => { %>
+### <%- frameworkNames[framework] || framework %>
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+<% const buildTools = sortByOrder(examplesTree[language][framework], buildToolOrder); %>
+<% buildTools.forEach((buildTool) => { %>
+<% const path = `${language}/${framework}/${buildTool}`; %>
+<% const buildToolName = buildToolNames[buildTool] || buildTool; %>
+<% const buildToolLink = buildToolLinks[buildTool] || '#'; %>
+<% const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`; %>
+| [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
+<% }); %>
+
+<% }); %>
+<% }); %>
 
 ## Running an Example
 

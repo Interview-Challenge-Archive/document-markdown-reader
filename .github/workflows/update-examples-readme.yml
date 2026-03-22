@@ -25,132 +25,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
-      - name: Build examples content
-        id: build-content
+      - name: Collect example folders
+        id: collect-folders
         env:
           GITHUB_REPO: ${{ github.repository }}
         run: |
-          node << 'NODEJS'
-          var fs = require('fs');
-          var path = require('path');
-
-          var buildToolLinks = {
-            vite: 'https://vitejs.dev/',
-            webpack: 'https://webpack.js.org/',
-            parcel: 'https://parceljs.org/',
-            rollup: 'https://rollupjs.org/',
-            rspack: 'https://rspack.dev/',
-            turbopack: 'https://turbo.build/pack'
-          };
-
-          var buildToolNames = {
-            vite: 'Vite',
-            webpack: 'Webpack',
-            parcel: 'Parcel',
-            rollup: 'Rollup',
-            rspack: 'Rspack',
-            turbopack: 'Turbopack'
-          };
-
-          var frameworkNames = {
-            vanilla: 'Vanilla (No Framework)',
-            react: 'React',
-            vue: 'Vue',
-            svelte: 'Svelte',
-            solidjs: 'SolidJS'
-          };
-
-          var languageNames = {
-            javascript: 'JavaScript',
-            typescript: 'TypeScript'
-          };
-
-          var languageOrder = ['javascript', 'typescript'];
-          var frameworkOrder = ['vanilla', 'react', 'vue', 'svelte', 'solidjs'];
-          var buildToolOrder = ['vite', 'webpack', 'rspack', 'turbopack', 'parcel', 'rollup'];
-          var REPO = process.env.GITHUB_REPO;
-
-          function sortedUniq(arr, order) {
-            var seen = {};
-            var unique = arr.filter(function(v) {
-              if (seen[v]) return false;
-              seen[v] = true;
-              return true;
-            });
-            return unique.sort(function(a, b) {
-              var ia = order.indexOf(a);
-              var ib = order.indexOf(b);
-              if (ia === -1 && ib === -1) return a.localeCompare(b);
-              if (ia === -1) return 1;
-              if (ib === -1) return -1;
-              return ia - ib;
-            });
-          }
-
-          function listDirs(dir) {
-            return fs.readdirSync(dir).filter(function(f) {
-              return fs.statSync(path.join(dir, f)).isDirectory();
-            }).sort();
-          }
-
-          var examples = [];
-          listDirs('examples').forEach(function(lang) {
-            listDirs(path.join('examples', lang)).forEach(function(fw) {
-              listDirs(path.join('examples', lang, fw)).forEach(function(bt) {
-                examples.push({ language: lang, framework: fw, buildtool: bt });
-              });
-            });
-          });
-
-          var languages = sortedUniq(examples.map(function(e) { return e.language; }), languageOrder);
-
-          var lines = [];
-          languages.forEach(function(lang) {
-            var langExamples = examples.filter(function(e) { return e.language === lang; });
-            var frameworks = sortedUniq(langExamples.map(function(e) { return e.framework; }), frameworkOrder);
-
-            lines.push('## ' + (languageNames[lang] || lang) + ' Examples');
-
-            frameworks.forEach(function(fw) {
-              var fwExamples = langExamples.filter(function(e) { return e.framework === fw; });
-              fwExamples.sort(function(a, b) {
-                var ia = buildToolOrder.indexOf(a.buildtool);
-                var ib = buildToolOrder.indexOf(b.buildtool);
-                if (ia === -1 && ib === -1) return a.buildtool.localeCompare(b.buildtool);
-                if (ia === -1) return 1;
-                if (ib === -1) return -1;
-                return ia - ib;
-              });
-
-              lines.push('');
-              lines.push('### ' + (frameworkNames[fw] || fw));
-              lines.push('');
-              lines.push('| Build Tool | Path | Demo |');
-              lines.push('|------------|------|------|');
-
-              fwExamples.forEach(function(e) {
-                var p = e.language + '/' + e.framework + '/' + e.buildtool;
-                var toolName = buildToolNames[e.buildtool] || e.buildtool;
-                var toolLink = buildToolLinks[e.buildtool] || '#';
-                var stackblitz = 'https://stackblitz.com/github/' + REPO + '?folder=examples/' + p;
-                lines.push('| [' + toolName + '](' + toolLink + ') | [' + p + '](./' + p + ') | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](' + stackblitz + ') |');
-              });
-
-              lines.push('');
-            });
-          });
-
-          var examplesContent = lines.join('\n').trim();
-          var data = JSON.stringify({ examples_content: examplesContent });
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'data=' + data + '\n');
-          NODEJS
+          folders_json=$(find examples -mindepth 1 -maxdepth 3 -type d | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          data=$(jq -cn --argjson folders "$folders_json" --arg github_repo "$GITHUB_REPO" '{ folders: $folders, github_repo: $github_repo }')
+          echo "data=$data" >> "$GITHUB_OUTPUT"
 
       - name: Render examples README template
         id: render
         uses: kikyous/template-action@v2.0.0
         with:
           template-path: '.github/templates/examples-readme.md.ejs'
-          ext-inputs: '${{ steps.build-content.outputs.data }}'
+          ext-inputs: '${{ steps.collect-folders.outputs.data }}'
 
       - name: Write examples README
         env:
