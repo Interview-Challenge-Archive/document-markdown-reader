@@ -1,15 +1,22 @@
+# TypeScript - React - Parcel
+
+This example demonstrates how to use the Document Markdown Reader library with React and Parcel bundler.
+
+## Try It Online
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/parcel)
 
-# TypeScript + React + Parcel
+## What is React?
 
-This example demonstrates how to use `document-markdown-reader` with React 18 and TypeScript, bundled with Parcel.
+React is a JavaScript library for building user interfaces. It uses a component-based architecture and a virtual DOM to efficiently update the UI.
 
-## Features
+## What is TypeScript?
 
-- React 18 with hooks
-- TypeScript
-- Parcel bundler
-- Document import support for PDF, DOCX, ODT, Pages, HTML, Markdown, TXT, RTF
+TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It adds optional static typing, classes, and interfaces to improve code quality and maintainability.
+
+## What is Parcel?
+
+Parcel is a zero-configuration bundler that automatically transforms your code with built-in support for JavaScript, CSS, and more. It provides fast bundling with parallel compilation and requires no setup.
 
 ## Installation
 
@@ -23,7 +30,7 @@ npm install
 npm start
 ```
 
-This will start the development server.
+This will start the Parcel dev server. Open http://localhost:1234 in your browser.
 
 ## Build
 
@@ -31,8 +38,23 @@ This will start the development server.
 npm run build
 ```
 
-The built files will be in the `dist` folder.
-
 ## Usage
 
-Select a document file using the file input. The document content will be converted to Markdown and displayed below.
+The application provides a file upload interface that supports:
+- PDF (.pdf)
+- Word (.docx)
+- OpenDocument (.odt)
+- Pages (.pages)
+- Rich Text (.rtf)
+- HTML (.html)
+- Markdown (.md)
+- Plain text (.txt)
+
+Select a file to see its contents converted to Markdown.
+
+## Project Structure
+
+- `src/App.tsx` - Main React application component
+- `src/index.tsx` - React entry point
+- `src/index.html` - HTML entry point
+- `tsconfig.json` - TypeScript configuration

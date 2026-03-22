@@ -1,38 +1,48 @@
+# TypeScript + React + Rspack Example
+
+A TypeScript example using [React](https://react.dev/) as the UI framework with Rspack as the build tool.
+
+## Try It Online
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/rspack)
 
-# TypeScript + React + Rspack
+## What is React?
 
-This example demonstrates how to use `document-markdown-reader` with React 18 and TypeScript, bundled with Rspack.
+React is a JavaScript library for building user interfaces. It uses a component-based architecture and a virtual DOM to efficiently update the UI.
 
-## Features
+## What is TypeScript?
 
-- React 18 with hooks
-- TypeScript
-- Rspack bundler
-- Document import support for PDF, DOCX, ODT, Pages, HTML, Markdown, TXT, RTF
+TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It adds optional static typing, classes, and interfaces to improve code quality and maintainability.
 
-## Installation
+## What is Rspack?
+
+Rspack is a high-performance bundler built in Rust that provides fast build times and excellent compatibility with Webpack. It's designed for modern web development with optimized performance.
+
+## How It Works
+
+1. **User selects a file** using the file input element in the React component
+2. **React state** manages the file selection and conversion state
+3. **We pass the file object** to `documentMarkdownReader.readDocument()`
+4. **Library reads the file content** and converts it to markdown
+5. **Result is displayed** in the component
+
+## Running the Example
 
 ```bash
+# Install dependencies
 npm install
-```
 
-## Development
-
-```bash
+# Start development server
 npm run dev
-```
 
-This will start the development server.
-
-## Build
-
-```bash
+# Build for production
 npm run build
 ```
 
-The built files will be in the `dist` folder.
+## Project Structure
 
-## Usage
-
-Select a document file using the file input. The document content will be converted to Markdown and displayed below.
+- `src/App.tsx` - Main React application component
+- `src/index.tsx` - React entry point
+- `index.html` - HTML entry point
+- `rspack.config.js` - Rspack configuration
+- `tsconfig.json` - TypeScript configuration

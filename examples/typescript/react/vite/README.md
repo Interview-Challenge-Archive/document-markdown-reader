@@ -1,50 +1,63 @@
-# TypeScript + React Example
+# TypeScript + React + Vite Example
+
+This example shows how to use the document-markdown-reader library in a web application built with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
+
+## Try It Online
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/vite)
 
-A TypeScript example using [React](https://react.dev/) as the UI framework with Vite as the build tool.
+## What is React?
+
+React is a popular JavaScript library for building user interfaces. It allows you to create reusable UI components that can update dynamically when data changes.
+
+## What is TypeScript?
+
+TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It adds optional static typing, classes, and interfaces to improve code quality and maintainability.
+
+## What is Vite?
+
+Vite is a modern build tool that makes web development faster and easier. It provides instant server startup and hot module replacement, which means you see your changes immediately without refreshing the page.
 
 ## How It Works
 
-1. **User selects a file** using the `<input type="file">` element in the React component
-2. **User clicks the "Convert" button** which triggers the conversion function
-3. **React state manages** the file selection and conversion status
-4. **We pass the file object** to `documentMarkdownReader.readDocument()`
-5. **Library reads the file content** and converts it to markdown
-6. **Result is displayed** in the component
+When you use this application:
 
-## React Advantages
+1. **Select a file** - Click the "Choose File" button to select any document from your computer
+2. **Convert** - Click the "Convert to Markdown" button
+3. **See the result** - The document's content appears as formatted Markdown text on the screen
 
-- **Component-based architecture** - Reusable UI components
-- **State management** - Built-in useState and useEffect hooks
-- **TypeScript support** - Full type safety with JSX
-- **Large ecosystem** - Many libraries and tools available
+The library automatically detects what type of file you've selected (PDF, Word, etc.) and converts it appropriately.
 
 ## Running the Example
 
+Follow these steps to run this example on your computer:
+
+**Install dependencies** - This downloads all the necessary packages:
+
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start development server
+**Start the development server** - This opens your web application:
+
+```bash
 npm run dev
+```
 
-# Build for production
+**Build for production** - When you're ready to deploy your application:
+
+```bash
 npm run build
 ```
 
+After running `npm run dev`, open your browser to the address shown in the terminal (usually http://localhost:5173).
+
 ## Project Structure
 
-- `src/App.tsx` - Main React application component
-- `src/main.tsx` - React entry point
+- `src/App.tsx` - The main React component that handles file selection and conversion
+- `src/main.tsx` - The entry point that starts your React application
 - `src/App.css` - Application styles
-- `index.html` - HTML entry point
-- `vite.config.ts` - Vite configuration
+- `index.html` - The HTML page where your app loads
+- `vite.config.ts` - Configuration for the Vite build tool
 - `tsconfig.json` - TypeScript configuration
-
-## Key Features
-
-- Uses React hooks (useState) for state management
-- Type-safe event handlers
-- Conditional rendering for loading/error states
-- CSS modules for styling
+- `package.json` - Lists all dependencies and scripts

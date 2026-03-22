@@ -1,43 +1,62 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/vite)
-
 # TypeScript + Vue + Vite Example
 
-A TypeScript example using [Vue 3](https://vuejs.org/) as the UI framework with Vite as the build tool.
+This example shows how to use the document-markdown-reader library in a web application built with [Vue.js](https://vuejs.org/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/vite)
+
+## What is Vue.js?
+
+Vue.js is a progressive JavaScript framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. Its core library focuses on the view layer only, making it easy to integrate with other libraries or existing projects.
+
+## What is TypeScript?
+
+TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It adds optional static typing, classes, and interfaces to improve code quality and maintainability.
+
+## What is Vite?
+
+Vite is a modern build tool that makes web development faster and easier. It provides instant server startup and hot module replacement, which means you see your changes immediately without refreshing the page.
 
 ## How It Works
 
-1. **User selects a file** using the file input element in the Vue component
-2. **User clicks the "Convert" button** which triggers the conversion function
-3. **Vue reactivity** handles the file selection and conversion state
-4. **We pass the file object** to `documentMarkdownReader.readDocument()`
-5. **Library reads the file content** and converts it to markdown
-6. **Result is displayed** in the component
+When you use this application:
 
-## Vue Advantages
+1. **Select a file** - Click the "Choose File" button to select any document from your computer
+2. **Convert** - Click the "Convert to Markdown" button
+3. **See the result** - The document's content appears as formatted Markdown text on the screen
 
-- **Reactive data binding** - Automatic UI updates
-- **Composition API** - Flexible state management with composables
-- **TypeScript support** - Full type safety out of the box
-- **Single File Components** - Clean component organization
+The library automatically detects what type of file you've selected (PDF, Word, etc.) and converts it appropriately.
 
 ## Running the Example
 
+Follow these steps to run this example on your computer:
+
+**Install dependencies** - This downloads all the necessary packages:
+
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start development server
+**Start the development server** - This opens your web application:
+
+```bash
 npm run dev
+```
 
-# Build for production
+**Build for production** - When you're ready to deploy your application:
+
+```bash
 npm run build
 ```
 
+After running `npm run dev`, open your browser to the address shown in the terminal (usually http://localhost:5173).
+
 ## Project Structure
 
-- `src/App.vue` - Main Vue application component
-- `src/main.ts` - Vue entry point
-- `src/style.css` - Application styles
-- `index.html` - HTML entry point
-- `vite.config.ts` - Vite configuration
+- `src/App.vue` - The main Vue component that handles file selection and conversion
+- `src/main.ts` - The entry point that starts your Vue application
+- `index.html` - The HTML page where your app loads
+- `vite.config.ts` - Configuration for the Vite build tool
 - `tsconfig.json` - TypeScript configuration
+- `package.json` - Lists all dependencies and scripts
