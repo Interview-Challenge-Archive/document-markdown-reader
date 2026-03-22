@@ -1,19 +1,19 @@
-name: Update README
+name: Update main README.md
 
 on:
   push:
     paths:
       - 'src/strategies/**'
       - '.github/templates/root-readme.md'
-      - '.github/workflows/update-readme.yml'
+      - '.github/workflows/update-main-readme.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  update-readme:
-    name: Update README
+  update-main-readme:
+    name: Update main README.md
     runs-on: ubuntu-latest
     permissions:
       contents: write
