@@ -1,5 +1,5 @@
 import { Service } from '@freshgum/typedi'
-import mammoth from 'mammoth/mammoth.browser'
+import mammoth from 'mammoth/mammoth.browser.js'
 
 @Service({ id: MammothConversionService.SERVICE_ID }, [])
 export class MammothConversionService {

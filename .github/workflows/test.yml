@@ -79,3 +79,12 @@ jobs:
         env:
           # Node 21 does not accept util.styleText style arrays, but Vite 8's Rolldown dependency uses them.
           NODE_OPTIONS: ${{ matrix.node-version == 21 && '--import ./test/node21-styletext-polyfill.mjs' || '' }}
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify ESM build with node
+        run: node -e "import('./dist/index.js').then(m => { if (typeof m.documentMarkdownReader === 'undefined') throw new Error('documentMarkdownReader export missing'); console.log('ESM build OK') })"
+
+      - name: Verify CJS build with node
+        run: node --input-type=commonjs -e "const m = require('./dist/index.cjs'); if (typeof m.documentMarkdownReader === 'undefined') throw new Error('documentMarkdownReader export missing'); console.log('CJS build OK')"

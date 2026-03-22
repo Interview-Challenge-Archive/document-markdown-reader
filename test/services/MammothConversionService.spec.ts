@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('mammoth/mammoth.browser', () => ({
+vi.mock('mammoth/mammoth.browser.js', () => ({
   default: {
     convertToHtml: vi.fn()
   }
 }))
 
-import mammoth from 'mammoth/mammoth.browser'
+import mammoth from 'mammoth/mammoth.browser.js'
 import { MammothConversionService } from '../../src/services/MammothConversionService'
 
 describe('MammothConversionService', () => {
