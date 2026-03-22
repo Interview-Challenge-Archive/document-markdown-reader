@@ -1,7 +1,5 @@
 # Examples
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples)
-
 This folder contains complete working examples demonstrating how to use `document-markdown-reader` in various environments.
 
 Each example includes:
