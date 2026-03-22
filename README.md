@@ -47,14 +47,9 @@ Reads a document file and returns its content as Markdown.
 
 **Throws:**
 - `UnsupportedFormatError` - When the file format is not supported
-- `InvalidDocumentError` - When the document file is invalid or corrupted (includes format-specific properties)
-- `InvalidDocxError` - When the DOCX/DOCM file is invalid or corrupted (extends InvalidDocumentError)
-- `InvalidOdtError` - When the ODT/FODT file is invalid or corrupted (extends InvalidDocumentError)
-- `InvalidPagesError` - When the Pages file is invalid or corrupted (extends InvalidDocumentError)
-- `InvalidPdfError` - When the PDF file is invalid or corrupted (extends InvalidDocumentError)
-- `UnreadableDocError` - When the DOC file content cannot be read
-- `UnreadablePagesError` - When the Pages file content cannot be read
-- `UnreadablePdfError` - When the PDF file content cannot be read
+- `InvalidDocumentError` - When a DOCX/DOCM, ODT/FODT, Pages, or PDF file is invalid or corrupted
+- `UnreadableDocumentError` - When a DOC, Pages, or PDF file content cannot be read
+
 
 ### Properties
 

@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { UnreadableDocumentError } from './UnreadableDocumentError'
 
-export class UnreadableDocError extends DocumentImportError {
+export class UnreadableDocError extends UnreadableDocumentError {
   constructor() {
-    super('unreadable-doc', 'No readable text found in Word binary document.')
+    super('doc')
   }
 }

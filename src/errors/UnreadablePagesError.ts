@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { UnreadableDocumentError } from './UnreadableDocumentError'
 
-export class UnreadablePagesError extends DocumentImportError {
+export class UnreadablePagesError extends UnreadableDocumentError {
   constructor() {
-    super('unreadable-pages', 'No readable content found in Apple Pages file.')
+    super('pages')
   }
 }
