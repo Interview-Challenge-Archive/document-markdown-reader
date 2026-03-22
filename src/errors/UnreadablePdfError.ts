@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { UnreadableDocumentError } from './UnreadableDocumentError'
 
-export class UnreadablePdfError extends DocumentImportError {
+export class UnreadablePdfError extends UnreadableDocumentError {
   constructor() {
-    super('unreadable-pdf', 'No readable text found in PDF file.')
+    super('pdf')
   }
 }
