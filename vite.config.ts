@@ -6,6 +6,10 @@ import { defineConfig, type UserConfig } from 'vite'
 import swc from 'unplugin-swc'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+const EXTERNAL_MODULE_PATTERNS = [
+  /^rtf-stream-parser(?:\/.*)?$/,
+  /^iconv-lite(?:\/.*)?$/
+]
 type ViteConfigWithTest = UserConfig & {
   test: {
     environment: string
@@ -31,16 +35,16 @@ const config = {
     },
     sourcemap: true,
     rollupOptions: {
-      external: [
-        '@iarna/rtf-to-html',
-        '@jose.espana/docstream',
-        'jszip',
-        'mammoth/mammoth.browser.js',
-        'marked',
-        'pdfjs-dist/legacy/build/pdf.mjs',
-        'turndown',
-        'turndown-plugin-gfm'
-      ]
+      external: (id: string) => EXTERNAL_MODULE_PATTERNS.some((pattern) => pattern.test(id))
+        || [
+          '@jose.espana/docstream',
+          'jszip',
+          'mammoth/mammoth.browser.js',
+          'marked',
+          'pdfjs-dist/legacy/build/pdf.mjs',
+          'turndown',
+          'turndown-plugin-gfm'
+        ].includes(id)
     }
   },
   test: {
