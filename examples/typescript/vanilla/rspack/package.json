@@ -1,0 +1,17 @@
+{
+  "name": "typescript-vanilla-rspack",
+  "version": "1.0.0",
+  "description": "TypeScript Vanilla Rspack example",
+  "scripts": {
+    "start": "rspack serve",
+    "build": "rspack build"
+  },
+  "dependencies": {
+    "document-markdown-reader": "^1.0.0"
+  },
+  "devDependencies": {
+    "rspack": "^1.0.0",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.3.0"
+  }
+}

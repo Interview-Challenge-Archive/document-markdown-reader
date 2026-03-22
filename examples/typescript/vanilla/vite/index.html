@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Reader - TypeScript + Vite</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    #summary-file { margin: 1rem 0; }
+    #convert-btn { padding: 0.5rem 1rem; cursor: pointer; }
+    #output { background: #f5f5f5; padding: 1rem; border-radius: 4px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Upload a Document</h1>
+  <p>Select a file to convert to Markdown:</p>
+  <input type="file" id="summary-file" accept=".pdf,.docx,.doc,.txt,.md,.html,.rtf,.odt,.pages">
+  <button id="convert-btn">Convert to Markdown</button>
+  <pre id="output"></pre>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
