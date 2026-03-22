@@ -3,10 +3,14 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { documentMarkdownReader } from '../../src/index'
+import { FileExtensionService } from '../../src/services/FileExtensionService'
+import { TextNormalizationService } from '../../src/services/TextNormalizationService'
 import type { DocumentFileLike } from '../../src/types/DocumentFileLike'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const FIXTURE_DIRECTORY_PATH = resolve(__dirname, '..', 'fixtures', 'real-documents')
+const fileExtensionService = new FileExtensionService()
+const textNormalizationService = new TextNormalizationService()
 
 type FixtureCase = {
   fileName: string
@@ -81,7 +85,8 @@ const FIXTURE_CASES: ReadonlyArray<FixtureCase> = [
 describe('document-markdown-reader real fixture coverage', () => {
   it('covers every supported extension with fixture-based conversion checks', () => {
     expect(documentMarkdownReader.supportedExtensions).toEqual(
-      [...new Set(FIXTURE_CASES.map((fixtureCase) => getFileExtension(fixtureCase.fileName)))].sort()
+      [...new Set(FIXTURE_CASES.map((fixtureCase) => fileExtensionService.resolveFileExtension(fixtureCase.fileName)))]
+        .sort()
     )
   })
 
@@ -100,7 +105,7 @@ describe('document-markdown-reader real fixture coverage', () => {
 })
 
 function assertCommonContent(markdown: string): void {
-  const normalizedMarkdown = unescapeMarkdownControlCharacters(markdown)
+  const normalizedMarkdown = textNormalizationService.unescapeMarkdownControlCharacters(markdown)
 
   expect(normalizedMarkdown).toContain(NORMAL_TEXT)
   expect(normalizedMarkdown).toContain(BOLD_TEXT)
@@ -114,29 +119,11 @@ function assertRichFormatting(markdown: string, expectsMarkdownListSyntax: boole
   expect(markdown).toContain(`*${ITALIC_TEXT}*`)
 
   if (expectsMarkdownListSyntax) {
-    const normalizedMarkdown = normalizeNewlines(markdown)
+    const normalizedMarkdown = textNormalizationService.normalizeNewlines(markdown)
 
     expect(normalizedMarkdown).toMatch(/(^|\n)(?:-\s+|\\-\s+)First list item($|\n)/)
     expect(normalizedMarkdown).toMatch(/(^|\n)(?:-\s+|\\-\s+)Second list item($|\n)/)
   }
-}
-
-function getFileExtension(fileName: string): string {
-  const extensionSeparatorIndex = fileName.lastIndexOf('.')
-
-  if (extensionSeparatorIndex < 0 || extensionSeparatorIndex === fileName.length - 1) {
-    return ''
-  }
-
-  return fileName.slice(extensionSeparatorIndex + 1).toLowerCase()
-}
-
-function unescapeMarkdownControlCharacters(value: string): string {
-  return value.replace(/\\(.)/g, '$1')
-}
-
-function normalizeNewlines(value: string): string {
-  return value.replace(/\r\n/g, '\n')
 }
 
 async function createFixtureFileLike(fileName: string, mimeType: string): Promise<DocumentFileLike> {
