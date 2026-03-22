@@ -15,14 +15,20 @@ npm install document-markdown-reader
 
 ## Supported file formats
 
-- **Microsoft Word** - `.doc`, `.docx`, `.docm`
-- **PDF documents** - `.pdf`
-- **HTML files** - `.html`, `.htm`
-- **Markdown files** - `.md`, `.markdown`, `.mdx`
-- **Rich Text Format** - `.rtf`
-- **OpenDocument** - `.odt`, `.fodt`
-- **Plain Text** - `.txt`
-- **Apple Pages** - `.pages`
+- `.doc`
+- `.docm`
+- `.docx`
+- `.fodt`
+- `.htm`
+- `.html`
+- `.markdown`
+- `.md`
+- `.mdx`
+- `.odt`
+- `.pages`
+- `.pdf`
+- `.rtf`
+- `.txt`
 
 ## Examples
 
@@ -93,4 +99,3 @@ We use a few simple commands to keep everything running smoothly:
 - **Tell us about it**: When you open your pull request, give us a quick summary of what you've done and why it's helpful.
 
 We're excited to see what you build! Thanks for being part of the community.
-make
