@@ -48,15 +48,16 @@ npm run typecheck
 ## Agent Guidelines
 
 1. **Read before writing**: Always examine existing code before making changes
-2. **Test changes**: Run build and tests after modifications
-3. **Preserve conventions**: Match existing naming, structure, and patterns
-4. **Minimal changes**: Make targeted edits rather than large refactors
-5. **Verify paths**: Use absolute paths when reading/writing files
-6. **No self-explanatory comments**: Avoid obvious comments
-7. **Meaningful comments only**: Add comments only when explaining complex business logic, algorithms, or non-obvious implementation details
-8. **Code should be self-documenting**: Write clear, readable code that doesn't require explanatory comments for basic functionality
-9. **Custom error classes**: Place all custom errors in `src/errors/` folder
-10. **Error message standards**: Custom errors should have built-in messages and only accept relevant parameters
+2. **No inlined comments in README files**: Do not use inline comments that describe what a command does. Instead, use descriptive text followed by the command. For example, instead of `cd examples/javascript/react/vite # Navigate to the example directory`, use `Navigate to the example directory: cd examples/javascript/react/vite`
+3. **Test changes**: Run build and tests after modifications
+4. **Preserve conventions**: Match existing naming, structure, and patterns
+5. **Minimal changes**: Make targeted edits rather than large refactors
+6. **Verify paths**: Use absolute paths when reading/writing files
+7. **No self-explanatory comments**: Avoid obvious comments
+8. **Meaningful comments only**: Add comments only when explaining complex business logic, algorithms, or non-obvious implementation details
+9. **Code should be self-documenting**: Write clear, readable code that doesn't require explanatory comments for basic functionality
+10. **Custom error classes**: Place all custom errors in `src/errors/` folder
+11. **Error message standards**: Custom errors should have built-in messages and only accept relevant parameters
 
 ## Pre-commit Checklist
 
