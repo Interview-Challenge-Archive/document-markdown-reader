@@ -4,6 +4,8 @@ This example demonstrates how to use `document-markdown-reader` in a Vue 3 appli
 
 ## Try It Online
 
+Try this example instantly in your browser without any local setup using StackBlitz, a cloud-based development environment.
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/rollup)
 
 ## What is TypeScript?
