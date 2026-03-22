@@ -1,9 +1,12 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/rollup)
 
 # JavaScript SolidJS Rollup Example
 
 This example shows how to use the document-markdown-reader library in a web application built with [SolidJS](https://www.solidjs.com/) and [Rollup](https://rollupjs.org/).
 
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/rollup)
 ## What is SolidJS?
 
 SolidJS is a declarative JavaScript library for creating user interfaces. Unlike React, it uses fine-grained reactivity with direct DOM updates without a virtual DOM, making it extremely performant.

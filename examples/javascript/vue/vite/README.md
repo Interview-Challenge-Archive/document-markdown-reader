@@ -1,9 +1,12 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/vite)
 
 # JavaScript Vue Vite Example
 
 This example shows how to use the document-markdown-reader library in a web application built with [Vue.js](https://vuejs.org/) and [Vite](https://vitejs.dev/).
 
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/vite)
 ## What is Vue.js?
 
 Vue.js is a progressive JavaScript framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. Its core library focuses on the view layer only, making it easy to integrate with other libraries or existing projects.

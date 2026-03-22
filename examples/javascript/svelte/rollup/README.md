@@ -1,8 +1,10 @@
 # JavaScript Svelte Rollup Example
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/svelte/rollup)
-
 This example shows how to use the document-markdown-reader library in a web application built with [Svelte](https://svelte.dev/) and [Rollup](https://rollupjs.org/).
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/svelte/rollup)
 
 ## What is Svelte?
 

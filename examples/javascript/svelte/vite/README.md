@@ -1,9 +1,12 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/svelte/vite)
 
 # JavaScript Svelte Vite Example
 
 This example shows how to use the document-markdown-reader library in a web application built with [Svelte](https://svelte.dev/) and [Vite](https://vitejs.dev/).
 
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/svelte/vite)
 ## What is Svelte?
 
 Svelte is a radical new approach to building user interfaces. Unlike traditional frameworks like React and Vue, Svelte compiles your code to tiny, framework-less vanilla JS, resulting in highly optimized code with minimal overhead.

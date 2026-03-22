@@ -1,8 +1,10 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/webpack)
-
 # JavaScript + React + Webpack Example
 
 A JavaScript example using [React](https://react.dev/) as the UI framework with Webpack as the build tool.
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/webpack)
 
 ## How It Works
 

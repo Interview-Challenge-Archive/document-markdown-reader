@@ -1,8 +1,10 @@
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/rollup)
-
 # JavaScript Vue Rollup Example
 
 This example demonstrates how to use `document-markdown-reader` in a Vue 3 application bundled with Rollup.
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/rollup)
 
 ## Features
 

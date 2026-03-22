@@ -1,8 +1,10 @@
 # JavaScript + React + Rspack Example
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/rspack)
-
 A JavaScript example using [React](https://react.dev/) as the UI framework with Rspack as the build tool.
+
+## Try It Online
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/rspack)
 
 ## How It Works
 
