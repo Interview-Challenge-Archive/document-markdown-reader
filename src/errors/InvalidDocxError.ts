@@ -1,7 +1,7 @@
-import { DocumentImportError } from './DocumentImportError'
+import { InvalidDocumentError } from './InvalidDocumentError'
 
-export class InvalidDocxError extends DocumentImportError {
+export class InvalidDocxError extends InvalidDocumentError {
   constructor() {
-    super('invalid-docx', 'Invalid DOCX or DOCM file.')
+    super('docx')
   }
 }
