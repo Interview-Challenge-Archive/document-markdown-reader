@@ -29,10 +29,10 @@ describe('RtfDocumentImportStrategy', () => {
     expect(markdownItService.plainTextToMarkdown).not.toHaveBeenCalled()
   })
 
-  it('falls back to plain text parsing when html conversion fails', async () => {
+  it('throws when html conversion fails', async () => {
     const markdownItService = {
       htmlToMarkdown: vi.fn(),
-      plainTextToMarkdown: vi.fn().mockReturnValue('from-fallback')
+      plainTextToMarkdown: vi.fn()
     }
     const rtfToHtmlService = {
       convertToHtml: vi.fn().mockRejectedValue(new Error('failed'))
@@ -44,9 +44,10 @@ describe('RtfDocumentImportStrategy', () => {
       rtfToHtmlService as unknown as RtfToHtmlService
     )
 
-    await expect(strategy.read(createTextFile('{\\rtf1\\ansi Hello\\par}', 'notes.rtf', 'text/rtf'))).resolves.toBe(
-      'from-fallback'
+    await expect(strategy.read(createTextFile('{\\rtf1\\ansi Hello\\par}', 'notes.rtf', 'text/rtf'))).rejects.toThrow(
+      'failed'
     )
-    expect(markdownItService.plainTextToMarkdown).toHaveBeenCalledWith('Hello')
+    expect(markdownItService.htmlToMarkdown).not.toHaveBeenCalled()
+    expect(markdownItService.plainTextToMarkdown).not.toHaveBeenCalled()
   })
 })

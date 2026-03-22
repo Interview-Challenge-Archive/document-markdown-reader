@@ -1,35 +1,30 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-vi.mock('@iarna/rtf-to-html', () => ({
-  default: {
-    fromString: vi.fn()
-  }
-}))
-
-import rtfToHtml from '@iarna/rtf-to-html'
+import { describe, expect, it } from 'vitest'
+import { HtmlEscapeService } from '../../src/services/HtmlEscapeService'
 import { RtfToHtmlService } from '../../src/services/RtfToHtmlService'
 
 describe('RtfToHtmlService', () => {
-  const rtfToHtmlService = new RtfToHtmlService()
-  const fromStringMock = vi.mocked(rtfToHtml.fromString)
+  const rtfToHtmlService = new RtfToHtmlService(new HtmlEscapeService())
 
-  beforeEach(() => {
-    fromStringMock.mockReset()
+  it('converts plain and styled rtf text to html', async () => {
+    const html = await rtfToHtmlService.convertToHtml(
+      '{\\rtf1\\ansi\\ansicpg1252\\pard Normal text section.\\par \\b Bold text section\\b0\\par \\i Italic text section\\i0\\par}'
+    )
+
+    expect(html).toContain('<p>Normal text section.</p>')
+    expect(html).toContain('<strong>Bold text section</strong>')
+    expect(html).toContain('<em>Italic text section</em>')
   })
 
-  it('converts rtf text to trimmed html', async () => {
-    fromStringMock.mockImplementation((_rtf, _options, callback) => {
-      callback(null, '  <p>Hello</p>  ')
-    })
+  it('ignores metadata destinations from output', async () => {
+    const html = await rtfToHtmlService.convertToHtml(
+      '{\\rtf1\\ansi{\\fonttbl{\\f0 Arial;}}{\\colortbl;\\red0\\green0\\blue0;}Visible text}'
+    )
 
-    await expect(rtfToHtmlService.convertToHtml('{\\rtf1 Hello}')).resolves.toBe('<p>Hello</p>')
+    expect(html).toContain('<p>Visible text</p>')
+    expect(html).not.toContain('Arial')
   })
 
-  it('rejects when conversion fails', async () => {
-    fromStringMock.mockImplementation((_rtf, _options, callback) => {
-      callback(new Error('convert failed'))
-    })
-
-    await expect(rtfToHtmlService.convertToHtml('{\\rtf1 Broken}')).rejects.toThrow('convert failed')
+  it('throws for invalid rtf input', async () => {
+    await expect(rtfToHtmlService.convertToHtml('not rtf')).rejects.toThrow()
   })
 })

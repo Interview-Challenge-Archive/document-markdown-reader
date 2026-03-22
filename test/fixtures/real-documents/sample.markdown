@@ -1,0 +1,8 @@
+Normal text section.
+
+**Bold text section**
+
+*Italic text section*
+
+- First list item
+- Second list item
