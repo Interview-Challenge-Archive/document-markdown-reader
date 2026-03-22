@@ -44,70 +44,33 @@ const languageNames = {
   typescript: 'TypeScript'
 };
 
-const languageOrder = ['javascript', 'typescript'];
-const frameworkOrder = ['vanilla', 'react', 'vue', 'svelte', 'solidjs'];
-const buildToolOrder = ['vite', 'webpack', 'rspack', 'turbopack', 'parcel', 'rollup'];
-
 const repo = inputs.github_repo || '';
-const folders = inputs.folders || [];
+const entries = (inputs.folders || [])
+  .map((folder) => folder.replace(/^examples\//, ''))
+  .map((folder) => folder.split('/'))
+  .filter((parts) => parts.length === 3)
+  .map((parts) => ({
+    language: parts[0],
+    framework: parts[1],
+    buildTool: parts[2]
+  }));
 
-const examplesTree = {};
-folders.forEach((folder) => {
-  const parts = folder.replace(/^examples\//, '').split('/');
-  if (parts.length !== 3) {
-    return;
-  }
-
-  const language = parts[0];
-  const framework = parts[1];
-  const buildTool = parts[2];
-
-  if (!examplesTree[language]) {
-    examplesTree[language] = {};
-  }
-
-  if (!examplesTree[language][framework]) {
-    examplesTree[language][framework] = [];
-  }
-
-  if (!examplesTree[language][framework].includes(buildTool)) {
-    examplesTree[language][framework].push(buildTool);
-  }
-});
-
-function sortByOrder(values, order) {
-  return values.slice().sort((a, b) => {
-    const aIndex = order.indexOf(a);
-    const bIndex = order.indexOf(b);
-
-    if (aIndex === -1 && bIndex === -1) {
-      return a.localeCompare(b);
-    }
-
-    if (aIndex === -1) {
-      return 1;
-    }
-
-    if (bIndex === -1) {
-      return -1;
-    }
-
-    return aIndex - bIndex;
-  });
+function uniq(values) {
+  return [...new Set(values)];
 }
 
-const languages = sortByOrder(Object.keys(examplesTree), languageOrder);
+const languages = uniq(entries.map((entry) => entry.language));
 %>
 <% languages.forEach((language) => { %>
 ## <%- languageNames[language] || language %> Examples
 
-<% const frameworks = sortByOrder(Object.keys(examplesTree[language]), frameworkOrder); %>
+<% const frameworks = uniq(entries.filter((entry) => entry.language === language).map((entry) => entry.framework)); %>
 <% frameworks.forEach((framework) => { %>
 ### <%- frameworkNames[framework] || framework %>
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-<% const buildTools = sortByOrder(examplesTree[language][framework], buildToolOrder); %>
+<% const buildTools = uniq(entries.filter((entry) => entry.language === language && entry.framework === framework).map((entry) => entry.buildTool)); %>
 <% buildTools.forEach((buildTool) => { %>
 <% const path = `${language}/${framework}/${buildTool}`; %>
 <% const buildToolName = buildToolNames[buildTool] || buildTool; %>
