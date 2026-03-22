@@ -1,0 +1,93 @@
+<%
+const examples = JSON.parse(inputs.examples_json);
+
+const buildToolLinks = {
+  vite: 'https://vitejs.dev/',
+  webpack: 'https://webpack.js.org/',
+  parcel: 'https://parceljs.org/',
+  rollup: 'https://rollupjs.org/',
+  rspack: 'https://rspack.dev/',
+  turbopack: 'https://turbo.build/pack'
+};
+
+const buildToolNames = {
+  vite: 'Vite',
+  webpack: 'Webpack',
+  parcel: 'Parcel',
+  rollup: 'Rollup',
+  rspack: 'Rspack',
+  turbopack: 'Turbopack'
+};
+
+const frameworkNames = {
+  vanilla: 'Vanilla (No Framework)',
+  react: 'React',
+  vue: 'Vue',
+  svelte: 'Svelte',
+  solidjs: 'SolidJS'
+};
+
+const languageNames = {
+  javascript: 'JavaScript',
+  typescript: 'TypeScript'
+};
+
+const languageOrder = ['javascript', 'typescript'];
+const frameworkOrder = ['vanilla', 'react', 'vue', 'svelte', 'solidjs'];
+const buildToolOrder = ['vite', 'webpack', 'rspack', 'turbopack', 'parcel', 'rollup'];
+
+function sortedUniq(arr, order) {
+  return [...new Set(arr)].sort((a, b) => {
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+}
+
+const REPO = 'Interview-Challenge-Archive/document-markdown-reader';
+const languages = sortedUniq(examples.map(e => e.language), languageOrder);
+
+const langSections = languages.map(lang => {
+  const langDisplay = languageNames[lang] || (lang.charAt(0).toUpperCase() + lang.slice(1));
+  const langExamples = examples.filter(e => e.language === lang);
+  const frameworks = sortedUniq(langExamples.map(e => e.framework), frameworkOrder);
+
+  const fwSections = frameworks.map(fw => {
+    const fwExamples = langExamples.filter(e => e.framework === fw);
+    fwExamples.sort((a, b) => {
+      const ia = buildToolOrder.indexOf(a.buildtool);
+      const ib = buildToolOrder.indexOf(b.buildtool);
+      if (ia === -1 && ib === -1) return a.buildtool.localeCompare(b.buildtool);
+      if (ia === -1) return 1;
+      if (ib === -1) return -1;
+      return ia - ib;
+    });
+
+    const rows = fwExamples.map(e => {
+      const toolName = buildToolNames[e.buildtool] || e.buildtool;
+      const toolLink = buildToolLinks[e.buildtool] || '#';
+      const path = `${e.language}/${e.framework}/${e.buildtool}`;
+      const stackblitz = `https://stackblitz.com/github/${REPO}?folder=examples/${path}`;
+      return `| [${toolName}](${toolLink}) | [${path}](./${path}) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](${stackblitz}) |`;
+    });
+
+    const fwDisplay = frameworkNames[fw] || fw;
+    return `### ${fwDisplay}\n\n| Build Tool | Path | Demo |\n|------------|------|------|\n${rows.join('\n')}`;
+  });
+
+  return `## ${langDisplay} Examples\n\n${fwSections.join('\n\n')}`;
+});
+
+const ticks = '```';
+const readme = [
+  '# Examples',
+  'This folder contains complete working examples demonstrating how to use `document-markdown-reader` in various environments.\n\nEach example includes:\n- A `README.md` with setup instructions\n- A `package.json` with all required dependencies\n- Source files showing the library in action',
+  '## Directory Structure\n\nExamples are organized by language, framework, and build tool:\n- `{language}/{framework}/{build-tool}`',
+  ...langSections,
+  '## Running an Example\n\n1. Navigate to the example directory:\n   ' + ticks + 'bash\n   cd examples/javascript/react/vite\n   ' + ticks + '\n\n2. Install dependencies:\n   ' + ticks + 'bash\n   npm install\n   ' + ticks + '\n\n3. Start the development server:\n   ' + ticks + 'bash\n   npm run dev\n   ' + ticks + '\n\n4. Open the provided URL in your browser to see the example in action.'
+].join('\n\n');
+-%>
+<%- readme -%>

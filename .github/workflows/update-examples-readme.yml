@@ -1,0 +1,52 @@
+name: Update Examples README
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'examples/**'
+      - '!examples/README.md'
+      - '.github/workflows/update-examples-readme.yml'
+      - '.github/templates/examples-readme.md.ejs'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-examples-readme:
+    name: Update Examples README
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Find examples
+        id: find-examples
+        run: |
+          EXAMPLES=$(find examples -mindepth 3 -maxdepth 3 -type d | sort | \
+            jq -R -s '[split("\n")[] | select(length>0) | split("/") | {language: .[1], framework: .[2], buildtool: .[3]}]' | \
+            jq -c .)
+          echo "examples_json=$EXAMPLES" >> $GITHUB_OUTPUT
+
+      - name: Render examples README template
+        id: render
+        uses: kikyous/template-action@v2.0.0
+        with:
+          template-path: '.github/templates/examples-readme.md.ejs'
+          ext-inputs: '{"examples_json": ${{ toJson(steps.find-examples.outputs.examples_json) }}}'
+
+      - name: Write examples README
+        env:
+          README_CONTENT: ${{ steps.render.outputs.content }}
+        run: echo "$README_CONTENT" > examples/README.md
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: regenerate examples/README.md'
+          file_pattern: 'examples/README.md'
