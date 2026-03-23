@@ -34,6 +34,12 @@ jobs:
 
           while IFS= read -r folder; do
             relative_path="${folder#examples/}"
+            IFS='/' read -r -a parts <<< "$relative_path"
+
+            if [[ "${#parts[@]}" -ne 3 ]]; then
+              continue
+            fi
+
             package_json_path="${folder}/package.json"
 
             if [[ ! -f "$package_json_path" ]]; then
@@ -49,15 +55,15 @@ jobs:
             readme_meta="$(jq -c '.readmeMeta' "$package_json_path")"
 
             jq -cn \
-              --arg relative_path "$relative_path" \
+              --arg language "${parts[0]}" \
+              --arg framework "${parts[1]}" \
+              --arg build_tool "${parts[2]}" \
               --argjson readme_meta "$readme_meta" \
               '
-              ($relative_path | split("/")) as $parts
-              | select(($parts | length) == 3)
-              | {
-                  language: $parts[0],
-                  framework: $parts[1],
-                  buildTool: $parts[2],
+              {
+                  language: $language,
+                  framework: $framework,
+                  buildTool: $build_tool,
                   languageName: ($readme_meta.languageName // null),
                   frameworkName: ($readme_meta.frameworkName // null),
                   buildToolName: ($readme_meta.buildToolName // null),
