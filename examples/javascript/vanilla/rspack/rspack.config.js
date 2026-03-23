@@ -22,4 +22,14 @@ export default {
       },
     ],
   },
+  resolve: {
+    fallback: {
+      fs: false,
+      stream: false,
+      util: false,
+      zlib: false,
+      events: false,
+      buffer: false,
+    },
+  },
 };
