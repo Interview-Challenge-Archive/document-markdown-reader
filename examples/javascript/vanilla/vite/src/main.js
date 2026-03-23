@@ -1,7 +1,15 @@
-import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader'
+import { Buffer } from 'buffer'
+
+if (typeof globalThis.Buffer === 'undefined') {
+  globalThis.Buffer = Buffer
+}
+
+const documentMarkdownReaderPromise = import('@interview-challenge-archive/document-markdown-reader')
+  .then((module) => module.documentMarkdownReader)
 
 async function readDocument(file) {
   try {
+    const documentMarkdownReader = await documentMarkdownReaderPromise
     return await documentMarkdownReader.readDocument(file)
   } catch (error) {
     console.error('Failed to read document:', error)
@@ -31,5 +39,11 @@ convertBtn.addEventListener('click', () => {
   }
 })
 
-console.log('Supported extensions:', documentMarkdownReader.supportedExtensions)
-console.log('HTML accept attribute:', documentMarkdownReader.acceptedExtensions)
+documentMarkdownReaderPromise
+  .then((documentMarkdownReader) => {
+    console.log('Supported extensions:', documentMarkdownReader.supportedExtensions)
+    console.log('HTML accept attribute:', documentMarkdownReader.acceptedExtensions)
+  })
+  .catch((error) => {
+    console.error('Failed to load document reader:', error)
+  })
