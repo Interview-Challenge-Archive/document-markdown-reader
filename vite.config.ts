@@ -41,7 +41,7 @@ const config = {
           'jszip',
           'mammoth/mammoth.browser.js',
           'marked',
-          'pdfjs-dist/legacy/build/pdf.mjs',
+          'pdfjs-dist/legacy/build/pdf.min.mjs',
           'turndown',
           'turndown-plugin-gfm'
         ].includes(id)
