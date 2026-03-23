@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'examples/**'
+      - 'e2e/examples/**'
       - 'test/e2e/examples/**'
       - 'playwright.config.js'
       - '.github/workflows/examples-e2e.yml'
@@ -12,6 +13,7 @@ on:
       - main
     paths:
       - 'examples/**'
+      - 'e2e/examples/**'
       - 'test/e2e/examples/**'
       - 'playwright.config.js'
       - '.github/workflows/examples-e2e.yml'
