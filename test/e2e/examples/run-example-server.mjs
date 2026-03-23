@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process'
 import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { extname, join, normalize, resolve } from 'node:path'
+import mimeTypes from 'mime-types'
 
 const DEFAULT_HOST = process.env.E2E_HOST ?? '127.0.0.1'
 const DEFAULT_PORT = Number(process.env.E2E_PORT ?? '4173')
@@ -17,16 +18,6 @@ const packageJsonPath = join(exampleDir, 'package.json')
 const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'))
 const scripts = packageJson.scripts ?? {}
 const tool = exampleDir.replace(/\\/g, '/').split('/').at(-1)
-
-const MIME_BY_EXT = {
-  '.css': 'text/css; charset=utf-8',
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'application/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.map': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.ts': 'application/typescript; charset=utf-8'
-}
 
 const REGISTERED_SIGNALS = ['SIGINT', 'SIGTERM']
 
@@ -81,8 +72,8 @@ function runCommand(command, args, cwd) {
 }
 
 function sendFile(res, filePath) {
-  const contentType = MIME_BY_EXT[extname(filePath)] ?? 'application/octet-stream'
-  res.writeHead(200, { 'Content-Type': contentType })
+  const resolvedContentType = mimeTypes.contentType(extname(filePath)) ?? 'application/octet-stream'
+  res.writeHead(200, { 'Content-Type': resolvedContentType })
   createReadStream(filePath).pipe(res)
 }
 
