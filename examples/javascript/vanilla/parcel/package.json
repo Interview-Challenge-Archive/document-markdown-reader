@@ -8,7 +8,7 @@
     "build": "parcel build"
   },
   "dependencies": {
-    "document-markdown-reader": "file:../.."
+    "@interview-challenge-archive/document-markdown-reader": "file:../.."
   },
   "devDependencies": {
     "parcel": "^2.12.0"
