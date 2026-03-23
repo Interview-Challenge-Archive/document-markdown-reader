@@ -77,12 +77,10 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.check_tag.outputs.exists == 'false'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.21.0
         with:
-          tag_name: ${{ steps.package_info.outputs.tag }}
-          release_name: Release ${{ steps.package_info.outputs.tag }}
+          tag: ${{ steps.package_info.outputs.tag }}
+          name: Release ${{ steps.package_info.outputs.tag }}
           body: ${{ steps.check_existing_tags.outputs.has_tags == 'true' && steps.release_notes.outputs.changelog || format('Initial release for {0}.', steps.package_info.outputs.tag) }}
           draft: false
           prerelease: false
