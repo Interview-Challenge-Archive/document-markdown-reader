@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -14,6 +15,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@jose.espana/docstream$': require.resolve('@jose.espana/docstream/dist/officeparser.browser.js'),
+      'process/browser$': require.resolve('process/browser.js'),
+    },
+    fallback: {
+      fs: false,
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/'),
+      process: require.resolve('process/browser.js'),
+    },
   },
   output: {
     filename: 'bundle.js',
@@ -22,6 +33,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
+    }),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
 };
