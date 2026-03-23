@@ -41,7 +41,8 @@ jobs:
     needs: discover-examples
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
+      max-parallel: 5
       matrix:
         example: ${{ fromJson(needs.discover-examples.outputs.matrix) }}
 
