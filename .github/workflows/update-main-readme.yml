@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'src/strategies/**'
-      - '.github/templates/root-readme.md'
+      - '.github/templates/root-readme.md.ejs'
       - '.github/workflows/update-main-readme.yml'
 
 concurrency:
@@ -41,7 +41,7 @@ jobs:
         id: render_readme
         uses: kikyous/template-action@v2.0.5
         with:
-          template-path: .github/templates/root-readme.md
+          template-path: .github/templates/root-readme.md.ejs
           ext-inputs: '{"formats": ${{ steps.get_formats.outputs.formats }}}'
 
       - name: Write README
