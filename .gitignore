@@ -1,9 +1,20 @@
 node_modules/
 dist/
 coverage/
+playwright-report/
+test-results/
 .DS_Store
 *.log
 
 .idea/
 .ai/
 .zencoder/
+
+# Example app generated artifacts
+examples/**/node_modules/
+examples/**/dist/
+examples/**/.parcel-cache/
+examples/**/.vite/
+examples/**/.cache/
+examples/**/.turbo/
+examples/**/package-lock.json

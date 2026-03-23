@@ -23,6 +23,7 @@
     "lint": "eslint . --ext .ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e:examples": "playwright test test/e2e/examples/upload-text.spec.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "prepublishOnly": "npm run build"
   },
@@ -57,6 +58,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
     "@swc/core": "^1.15.18",
     "@types/jsdom": "^28.0.1",
     "@types/markdown-it": "^14.1.2",

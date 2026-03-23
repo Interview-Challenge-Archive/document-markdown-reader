@@ -8,6 +8,7 @@ on:
       - '.editorconfig'
       - '**.md'
       - 'LICENSE'
+      - 'examples/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

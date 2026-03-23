@@ -1,0 +1,80 @@
+name: Test examples/ E2E
+
+on:
+  pull_request:
+    paths:
+      - 'examples/**'
+      - 'test/e2e/examples/**'
+      - 'playwright.config.js'
+      - '.github/workflows/examples-e2e.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'examples/**'
+      - 'test/e2e/examples/**'
+      - 'playwright.config.js'
+      - '.github/workflows/examples-e2e.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discover-examples:
+    name: Discover examples
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.collect.outputs.matrix }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Collect examples matrix
+        id: collect
+        uses: ./.github/actions/generate-examples-matrix
+
+  run-examples-e2e:
+    name: Run examples upload e2e (${{ matrix.example }})
+    needs: discover-examples
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      max-parallel: 5
+      matrix:
+        example: ${{ fromJson(needs.discover-examples.outputs.matrix) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build root package
+        run: npm run build
+
+      - name: Install Playwright browser
+        run: npx playwright install chromium
+
+      - name: Install example dependencies
+        working-directory: ${{ matrix.example }}
+        run: |
+          npm pkg set "dependencies.document-markdown-reader=file:../../../../"
+          npm install
+
+      - name: Run upload test
+        env:
+          E2E_EXAMPLE_PATH: ${{ matrix.example }}
+          E2E_BASE_URL: http://127.0.0.1:4173
+          E2E_PORT: 4173
+          CI: '1'
+        run: npm run test:e2e:examples -- --reporter=line

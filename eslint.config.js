@@ -14,6 +14,14 @@ export default tseslint.config(
     }
   },
   {
+    files: ['**/*.js', '**/*.mjs'],
+    languageOptions: {
+      globals: {
+        process: 'readonly'
+      }
+    }
+  },
+  {
     files: ['test/**/*.ts'],
     languageOptions: {
       globals: {
