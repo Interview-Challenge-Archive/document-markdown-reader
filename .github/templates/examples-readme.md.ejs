@@ -44,7 +44,7 @@ const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildT
 const path = `${language}/${framework}/${buildTool}`;
 const buildToolName = exampleEntry.buildToolName;
 const buildToolLink = exampleEntry.buildToolLink;
-const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`;
+const stackblitz = `https://stackblitz.com/github/${repo}/tree/main/examples/${path}`;
 _%>
 | [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
 <%_ }); _%>
