@@ -1,5 +1,5 @@
 {
-  "template": "# {{TO_TAG}}\n\n{{CHANGELOG}}",
+  "template": "# #{{TO_TAG}}\n\n#{{CHANGELOG}}",
   "categories": [
     {
       "title": "🚀 Features",
