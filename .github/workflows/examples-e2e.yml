@@ -68,7 +68,7 @@ jobs:
       - name: Install example dependencies
         working-directory: ${{ matrix.example }}
         run: |
-          npm pkg set "dependencies.document-markdown-reader=file:../../../../"
+          npm pkg set "dependencies.@interview-challenge-archive/document-markdown-reader=file:../../../../"
           npm install
 
       - name: Run upload test

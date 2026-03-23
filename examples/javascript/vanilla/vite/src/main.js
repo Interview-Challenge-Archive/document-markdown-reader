@@ -1,4 +1,4 @@
-import { documentMarkdownReader } from 'document-markdown-reader'
+import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader'
 
 async function readDocument(file) {
   try {

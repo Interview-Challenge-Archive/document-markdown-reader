@@ -81,7 +81,7 @@ When adding a new example under `examples/{language}/{framework}/{tool}`:
    - `npm ci`
    - `npm run build`
 2. Install dependencies inside the new example and point it to the local package:
-   - `npm pkg set "dependencies.document-markdown-reader=file:../../../../"` (run in the example folder)
+   - `npm pkg set "dependencies.@interview-challenge-archive/document-markdown-reader=file:../../../../"` (run in the example folder)
    - `npm install` (run in the example folder)
 3. Run the examples E2E upload test against that exact example from the repository root:
    - `E2E_EXAMPLE_PATH=examples/{language}/{framework}/{tool} E2E_BASE_URL=http://127.0.0.1:4173 E2E_PORT=4173 CI=1 npm run test:e2e:examples -- --reporter=line`

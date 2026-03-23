@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DocumentMarkdownReader } from 'document-markdown-reader';
+import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 function App() {
   const [markdown, setMarkdown] = useState('');
