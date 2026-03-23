@@ -83,7 +83,7 @@ jobs:
         run: echo "$README_CONTENT" > examples/README.md
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'docs: regenerate examples/README.md'
           file_pattern: 'examples/README.md'
