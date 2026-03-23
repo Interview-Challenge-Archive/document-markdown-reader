@@ -1,8 +1,6 @@
 import { spawn } from 'node:child_process'
-import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs'
-import { createServer } from 'node:http'
-import { extname, join, normalize, resolve } from 'node:path'
-import mimeTypes from 'mime-types'
+import { readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 
 const DEFAULT_HOST = process.env.E2E_HOST ?? '127.0.0.1'
 const DEFAULT_PORT = Number(process.env.E2E_PORT ?? '4173')
@@ -47,81 +45,7 @@ function spawnCommand(command, args, cwd) {
   })
 }
 
-function runCommand(command, args, cwd) {
-  return new Promise((resolvePromise, rejectPromise) => {
-    const commandSpec = process.platform === 'win32'
-      ? { command: 'cmd', args: ['/c', command, ...args] }
-      : { command, args }
-
-    const child = spawn(commandSpec.command, commandSpec.args, {
-      cwd,
-      stdio: 'inherit'
-    })
-
-    child.on('exit', (code) => {
-      if (code === 0) {
-        resolvePromise()
-        return
-      }
-
-      rejectPromise(new Error(`Command failed: ${command} ${args.join(' ')}`))
-    })
-
-    child.on('error', rejectPromise)
-  })
-}
-
-function sendFile(res, filePath) {
-  const resolvedContentType = mimeTypes.contentType(extname(filePath)) ?? 'application/octet-stream'
-  res.writeHead(200, { 'Content-Type': resolvedContentType })
-  createReadStream(filePath).pipe(res)
-}
-
-function createStaticServer(rootDir, host, port) {
-  return new Promise((resolvePromise, rejectPromise) => {
-    const server = createServer((req, res) => {
-      const requestPath = decodeURIComponent((req.url ?? '/').split('?')[0])
-      const normalizedPath = normalize(requestPath).replace(/^(\.\.[/\\])+/, '')
-      const relativePath = normalizedPath === '/' ? 'index.html' : normalizedPath.slice(1)
-      const absolutePath = resolve(rootDir, relativePath)
-
-      if (!absolutePath.startsWith(rootDir)) {
-        res.writeHead(403)
-        res.end('Forbidden')
-        return
-      }
-
-      if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
-        const fallbackFilePath = resolve(rootDir, 'index.html')
-        if (existsSync(fallbackFilePath)) {
-          sendFile(res, fallbackFilePath)
-          return
-        }
-
-        res.writeHead(404)
-        res.end('Not found')
-        return
-      }
-
-      sendFile(res, absolutePath)
-    })
-
-    for (const signal of REGISTERED_SIGNALS) {
-      process.on(signal, () => {
-        server.close(() => process.exit(0))
-      })
-    }
-
-    server.listen(port, host, () => resolvePromise(server))
-    server.on('error', rejectPromise)
-  })
-}
-
 function resolveDevScriptName() {
-  if (tool === 'rollup') {
-    return null
-  }
-
   if (scripts.dev) {
     return 'dev'
   }
@@ -138,10 +62,6 @@ function resolveDevScriptName() {
 }
 
 function buildScriptArgs(scriptName) {
-  if (tool === 'turbopack') {
-    return ['run', scriptName, '--', '--hostname', DEFAULT_HOST, '--port', String(DEFAULT_PORT)]
-  }
-
   if (['vite', 'webpack', 'rspack', 'parcel'].includes(tool)) {
     return ['run', scriptName, '--', '--host', DEFAULT_HOST, '--port', String(DEFAULT_PORT)]
   }
@@ -150,12 +70,6 @@ function buildScriptArgs(scriptName) {
 }
 
 async function main() {
-  if (tool === 'rollup') {
-    await runCommand(npmCommand, ['run', 'build'], exampleDir)
-    await createStaticServer(exampleDir, DEFAULT_HOST, DEFAULT_PORT)
-    return
-  }
-
   const scriptName = resolveDevScriptName()
 
   if (!scriptName) {
