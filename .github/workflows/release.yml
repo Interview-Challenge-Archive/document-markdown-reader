@@ -60,7 +60,7 @@ jobs:
         id: last_tag
         uses: rmeneely/git-last-tag@v1
         with:
-          tag_pattern: 'v*'
+          tag_pattern: 'v[0-9]*.[0-9]*.[0-9]*'
 
       - name: Generate Release Notes
         if: steps.check_tag.outputs.exists == 'false' && steps.last_tag.outputs.last_tag != ''
