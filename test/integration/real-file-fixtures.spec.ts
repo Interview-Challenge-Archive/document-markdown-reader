@@ -44,12 +44,6 @@ const FIXTURE_CASES: ReadonlyArray<FixtureCase> = [
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true
   },
-  {
-    fileName: 'sample.fodt',
-    mimeType: 'application/vnd.oasis.opendocument.text-flat-xml',
-    supportsRichFormatting: true,
-    expectsMarkdownListSyntax: false
-  },
   { fileName: 'sample.htm', mimeType: 'text/html', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
   { fileName: 'sample.html', mimeType: 'text/html', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
   {

@@ -25,11 +25,10 @@ export class OpenDocumentImportStrategy extends DocumentImportStrategy {
 
   readonly name = 'OpenDocument'
   readonly supportedMimeTypes = [
-    'application/vnd.oasis.opendocument.text',
-    'application/vnd.oasis.opendocument.text-flat-xml'
+    'application/vnd.oasis.opendocument.text'
   ]
 
-  readonly supportedExtensions = ['odt', 'fodt']
+  readonly supportedExtensions = ['odt']
 
   canRead(file: DocumentFileLike): boolean {
     return this.mimeTypeService.matchesMimeType(file, this.supportedMimeTypes)
@@ -37,21 +36,10 @@ export class OpenDocumentImportStrategy extends DocumentImportStrategy {
   }
 
   /**
-   * @throws {InvalidOdtError} When the ODT/FODT file is invalid or corrupted
+   * @throws {InvalidOdtError} When the ODT file is invalid or corrupted
    */
   async read(file: DocumentFileLike): Promise<string> {
-    const extension = this.fileExtensionService.resolveFileExtension(file?.name)
-    const shouldParseAsFlatXml = extension === 'fodt'
-      || this.mimeTypeService.matchesMimeType(
-        file,
-        ['application/vnd.oasis.opendocument.text-flat-xml']
-      )
-
     try {
-      if (shouldParseAsFlatXml) {
-        return await this.openDocumentConversionService.convertFodtToMarkdown(await file.text())
-      }
-
       return await this.openDocumentConversionService.convertOdtToMarkdown(await file.arrayBuffer())
     } catch {
       throw new InvalidOdtError()
