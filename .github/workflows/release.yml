@@ -52,8 +52,18 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate Release Notes
+      - name: Check if repository has existing tags
         if: steps.check_tag.outputs.exists == 'false'
+        id: check_existing_tags
+        run: |
+          if git tag --list | grep -q .; then
+            echo "has_tags=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_tags=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate Release Notes
+        if: steps.check_tag.outputs.exists == 'false' && steps.check_existing_tags.outputs.has_tags == 'true'
         id: release_notes
         uses: mikepenz/release-changelog-builder-action@v6.1.1
         with:
@@ -69,7 +79,7 @@ jobs:
         with:
           tag_name: ${{ steps.package_info.outputs.tag }}
           release_name: Release ${{ steps.package_info.outputs.tag }}
-          body: ${{ steps.release_notes.outputs.changelog }}
+          body: ${{ steps.check_existing_tags.outputs.has_tags == 'true' && steps.release_notes.outputs.changelog || format('Initial release for {0}.', steps.package_info.outputs.tag) }}
           draft: false
           prerelease: false
 
