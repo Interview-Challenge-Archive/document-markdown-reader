@@ -1,0 +1,8 @@
+name: Generate Examples Matrix
+description: Generate a JSON matrix of example paths under examples/*/*/*.
+outputs:
+  matrix:
+    description: JSON array of example paths.
+runs:
+  using: node24
+  main: index.js

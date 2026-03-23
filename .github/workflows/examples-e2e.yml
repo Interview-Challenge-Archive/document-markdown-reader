@@ -22,9 +22,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-examples-e2e:
-    name: Run examples upload e2e
+  discover-examples:
+    name: Discover examples
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.collect.outputs.matrix }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Collect examples matrix
+        id: collect
+        uses: ./.github/actions/generate-examples-matrix
+
+  run-examples-e2e:
+    name: Run examples upload e2e (${{ matrix.example }})
+    needs: discover-examples
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example: ${{ fromJson(needs.discover-examples.outputs.matrix) }}
 
     steps:
       - name: Checkout
@@ -45,57 +64,16 @@ jobs:
       - name: Install Playwright browser
         run: npx playwright install chromium
 
-      - name: Run upload test for each example
+      - name: Install example dependencies
+        working-directory: ${{ matrix.example }}
         run: |
-          mapfile -t EXAMPLE_PATHS < <(
-          node - <<'NODE'
-          const { readdirSync, existsSync } = require('node:fs');
-          const { join, relative, resolve } = require('node:path');
+          npm pkg set "dependencies.document-markdown-reader=file:../../../../"
+          npm install
 
-          const repoRoot = process.cwd();
-          const examplesRoot = resolve(repoRoot, 'examples');
-          const paths = [];
-
-          for (const language of readdirSync(examplesRoot, { withFileTypes: true })) {
-            if (!language.isDirectory()) continue;
-            const languagePath = join(examplesRoot, language.name);
-
-            for (const framework of readdirSync(languagePath, { withFileTypes: true })) {
-              if (!framework.isDirectory()) continue;
-              const frameworkPath = join(languagePath, framework.name);
-
-              for (const tool of readdirSync(frameworkPath, { withFileTypes: true })) {
-                if (!tool.isDirectory()) continue;
-                const examplePath = join(frameworkPath, tool.name);
-                if (!existsSync(join(examplePath, 'package.json'))) continue;
-                paths.push(relative(repoRoot, examplePath).replaceAll('\\', '/'));
-              }
-            }
-          }
-
-          paths.sort((a, b) => a.localeCompare(b));
-          process.stdout.write(paths.join('\n'));
-          NODE
-          )
-
-          failures=()
-
-          for example_path in "${EXAMPLE_PATHS[@]}"; do
-            echo "::group::${example_path}"
-            (
-              cd "${example_path}"
-              npm pkg set "dependencies.document-markdown-reader=file:../../../../"
-              npm install
-            )
-
-            if ! E2E_EXAMPLE_PATH="${example_path}" E2E_BASE_URL="http://127.0.0.1:4173" E2E_PORT="4173" CI="1" npm run test:e2e:examples -- --reporter=line; then
-              failures+=("${example_path}")
-            fi
-            echo "::endgroup::"
-          done
-
-          if [ "${#failures[@]}" -gt 0 ]; then
-            echo "The following examples failed the upload e2e test:"
-            printf '%s\n' "${failures[@]}"
-            exit 1
-          fi
+      - name: Run upload test
+        env:
+          E2E_EXAMPLE_PATH: ${{ matrix.example }}
+          E2E_BASE_URL: http://127.0.0.1:4173
+          E2E_PORT: 4173
+          CI: '1'
+        run: npm run test:e2e:examples -- --reporter=line
