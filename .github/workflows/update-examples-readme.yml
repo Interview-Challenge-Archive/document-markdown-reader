@@ -32,14 +32,9 @@ jobs:
         run: |
           entries_file="$(mktemp)"
 
-          while IFS= read -r folder; do
+          while IFS= read -r package_json_path; do
+            folder="$(dirname "$package_json_path")"
             relative_path="${folder#examples/}"
-            package_json_path="${folder}/package.json"
-
-            if [[ ! -f "$package_json_path" ]]; then
-              echo "Missing package.json for example folder: $folder" >&2
-              exit 1
-            fi
 
             if ! jq -e '.readmeMeta.languageName and .readmeMeta.frameworkName and .readmeMeta.buildToolName and .readmeMeta.buildToolLink' "$package_json_path" > /dev/null; then
               echo "Missing readmeMeta fields in: $package_json_path" >&2
@@ -64,7 +59,7 @@ jobs:
                   buildToolLink: ($readme_meta.buildToolLink // null)
                 }
               ' >> "$entries_file"
-          done < <(find examples -mindepth 1 -maxdepth 3 -type d | sort)
+          done < <(find examples -mindepth 4 -maxdepth 4 -type f -name package.json | sort)
 
           entries_json="$(jq -s -c '.' "$entries_file")"
           data=$(jq -cn --argjson entries "$entries_json" --arg github_repo "$GITHUB_REPO" '{ entries: $entries, github_repo: $github_repo }')
