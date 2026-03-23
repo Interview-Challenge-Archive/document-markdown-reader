@@ -60,9 +60,12 @@ jobs:
         id: check_existing_tags
         run: |
           if git tag --list 'v*' | grep -q .; then
+            LAST_TAG=$(git tag --list 'v*' --sort=-version:refname | head -n 1)
             echo "has_tags=true" >> $GITHUB_OUTPUT
+            echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
           else
             echo "has_tags=false" >> $GITHUB_OUTPUT
+            echo "last_tag=" >> $GITHUB_OUTPUT
           fi
 
       - name: Generate Release Notes
@@ -72,6 +75,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v6.1.1
         with:
           configuration: ".github/release-notes-config.json"
+          fromTag: ${{ steps.check_existing_tags.outputs.last_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
