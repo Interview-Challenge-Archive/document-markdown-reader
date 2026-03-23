@@ -60,6 +60,7 @@ npm run typecheck
 11. **Error message standards**: Custom errors should have built-in messages and only accept relevant parameters
 12. **New example validation**: If you add or modify an example, you must validate it with the same Playwright upload flow used in CI before committing
 13. **README files are generated**: Do not edit `README.md` or `examples/README.md` by hand. They are auto-generated. If content changes are needed, edit templates in `.github/templates/` (`root-readme.md` and `examples-readme.md.ejs`) and let workflows regenerate the README files.
+14. **New example documentation**: Every new example folder must include its own `README.md`, and it must follow the same structure/style as existing example READMEs in this repository.
 
 ## Pre-commit Checklist
 
