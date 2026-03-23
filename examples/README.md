@@ -18,13 +18,13 @@ Examples are organized by language, framework, and build tool:
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-| [Parcel](https://parceljs.org/) | [javascript/react/parcel](./javascript/react/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/react/parcel) |
+| [Parcel](https://parceljs.org/) | [javascript/react/parcel](./javascript/react/parcel) |  |
 
 ### Vanilla (No Framework)
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-| [Parcel](https://parceljs.org/) | [javascript/vanilla/parcel](./javascript/vanilla/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/parcel) |
+| [Parcel](https://parceljs.org/) | [javascript/vanilla/parcel](./javascript/vanilla/parcel) |  |
 | [Rspack](https://rspack.dev/) | [javascript/vanilla/rspack](./javascript/vanilla/rspack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/rspack) |
 | [Vite](https://vitejs.dev/) | [javascript/vanilla/vite](./javascript/vanilla/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/vite) |
 
@@ -40,7 +40,7 @@ Examples are organized by language, framework, and build tool:
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-| [Parcel](https://parceljs.org/) | [typescript/vue/parcel](./typescript/vue/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/parcel) |
+| [Parcel](https://parceljs.org/) | [typescript/vue/parcel](./typescript/vue/parcel) |  |
 
 
 ## Running an Example
