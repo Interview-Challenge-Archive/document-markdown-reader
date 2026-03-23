@@ -18,7 +18,7 @@ const scenarios: Array<{
   {
     format: 'odt',
     code: 'invalid-odt',
-    message: 'Invalid ODT or FODT file.'
+    message: 'Invalid ODT file.'
   },
   {
     format: 'pages',

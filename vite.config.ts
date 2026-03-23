@@ -37,7 +37,6 @@ const config = {
     rollupOptions: {
       external: (id: string) => EXTERNAL_MODULE_PATTERNS.some((pattern) => pattern.test(id))
         || [
-          '@jose.espana/docstream',
           'jszip',
           'mammoth/mammoth.browser.js',
           'marked',

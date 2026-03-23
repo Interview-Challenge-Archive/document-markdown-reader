@@ -8,7 +8,7 @@ describe('InvalidOdtError', () => {
 
     expect(error).toBeInstanceOf(DocumentImportError)
     expect(error.code).toBe('invalid-odt')
-    expect(error.message).toBe('Invalid ODT or FODT file.')
+    expect(error.message).toBe('Invalid ODT file.')
     expect(error.name).toBe('InvalidOdtError')
   })
 })

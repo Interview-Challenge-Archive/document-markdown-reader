@@ -93,22 +93,6 @@ describe('document-markdown-reader', () => {
     expect(markdown).toContain('Implemented importer update.')
   })
 
-  it('reads fodt document as markdown', async () => {
-    const fodtFile = createFile(
-      createFlatOpenDocumentXml([
-        '<text:h text:outline-level="1">Flat Summary</text:h>',
-        '<text:p>Converted via parser library.</text:p>'
-      ].join('\n')),
-      'summary.fodt',
-      'application/vnd.oasis.opendocument.text-flat-xml'
-    )
-
-    const markdown = await documentMarkdownReader.readDocument(fodtFile)
-
-    expect(markdown).toContain('# Flat Summary')
-    expect(markdown).toContain('Converted via parser library.')
-  })
-
   it('reads rtf document as markdown', async () => {
     const file = createFile('{\\rtf1\\ansi\\pard\\fs20 Hello World\\par}', 'notes.rtf', 'application/rtf')
     const markdown = await documentMarkdownReader.readDocument(file)
@@ -213,18 +197,4 @@ function createOpenDocumentContentXml(bodyMarkup: string): string {
     </office:text>
   </office:body>
 </office:document-content>`
-}
-
-function createFlatOpenDocumentXml(bodyMarkup: string): string {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<office:document
-  xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
-  xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-  office:mimetype="application/vnd.oasis.opendocument.text-flat-xml">
-  <office:body>
-    <office:text>
-      ${bodyMarkup}
-    </office:text>
-  </office:body>
-</office:document>`
 }
