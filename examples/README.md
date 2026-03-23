@@ -1,46 +1,126 @@
 # Examples
 
-This folder contains working examples for `document-markdown-reader`.
+This folder contains complete working examples demonstrating how to use `document-markdown-reader` in various environments.
+
+Each example includes:
+- A `README.md` with setup instructions
+- A `package.json` with all required dependencies
+- Source files showing the library in action
 
 ## Directory Structure
 
-Examples are organized as:
+Examples are organized by language, framework, and build tool:
 - `{language}/{framework}/{build-tool}`
 
-## Available Examples
 
-### JavaScript
 
-| Framework | Build Tool | Path |
-|-----------|------------|------|
-| React | Parcel | [javascript/react/parcel](./javascript/react/parcel) |
-| Vanilla | Parcel | [javascript/vanilla/parcel](./javascript/vanilla/parcel) |
-| Vanilla | Rspack | [javascript/vanilla/rspack](./javascript/vanilla/rspack) |
-| Vanilla | Vite | [javascript/vanilla/vite](./javascript/vanilla/vite) |
 
-### TypeScript
+## JavaScript Examples
 
-| Framework | Build Tool | Path |
-|-----------|------------|------|
-| Vanilla | Webpack | [typescript/vanilla/webpack](./typescript/vanilla/webpack) |
-| Vue | Parcel | [typescript/vue/parcel](./typescript/vue/parcel) |
+
+
+
+### React
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+
+
+
+
+
+
+
+| [Parcel](https://parceljs.org/) | [javascript/react/parcel](./javascript/react/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/javascript/react/parcel) |
+
+
+
+
+### Vanilla (No Framework)
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+
+
+
+
+
+
+
+| [Parcel](https://parceljs.org/) | [javascript/vanilla/parcel](./javascript/vanilla/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/javascript/vanilla/parcel) |
+
+
+
+
+
+
+| [Rspack](https://rspack.dev/) | [javascript/vanilla/rspack](./javascript/vanilla/rspack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/javascript/vanilla/rspack) |
+
+
+
+
+
+
+| [Vite](https://vitejs.dev/) | [javascript/vanilla/vite](./javascript/vanilla/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/javascript/vanilla/vite) |
+
+
+
+
+
+## TypeScript Examples
+
+
+
+
+### Vanilla (No Framework)
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+
+
+
+
+
+
+
+| [Webpack](https://webpack.js.org/) | [typescript/vanilla/webpack](./typescript/vanilla/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/typescript/vanilla/webpack) |
+
+
+
+
+### Vue
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+
+
+
+
+
+
+
+| [Parcel](https://parceljs.org/) | [typescript/vue/parcel](./typescript/vue/parcel) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader?folder=examples/typescript/vue/parcel) |
+
+
+
+
 
 ## Running an Example
 
-Navigate to an example directory:
+1. Navigate to the example directory:
+   ```bash
+   cd examples/javascript/react/vite
+   ```
 
-```bash
-cd examples/javascript/react/parcel
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Install dependencies:
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-npm install
-```
+4. Open the provided URL in your browser to see the example in action.
 
-Start the development server:
-
-```bash
-npm run dev
-```
