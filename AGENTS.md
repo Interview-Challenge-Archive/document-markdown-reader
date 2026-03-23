@@ -61,6 +61,7 @@ npm run typecheck
 12. **New example validation**: If you add or modify an example, you must validate it with the same Playwright upload flow used in CI before committing
 13. **README files are generated**: Do not edit `README.md` or `examples/README.md` by hand. They are auto-generated. If content changes are needed, edit templates in `.github/templates/` (`root-readme.md` and `examples-readme.md.ejs`) and let workflows regenerate the README files.
 14. **New example documentation**: Every new example folder must include its own `README.md`, and it must follow the same structure/style as existing example READMEs in this repository.
+15. **PR-only workflow**: Never commit or push directly to `main`. If the current branch is `main` or `dev`, create a feature branch, push it, and open a pull request. If the current branch is already not `main` and not `dev`, do not create an extra branch unless explicitly requested. Merge to `main` only after explicit user approval.
 
 ## Pre-commit Checklist
 
