@@ -18,6 +18,7 @@
   "readmeMeta": {
     "frameworkName": "Svelte",
     "buildToolName": "Vite",
-    "buildToolLink": "https://vitejs.dev/"
+    "buildToolLink": "https://vitejs.dev/",
+    "languageName": "JavaScript"
   }
 }

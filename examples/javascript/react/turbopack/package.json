@@ -16,6 +16,7 @@
   "readmeMeta": {
     "frameworkName": "React",
     "buildToolName": "Turbopack",
-    "buildToolLink": "https://turbo.build/pack"
+    "buildToolLink": "https://turbo.build/pack",
+    "languageName": "JavaScript"
   }
 }

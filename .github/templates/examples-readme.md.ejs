@@ -13,11 +13,6 @@ Examples are organized by language, framework, and build tool:
 - `{language}/{framework}/{build-tool}`
 
 <%
-const languageNames = {
-  javascript: 'JavaScript',
-  typescript: 'TypeScript'
-};
-
 const repo = inputs.github_repo || '';
 const entries = (inputs.entries || []).filter((entry) =>
   entry &&
@@ -33,9 +28,9 @@ function uniq(values) {
 const languages = uniq(entries.map((entry) => entry.language));
 %>
 <% languages.forEach((language) => { %>
-## <%- languageNames[language] || language %> Examples
-
 <% const languageEntries = entries.filter((entry) => entry.language === language); %>
+## <%- languageEntries[0].languageName %> Examples
+
 <% const frameworks = uniq(languageEntries.map((entry) => entry.framework)); %>
 <% frameworks.forEach((framework) => { %>
 <% const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework); %>

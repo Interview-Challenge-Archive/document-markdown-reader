@@ -16,6 +16,7 @@
   "readmeMeta": {
     "frameworkName": "SolidJS",
     "buildToolName": "Parcel",
-    "buildToolLink": "https://parceljs.org/"
+    "buildToolLink": "https://parceljs.org/",
+    "languageName": "JavaScript"
   }
 }

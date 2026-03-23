@@ -27,6 +27,7 @@
   "readmeMeta": {
     "frameworkName": "React",
     "buildToolName": "Webpack",
-    "buildToolLink": "https://webpack.js.org/"
+    "buildToolLink": "https://webpack.js.org/",
+    "languageName": "TypeScript"
   }
 }

@@ -17,6 +17,7 @@
   "readmeMeta": {
     "frameworkName": "Vanilla (No Framework)",
     "buildToolName": "Rspack",
-    "buildToolLink": "https://rspack.dev/"
+    "buildToolLink": "https://rspack.dev/",
+    "languageName": "TypeScript"
   }
 }

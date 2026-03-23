@@ -18,6 +18,7 @@
   "readmeMeta": {
     "frameworkName": "Vanilla (No Framework)",
     "buildToolName": "Vite",
-    "buildToolLink": "https://vitejs.dev/"
+    "buildToolLink": "https://vitejs.dev/",
+    "languageName": "TypeScript"
   }
 }

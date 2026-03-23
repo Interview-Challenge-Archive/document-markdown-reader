@@ -41,7 +41,7 @@ jobs:
               exit 1
             fi
 
-            if ! jq -e '.readmeMeta.frameworkName and .readmeMeta.buildToolName and .readmeMeta.buildToolLink' "$package_json_path" > /dev/null; then
+            if ! jq -e '.readmeMeta.languageName and .readmeMeta.frameworkName and .readmeMeta.buildToolName and .readmeMeta.buildToolLink' "$package_json_path" > /dev/null; then
               echo "Missing readmeMeta fields in: $package_json_path" >&2
               exit 1
             fi
@@ -58,6 +58,7 @@ jobs:
                   language: $parts[0],
                   framework: $parts[1],
                   buildTool: $parts[2],
+                  languageName: ($readme_meta.languageName // null),
                   frameworkName: ($readme_meta.frameworkName // null),
                   buildToolName: ($readme_meta.buildToolName // null),
                   buildToolLink: ($readme_meta.buildToolLink // null)

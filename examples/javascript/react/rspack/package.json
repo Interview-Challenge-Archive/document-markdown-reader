@@ -21,6 +21,7 @@
   "readmeMeta": {
     "frameworkName": "React",
     "buildToolName": "Rspack",
-    "buildToolLink": "https://rspack.dev/"
+    "buildToolLink": "https://rspack.dev/",
+    "languageName": "JavaScript"
   }
 }

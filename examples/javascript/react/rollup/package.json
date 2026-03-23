@@ -22,6 +22,7 @@
   "readmeMeta": {
     "frameworkName": "React",
     "buildToolName": "Rollup",
-    "buildToolLink": "https://rollupjs.org/"
+    "buildToolLink": "https://rollupjs.org/",
+    "languageName": "JavaScript"
   }
 }

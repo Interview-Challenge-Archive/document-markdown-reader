@@ -16,6 +16,7 @@
   "readmeMeta": {
     "frameworkName": "Vanilla (No Framework)",
     "buildToolName": "Parcel",
-    "buildToolLink": "https://parceljs.org/"
+    "buildToolLink": "https://parceljs.org/",
+    "languageName": "JavaScript"
   }
 }
