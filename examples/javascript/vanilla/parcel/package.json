@@ -3,15 +3,26 @@
   "version": "1.0.0",
   "description": "JavaScript Vanilla Parcel Example",
   "source": "src/index.html",
+  "targets": {
+    "default": {
+      "context": "browser",
+      "distDir": "dist",
+      "outputFormat": "global"
+    }
+  },
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build src/index.js --dist-dir dist --public-url ./ --no-content-hash && node -e \"const fs=require('fs');let html=fs.readFileSync('src/index.html','utf8');html=html.replace(/<script\\s+type=\\\"module\\\"\\s+src=\\\"\\.\\/index\\.js\\\"><\\/script>/,'<script src=\\\"./index.js\\\"></script>');fs.writeFileSync('dist/index.html',html);\""
   },
   "dependencies": {
     "@interview-challenge-archive/document-markdown-reader": ">=0.0.1"
   },
   "devDependencies": {
-    "parcel": "^2.12.0"
+    "assert": "^2.1.0",
+    "browserify-zlib": "^0.2.0",
+    "parcel": "^2.12.0",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5"
   },
   "readmeMeta": {
     "frameworkName": "Vanilla (No Framework)",

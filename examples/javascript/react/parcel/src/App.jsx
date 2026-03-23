@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
+import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 function App() {
   const [markdown, setMarkdown] = useState('');
@@ -17,8 +17,7 @@ function App() {
     setMarkdown('');
     
     try {
-      const reader = new DocumentMarkdownReader();
-      setMarkdown(await reader.read(file));
+      setMarkdown(await documentMarkdownReader.readDocument(file));
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to read document');
     } finally {

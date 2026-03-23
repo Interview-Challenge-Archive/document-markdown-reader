@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build",
+    "build": "parcel build src/index.jsx --dist-dir dist --public-url ./ --no-content-hash && node scripts/postbuild.cjs",
     "clean": "rm -rf dist .parcel-cache"
   },
   "dependencies": {
