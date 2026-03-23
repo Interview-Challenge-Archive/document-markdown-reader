@@ -36,11 +36,17 @@ jobs:
             relative_path="${folder#examples/}"
             package_json_path="${folder}/package.json"
 
-            if [[ -f "$package_json_path" ]]; then
-              readme_meta="$(jq -c '.readmeMeta // {}' "$package_json_path")"
-            else
-              readme_meta='{}'
+            if [[ ! -f "$package_json_path" ]]; then
+              echo "Missing package.json for example folder: $folder" >&2
+              exit 1
             fi
+
+            if ! jq -e '.readmeMeta.frameworkName and .readmeMeta.buildToolName and .readmeMeta.buildToolLink' "$package_json_path" > /dev/null; then
+              echo "Missing readmeMeta fields in: $package_json_path" >&2
+              exit 1
+            fi
+
+            readme_meta="$(jq -c '.readmeMeta' "$package_json_path")"
 
             jq -cn \
               --arg relative_path "$relative_path" \

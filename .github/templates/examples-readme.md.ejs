@@ -13,32 +13,6 @@ Examples are organized by language, framework, and build tool:
 - `{language}/{framework}/{build-tool}`
 
 <%
-const buildToolLinks = {
-  vite: 'https://vitejs.dev/',
-  webpack: 'https://webpack.js.org/',
-  parcel: 'https://parceljs.org/',
-  rollup: 'https://rollupjs.org/',
-  rspack: 'https://rspack.dev/',
-  turbopack: 'https://turbo.build/pack'
-};
-
-const buildToolNames = {
-  vite: 'Vite',
-  webpack: 'Webpack',
-  parcel: 'Parcel',
-  rollup: 'Rollup',
-  rspack: 'Rspack',
-  turbopack: 'Turbopack'
-};
-
-const frameworkNames = {
-  vanilla: 'Vanilla (No Framework)',
-  react: 'React',
-  vue: 'Vue',
-  svelte: 'Svelte',
-  solidjs: 'SolidJS'
-};
-
 const languageNames = {
   javascript: 'JavaScript',
   typescript: 'TypeScript'
@@ -65,8 +39,7 @@ const languages = uniq(entries.map((entry) => entry.language));
 <% const frameworks = uniq(languageEntries.map((entry) => entry.framework)); %>
 <% frameworks.forEach((framework) => { %>
 <% const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework); %>
-<% const frameworkEntryWithName = frameworkEntries.find((entry) => entry.frameworkName); %>
-### <%- frameworkEntryWithName?.frameworkName || frameworkNames[framework] || framework %>
+### <%- frameworkEntries[0].frameworkName %>
 
 | Build Tool | Path | Demo |
 |------------|------|------|
@@ -74,8 +47,8 @@ const languages = uniq(entries.map((entry) => entry.language));
 <% buildTools.forEach((buildTool) => { %>
 <% const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildTool); %>
 <% const path = `${language}/${framework}/${buildTool}`; %>
-<% const buildToolName = exampleEntry?.buildToolName || buildToolNames[buildTool] || buildTool; %>
-<% const buildToolLink = exampleEntry?.buildToolLink || buildToolLinks[buildTool] || '#'; %>
+<% const buildToolName = exampleEntry.buildToolName; %>
+<% const buildToolLink = exampleEntry.buildToolLink; %>
 <% const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`; %>
 | [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
 <% }); %>
