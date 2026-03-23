@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@interview-challenge-archive/document-markdown-reader": "^0.1.0"
+    "@interview-challenge-archive/document-markdown-reader": ">=0.0.1"
   },
   "devDependencies": {
     "vite": "^5.0.0"
