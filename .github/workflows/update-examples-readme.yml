@@ -72,7 +72,7 @@ jobs:
 
       - name: Render examples README template
         id: render
-        uses: kikyous/template-action@v2.0.0
+        uses: kikyous/template-action@v2.0.5
         with:
           template-path: '.github/templates/examples-readme.md.ejs'
           ext-inputs: '${{ steps.collect-metadata.outputs.data }}'
