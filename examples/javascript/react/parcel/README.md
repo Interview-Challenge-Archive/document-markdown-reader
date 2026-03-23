@@ -27,17 +27,3 @@ This will start the Parcel dev server. Open http://localhost:1234 in your browse
 ```bash
 npm run build
 ```
-
-## Usage
-
-The application provides a file upload interface that supports:
-- PDF (.pdf)
-- Word (.docx)
-- OpenDocument (.odt)
-- Pages (.pages)
-- Rich Text (.rtf)
-- HTML (.html)
-- Markdown (.md)
-- Plain text (.txt)
-
-Select a file to see its contents converted to Markdown.
