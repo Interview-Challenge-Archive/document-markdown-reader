@@ -59,8 +59,9 @@ npm run typecheck
 10. **Custom error classes**: Place all custom errors in `src/errors/` folder
 11. **Error message standards**: Custom errors should have built-in messages and only accept relevant parameters
 12. **New example validation**: If you add or modify an example, you must validate it with the same Playwright upload flow used in CI before committing
-13. **README files are generated**: Do not edit `README.md` or `examples/README.md` by hand. They are auto-generated. If content changes are needed, edit templates in `.github/templates/` (`root-readme.md` and `examples-readme.md.ejs`) and let workflows regenerate the README files.
+13. **README files are generated**: Do not edit `README.md` or `examples/README.md` by hand. They are auto-generated. If content changes are needed, edit templates in `.github/templates/` (`root-readme.md.ejs` and `examples-readme.md.ejs`) and let workflows regenerate the README files.
 14. **New example documentation**: Every new example folder must include its own `README.md`, and it must follow the same structure/style as existing example READMEs in this repository.
+15. **PR-only workflow**: Never commit or push directly to `main`. If the current branch is `main` or `dev`, create a feature branch, push it, and open a pull request. If the current branch is already not `main` and not `dev`, do not create an extra branch unless explicitly requested. Merge to `main` only after explicit user approval.
 
 ## Pre-commit Checklist
 
@@ -80,7 +81,7 @@ When adding a new example under `examples/{language}/{framework}/{tool}`:
    - `npm ci`
    - `npm run build`
 2. Install dependencies inside the new example and point it to the local package:
-   - `npm pkg set "dependencies.document-markdown-reader=file:../../../../"` (run in the example folder)
+   - `npm pkg set "dependencies.@interview-challenge-archive/document-markdown-reader=file:../../../../"` (run in the example folder)
    - `npm install` (run in the example folder)
 3. Run the examples E2E upload test against that exact example from the repository root:
    - `E2E_EXAMPLE_PATH=examples/{language}/{framework}/{tool} E2E_BASE_URL=http://127.0.0.1:4173 E2E_PORT=4173 CI=1 npm run test:e2e:examples -- --reporter=line`

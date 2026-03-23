@@ -1,6 +1,6 @@
 # Examples
 
-This folder contains complete working examples demonstrating how to use `document-markdown-reader` in various environments.
+This folder contains complete working examples demonstrating how to use `@interview-challenge-archive/document-markdown-reader` in various environments.
 
 Each example includes:
 - A `README.md` with setup instructions
@@ -21,30 +21,36 @@ function uniq(values) {
 }
 
 const languages = uniq(entries.map((entry) => entry.language));
-%>
-<% languages.forEach((language) => { %>
-<% const languageEntries = entries.filter((entry) => entry.language === language); %>
+-%>
+<%_ languages.forEach((language) => { _%>
+<%_
+const languageEntries = entries.filter((entry) => entry.language === language);
+_%>
 ## <%- languageEntries[0].languageName %> Examples
 
-<% const frameworks = uniq(languageEntries.map((entry) => entry.framework)); %>
-<% frameworks.forEach((framework) => { %>
-<% const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework); %>
+<%_
+const frameworks = uniq(languageEntries.map((entry) => entry.framework));
+frameworks.forEach((framework) => {
+const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework);
+_%>
 ### <%- frameworkEntries[0].frameworkName %>
 
 | Build Tool | Path | Demo |
 |------------|------|------|
-<% const buildTools = uniq(frameworkEntries.map((entry) => entry.buildTool)); %>
-<% buildTools.forEach((buildTool) => { %>
-<% const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildTool); %>
-<% const path = `${language}/${framework}/${buildTool}`; %>
-<% const buildToolName = exampleEntry.buildToolName; %>
-<% const buildToolLink = exampleEntry.buildToolLink; %>
-<% const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`; %>
+<%_
+const buildTools = uniq(frameworkEntries.map((entry) => entry.buildTool));
+buildTools.forEach((buildTool) => {
+const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildTool);
+const path = `${language}/${framework}/${buildTool}`;
+const buildToolName = exampleEntry.buildToolName;
+const buildToolLink = exampleEntry.buildToolLink;
+const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`;
+_%>
 | [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
-<% }); %>
+<%_ }); _%>
 
-<% }); %>
-<% }); %>
+<%_ }); _%>
+<%_ }); _%>
 
 ## Running an Example
 

@@ -1,5 +1,5 @@
 {
-  "name": "document-markdown-reader",
+  "name": "@interview-challenge-archive/document-markdown-reader",
   "version": "0.1.0",
   "description": "Browser-focused document reader that imports common file formats and returns Markdown.",
   "license": "MIT",

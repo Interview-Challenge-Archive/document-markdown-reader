@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DocumentMarkdownReader } from 'document-markdown-reader';
+import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const content = ref('');
 const loading = ref(false);

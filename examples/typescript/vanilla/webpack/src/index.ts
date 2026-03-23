@@ -1,4 +1,4 @@
-import { DocumentMarkdownReader } from 'document-markdown-reader';
+import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const fileInput = document.getElementById('fileInput') as HTMLInputElement;
 const loadingEl = document.getElementById('loading') as HTMLParagraphElement;

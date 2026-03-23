@@ -1,4 +1,4 @@
-[![npm version](https://img.shields.io/npm/v/document-markdown-reader.svg)](https://www.npmjs.com/package/document-markdown-reader)
+[![npm version](https://img.shields.io/npm/v/@interview-challenge-archive/document-markdown-reader.svg)](https://www.npmjs.com/package/@interview-challenge-archive/document-markdown-reader)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 # Document Markdown Reader
@@ -10,7 +10,7 @@ Instead of struggling with different file formats, this library automatically de
 ## Install
 
 ```bash
-npm install document-markdown-reader
+npm install @interview-challenge-archive/document-markdown-reader
 ```
 
 ## Supported file formats

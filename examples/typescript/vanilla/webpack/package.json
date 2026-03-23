@@ -7,7 +7,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "document-markdown-reader": "file:../.."
+    "@interview-challenge-archive/document-markdown-reader": "file:../.."
   },
   "devDependencies": {
     "ts-loader": "^9.5.1",
