@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import * as pdfJsModule from 'pdfjs-dist/legacy/build/pdf.mjs'
+import * as pdfJsModule from 'pdfjs-dist/legacy/build/pdf.min.mjs'
 import { PdfJsService } from '../../../src/services/PdfJsService'
 
-vi.mock('pdfjs-dist/legacy/build/pdf.mjs', () => ({
+vi.mock('pdfjs-dist/legacy/build/pdf.min.mjs', () => ({
   getDocument: vi.fn()
 }))
 

@@ -1,5 +1,5 @@
 import { Service } from '@freshgum/typedi'
-import * as pdfJsModule from 'pdfjs-dist/legacy/build/pdf.mjs'
+import * as pdfJsModule from 'pdfjs-dist/legacy/build/pdf.min.mjs'
 import type { PdfJsModule } from '../interfaces/PdfJsModule'
 
 @Service({ id: PdfJsService.SERVICE_ID }, [])
