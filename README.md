@@ -19,7 +19,7 @@ npm install @interview-challenge-archive/document-markdown-reader
 |--------|------------|
 | HTML | `.html`, `.htm` |
 | Markdown | `.md`, `.markdown`, `.mdx` |
-| OpenDocument | `.odt`, `.fodt` |
+| OpenDocument | `.odt` |
 | Apple Pages | `.pages` |
 | PDF | `.pdf` |
 | Plain Text | `.txt` |
