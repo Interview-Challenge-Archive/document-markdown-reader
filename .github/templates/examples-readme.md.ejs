@@ -13,8 +13,8 @@ Examples are organized by language, framework, and build tool:
 - `{language}/{framework}/{build-tool}`
 
 <%
-const repo = inputs.github_repo || '';
-const entries = inputs.entries || [];
+const repo = extInputs.github_repo || '';
+const entries = extInputs.entries || [];
 
 function uniq(values) {
   return [...new Set(values)];
