@@ -14,12 +14,7 @@ Examples are organized by language, framework, and build tool:
 
 <%
 const repo = inputs.github_repo || '';
-const entries = (inputs.entries || []).filter((entry) =>
-  entry &&
-  entry.language &&
-  entry.framework &&
-  entry.buildTool
-);
+const entries = inputs.entries || [];
 
 function uniq(values) {
   return [...new Set(values)];
