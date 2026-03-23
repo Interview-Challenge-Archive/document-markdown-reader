@@ -43,6 +43,7 @@
     "type": "git",
     "url": "https://github.com/Interview-Challenge-Archive/document-markdown-reader"
   },
+  "homepage": "https://github.com/Interview-Challenge-Archive/document-markdown-reader",
   "dependencies": {
     "@freshgum/typedi": "^0.7.2",
     "@jose.espana/docstream": "^0.1.3",
