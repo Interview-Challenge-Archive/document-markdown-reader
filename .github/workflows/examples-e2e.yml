@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/generate-examples-matrix
 
   run-examples-e2e:
-    name: Run examples upload e2e (${{ matrix.example }})
+    name: Run examples upload e2e (${{ matrix.example }}, ${{ matrix.browser }})
     needs: discover-examples
     runs-on: ubuntu-latest
     strategy:
@@ -45,6 +45,9 @@ jobs:
       max-parallel: 5
       matrix:
         example: ${{ fromJson(needs.discover-examples.outputs.matrix) }}
+        browser:
+          - chromium
+          - firefox
 
     steps:
       - name: Checkout
@@ -63,7 +66,7 @@ jobs:
         run: npm run build
 
       - name: Install Playwright browser
-        run: npx playwright install chromium
+        run: npx playwright install ${{ matrix.browser }}
 
       - name: Install example dependencies
         working-directory: ${{ matrix.example }}
@@ -77,4 +80,4 @@ jobs:
           E2E_BASE_URL: http://127.0.0.1:4173
           E2E_PORT: 4173
           CI: '1'
-        run: npm run test:e2e:examples -- --reporter=line
+        run: npm run test:e2e:examples -- --browser=${{ matrix.browser }} --reporter=line
