@@ -18,5 +18,10 @@
   },
   "dependencies": {
     "document-markdown-reader": "file:../.."
+  },
+  "readmeMeta": {
+    "frameworkName": "Svelte",
+    "buildToolName": "Webpack",
+    "buildToolLink": "https://webpack.js.org/"
   }
 }

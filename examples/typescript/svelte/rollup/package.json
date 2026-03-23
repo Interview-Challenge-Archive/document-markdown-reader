@@ -18,5 +18,10 @@
     "svelte-preprocess": "^5.0.0",
     "tslib": "^2.4.0",
     "typescript": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Svelte",
+    "buildToolName": "Rollup",
+    "buildToolLink": "https://rollupjs.org/"
   }
 }

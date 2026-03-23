@@ -17,5 +17,10 @@
   },
   "dependencies": {
     "document-markdown-reader": "file:../.."
+  },
+  "readmeMeta": {
+    "frameworkName": "Svelte",
+    "buildToolName": "Rollup",
+    "buildToolLink": "https://rollupjs.org/"
   }
 }

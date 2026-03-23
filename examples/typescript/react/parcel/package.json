@@ -17,5 +17,10 @@
     "@types/react-dom": "^18.2.0",
     "parcel": "^2.10.0",
     "typescript": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "React",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/"
   }
 }

@@ -12,5 +12,10 @@
   },
   "devDependencies": {
     "parcel": "^2.12.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/"
   }
 }

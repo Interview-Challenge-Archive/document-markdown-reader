@@ -12,5 +12,10 @@
   },
   "dependencies": {
     "document-markdown-reader": "file:../.."
+  },
+  "readmeMeta": {
+    "frameworkName": "Svelte",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/"
   }
 }

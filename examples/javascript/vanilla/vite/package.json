@@ -13,5 +13,10 @@
   },
   "devDependencies": {
     "vite": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/"
   }
 }

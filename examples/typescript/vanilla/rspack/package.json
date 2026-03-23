@@ -13,5 +13,10 @@
     "rspack": "^1.0.0",
     "ts-loader": "^9.5.0",
     "typescript": "^5.3.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Rspack",
+    "buildToolLink": "https://rspack.dev/"
   }
 }

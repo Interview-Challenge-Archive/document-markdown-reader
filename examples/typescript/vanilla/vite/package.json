@@ -14,5 +14,10 @@
   "devDependencies": {
     "typescript": "^5.0.0",
     "vite": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/"
   }
 }

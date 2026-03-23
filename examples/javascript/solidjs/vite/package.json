@@ -14,5 +14,10 @@
   "devDependencies": {
     "vite": "^5.0.0",
     "vite-plugin-solid": "^2.8.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "SolidJS",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/"
   }
 }
