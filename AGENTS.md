@@ -58,6 +58,7 @@ npm run typecheck
 9. **Code should be self-documenting**: Write clear, readable code that doesn't require explanatory comments for basic functionality
 10. **Custom error classes**: Place all custom errors in `src/errors/` folder
 11. **Error message standards**: Custom errors should have built-in messages and only accept relevant parameters
+12. **New example validation**: If you add or modify an example, you must validate it with the same Playwright upload flow used in CI before committing
 
 ## Pre-commit Checklist
 
@@ -69,6 +70,20 @@ Always make sure the following checks pass before committing:
 
 All three checks must pass before any commit is made.
 
+## Example CI Validation
+
+When adding a new example under `examples/{language}/{framework}/{tool}`:
+
+1. Install root dependencies and build the package:
+   - `npm ci`
+   - `npm run build`
+2. Install dependencies inside the new example and point it to the local package:
+   - `npm pkg set "dependencies.document-markdown-reader=file:../../../../"` (run in the example folder)
+   - `npm install` (run in the example folder)
+3. Run the examples E2E upload test against that exact example from the repository root:
+   - `E2E_EXAMPLE_PATH=examples/{language}/{framework}/{tool} E2E_BASE_URL=http://127.0.0.1:4173 E2E_PORT=4173 CI=1 npm run test:e2e:examples -- --reporter=line`
+4. Ensure the GitHub Actions workflow `Test examples/ E2E` is green on the PR, because CI runs a matrix for all example folders with `package.json`.
+
 ## Error Organization
 
 - **`src/errors/`**: Dedicated folder for all custom error classes
@@ -78,11 +93,13 @@ All three checks must pass before any commit is made.
 
 ## Supported Document Formats
 
-- PDF (`.pdf`)
-- Word (`.docx`)
-- OpenDocument (`.odt`)
-- Pages (`.pages`)
-- Rich Text Format (`.rtf`)
-- HTML (`.html`)
-- Markdown (`.md`)
-- Plain text (`.txt`)
+Do not keep a hardcoded formats list in this file. Read supported formats dynamically:
+
+1. Runtime source of truth (recommended):
+   - Build: `npm run build`
+   - Print current extensions from library API:
+     - `node --input-type=module -e "const { documentMarkdownReader } = await import('./dist/index.js'); console.log(documentMarkdownReader.supportedExtensions); console.log(documentMarkdownReader.acceptedExtensions);"`
+2. Source inspection fallback:
+   - `rg \"readonly supportedExtensions\" src/strategies`
+
+Use the runtime API values (`supportedExtensions`, `acceptedExtensions`) as the canonical list when documenting or validating format support.
