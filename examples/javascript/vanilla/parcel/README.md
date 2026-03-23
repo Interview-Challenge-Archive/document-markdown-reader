@@ -6,9 +6,8 @@ This example shows how to use the document-markdown-reader library in a web appl
 
 ## Try It Online
 
-Try this example instantly in your browser without any local setup using StackBlitz, a cloud-based development environment.
+StackBlitz is currently not available for Parcel-based examples. Run this example locally using the steps below.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/parcel)
 ## What is Vanilla JavaScript?
 
 Vanilla JavaScript refers to plain JavaScript without any frameworks or libraries. It provides complete control over your code without any additional abstraction layers.

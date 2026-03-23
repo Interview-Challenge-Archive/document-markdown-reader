@@ -45,8 +45,12 @@ const path = `${language}/${framework}/${buildTool}`;
 const buildToolName = exampleEntry.buildToolName;
 const buildToolLink = exampleEntry.buildToolLink;
 const stackblitz = `https://stackblitz.com/github/${repo}/tree/main/examples/${path}`;
+const hasStackblitzDemo = buildTool.toLowerCase() !== 'parcel';
+const demoCell = hasStackblitzDemo
+  ? `[![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](${stackblitz})`
+  : '';
 _%>
-| [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
+| [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | <%- demoCell %> |
 <%_ }); _%>
 
 <%_ }); _%>
