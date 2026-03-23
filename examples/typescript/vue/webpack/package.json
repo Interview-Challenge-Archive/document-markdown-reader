@@ -22,5 +22,11 @@
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vue",
+    "buildToolName": "Webpack",
+    "buildToolLink": "https://webpack.js.org/",
+    "languageName": "TypeScript"
   }
 }

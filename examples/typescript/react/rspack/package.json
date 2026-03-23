@@ -17,5 +17,11 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "React",
+    "buildToolName": "Rspack",
+    "buildToolLink": "https://rspack.dev/",
+    "languageName": "TypeScript"
   }
 }

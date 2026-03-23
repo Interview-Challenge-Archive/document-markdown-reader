@@ -18,5 +18,11 @@
     "rollup": "^4.9.6",
     "rollup-plugin-vue": "^6.0.0",
     "typescript": "^5.3.3"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vue",
+    "buildToolName": "Rollup",
+    "buildToolLink": "https://rollupjs.org/",
+    "languageName": "TypeScript"
   }
 }

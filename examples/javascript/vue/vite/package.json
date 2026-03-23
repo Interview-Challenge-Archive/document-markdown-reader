@@ -15,5 +15,11 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
     "vite": "^5.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vue",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/",
+    "languageName": "JavaScript"
   }
 }

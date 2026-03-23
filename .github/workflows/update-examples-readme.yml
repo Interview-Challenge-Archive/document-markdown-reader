@@ -1,0 +1,89 @@
+name: Update Examples README
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'examples/**'
+      - '!examples/README.md'
+      - '.github/workflows/update-examples-readme.yml'
+      - '.github/templates/examples-readme.md.ejs'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-examples-readme:
+    name: Update Examples README
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Collect example metadata
+        id: collect-metadata
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+        run: |
+          entries_file="$(mktemp)"
+
+          while IFS= read -r folder; do
+            relative_path="${folder#examples/}"
+            package_json_path="${folder}/package.json"
+
+            if [[ ! -f "$package_json_path" ]]; then
+              echo "Missing package.json for example folder: $folder" >&2
+              exit 1
+            fi
+
+            if ! jq -e '.readmeMeta.languageName and .readmeMeta.frameworkName and .readmeMeta.buildToolName and .readmeMeta.buildToolLink' "$package_json_path" > /dev/null; then
+              echo "Missing readmeMeta fields in: $package_json_path" >&2
+              exit 1
+            fi
+
+            readme_meta="$(jq -c '.readmeMeta' "$package_json_path")"
+
+            jq -cn \
+              --arg relative_path "$relative_path" \
+              --argjson readme_meta "$readme_meta" \
+              '
+              ($relative_path | split("/")) as $parts
+              | select(($parts | length) == 3)
+              | {
+                  language: $parts[0],
+                  framework: $parts[1],
+                  buildTool: $parts[2],
+                  languageName: ($readme_meta.languageName // null),
+                  frameworkName: ($readme_meta.frameworkName // null),
+                  buildToolName: ($readme_meta.buildToolName // null),
+                  buildToolLink: ($readme_meta.buildToolLink // null)
+                }
+              ' >> "$entries_file"
+          done < <(find examples -mindepth 1 -maxdepth 3 -type d | sort)
+
+          entries_json="$(jq -s -c '.' "$entries_file")"
+          data=$(jq -cn --argjson entries "$entries_json" --arg github_repo "$GITHUB_REPO" '{ entries: $entries, github_repo: $github_repo }')
+          echo "data=$data" >> "$GITHUB_OUTPUT"
+
+      - name: Render examples README template
+        id: render
+        uses: kikyous/template-action@v2.0.0
+        with:
+          template-path: '.github/templates/examples-readme.md.ejs'
+          ext-inputs: '${{ steps.collect-metadata.outputs.data }}'
+
+      - name: Write examples README
+        env:
+          README_CONTENT: ${{ steps.render.outputs.content }}
+        run: echo "$README_CONTENT" > examples/README.md
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: regenerate examples/README.md'
+          file_pattern: 'examples/README.md'

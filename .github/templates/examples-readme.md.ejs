@@ -1,0 +1,66 @@
+# Examples
+
+This folder contains complete working examples demonstrating how to use `document-markdown-reader` in various environments.
+
+Each example includes:
+- A `README.md` with setup instructions
+- A `package.json` with all required dependencies
+- Source files showing the library in action
+
+## Directory Structure
+
+Examples are organized by language, framework, and build tool:
+- `{language}/{framework}/{build-tool}`
+
+<%
+const repo = inputs.github_repo || '';
+const entries = inputs.entries || [];
+
+function uniq(values) {
+  return [...new Set(values)];
+}
+
+const languages = uniq(entries.map((entry) => entry.language));
+%>
+<% languages.forEach((language) => { %>
+<% const languageEntries = entries.filter((entry) => entry.language === language); %>
+## <%- languageEntries[0].languageName %> Examples
+
+<% const frameworks = uniq(languageEntries.map((entry) => entry.framework)); %>
+<% frameworks.forEach((framework) => { %>
+<% const frameworkEntries = languageEntries.filter((entry) => entry.framework === framework); %>
+### <%- frameworkEntries[0].frameworkName %>
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+<% const buildTools = uniq(frameworkEntries.map((entry) => entry.buildTool)); %>
+<% buildTools.forEach((buildTool) => { %>
+<% const exampleEntry = frameworkEntries.find((entry) => entry.buildTool === buildTool); %>
+<% const path = `${language}/${framework}/${buildTool}`; %>
+<% const buildToolName = exampleEntry.buildToolName; %>
+<% const buildToolLink = exampleEntry.buildToolLink; %>
+<% const stackblitz = `https://stackblitz.com/github/${repo}?folder=examples/${path}`; %>
+| [<%- buildToolName %>](<%- buildToolLink %>) | [<%- path %>](./<%- path %>) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](<%- stackblitz %>) |
+<% }); %>
+
+<% }); %>
+<% }); %>
+
+## Running an Example
+
+1. Navigate to the example directory:
+   ```bash
+   cd examples/javascript/react/vite
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open the provided URL in your browser to see the example in action.

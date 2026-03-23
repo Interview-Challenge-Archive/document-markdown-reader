@@ -13,5 +13,11 @@
   "devDependencies": {
     "parcel": "^2.11.0",
     "typescript": "^5.3.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/",
+    "languageName": "TypeScript"
   }
 }

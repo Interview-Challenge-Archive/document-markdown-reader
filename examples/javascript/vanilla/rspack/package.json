@@ -14,5 +14,11 @@
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
     "style-loader": "^4.0.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Rspack",
+    "buildToolLink": "https://rspack.dev/",
+    "languageName": "JavaScript"
   }
 }

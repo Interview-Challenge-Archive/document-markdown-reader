@@ -16,5 +16,11 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
     "html-webpack-plugin": "^5.6.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vanilla (No Framework)",
+    "buildToolName": "Webpack",
+    "buildToolLink": "https://webpack.js.org/",
+    "languageName": "TypeScript"
   }
 }

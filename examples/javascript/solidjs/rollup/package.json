@@ -15,5 +15,11 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "rollup": "^4.9.0",
     "rollup-plugin-postcss": "^4.0.2"
+  },
+  "readmeMeta": {
+    "frameworkName": "SolidJS",
+    "buildToolName": "Rollup",
+    "buildToolLink": "https://rollupjs.org/",
+    "languageName": "JavaScript"
   }
 }
