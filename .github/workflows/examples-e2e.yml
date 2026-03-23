@@ -50,34 +50,34 @@ jobs:
       - name: Run upload test for each example
         run: |
           mapfile -t EXAMPLE_PATHS < <(
-            node - <<'NODE'
-            const { readdirSync, existsSync } = require('node:fs');
-            const { join, relative, resolve } = require('node:path');
+          node - <<'NODE'
+          const { readdirSync, existsSync } = require('node:fs');
+          const { join, relative, resolve } = require('node:path');
 
-            const repoRoot = process.cwd();
-            const examplesRoot = resolve(repoRoot, 'examples');
-            const paths = [];
+          const repoRoot = process.cwd();
+          const examplesRoot = resolve(repoRoot, 'examples');
+          const paths = [];
 
-            for (const language of readdirSync(examplesRoot, { withFileTypes: true })) {
-              if (!language.isDirectory()) continue;
-              const languagePath = join(examplesRoot, language.name);
+          for (const language of readdirSync(examplesRoot, { withFileTypes: true })) {
+            if (!language.isDirectory()) continue;
+            const languagePath = join(examplesRoot, language.name);
 
-              for (const framework of readdirSync(languagePath, { withFileTypes: true })) {
-                if (!framework.isDirectory()) continue;
-                const frameworkPath = join(languagePath, framework.name);
+            for (const framework of readdirSync(languagePath, { withFileTypes: true })) {
+              if (!framework.isDirectory()) continue;
+              const frameworkPath = join(languagePath, framework.name);
 
-                for (const tool of readdirSync(frameworkPath, { withFileTypes: true })) {
-                  if (!tool.isDirectory()) continue;
-                  const examplePath = join(frameworkPath, tool.name);
-                  if (!existsSync(join(examplePath, 'package.json'))) continue;
-                  paths.push(relative(repoRoot, examplePath).replaceAll('\\', '/'));
-                }
+              for (const tool of readdirSync(frameworkPath, { withFileTypes: true })) {
+                if (!tool.isDirectory()) continue;
+                const examplePath = join(frameworkPath, tool.name);
+                if (!existsSync(join(examplePath, 'package.json'))) continue;
+                paths.push(relative(repoRoot, examplePath).replaceAll('\\', '/'));
               }
             }
+          }
 
-            paths.sort((a, b) => a.localeCompare(b));
-            process.stdout.write(paths.join('\n'));
-            NODE
+          paths.sort((a, b) => a.localeCompare(b));
+          process.stdout.write(paths.join('\n'));
+          NODE
           )
 
           failures=()
