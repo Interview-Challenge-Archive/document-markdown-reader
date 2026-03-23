@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -88,6 +89,4 @@ jobs:
 
       - name: Publish to npm
         if: steps.check_tag.outputs.exists == 'false'
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance
