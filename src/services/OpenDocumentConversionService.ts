@@ -1,4 +1,3 @@
-import { odtToHtml } from 'odf-kit/reader'
 import { Service } from '@freshgum/typedi'
 import { MarkdownItService } from './MarkdownItService'
 
@@ -14,6 +13,7 @@ export class OpenDocumentConversionService {
   ) {}
 
   async convertOdtToMarkdown(arrayBuffer: ArrayBuffer): Promise<string> {
+    const { odtToHtml } = await import('odf-kit/reader')
     const htmlContent = odtToHtml(new Uint8Array(arrayBuffer))
     return this.markdownItService.htmlToMarkdown(htmlContent).trim()
   }
