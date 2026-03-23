@@ -1,4 +1,4 @@
-import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
+import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const fileInput = document.getElementById('fileInput') as HTMLInputElement;
 const loadingEl = document.getElementById('loading') as HTMLParagraphElement;
@@ -15,8 +15,7 @@ fileInput.addEventListener('change', async (event: Event) => {
   resultEl.style.display = 'none';
 
   try {
-    const reader = new DocumentMarkdownReader();
-    const result = await reader.read(file);
+    const result = await documentMarkdownReader.readDocument(file);
     markdownEl.textContent = result;
     resultEl.style.display = 'block';
   } catch (err) {
