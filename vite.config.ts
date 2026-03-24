@@ -3,13 +3,10 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type UserConfig } from 'vite'
+import inject from '@rollup/plugin-inject'
 import swc from 'unplugin-swc'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const EXTERNAL_MODULE_PATTERNS = [
-  /^rtf-stream-parser(?:\/.*)?$/,
-  /^iconv-lite(?:\/.*)?$/
-]
 type ViteConfigWithTest = UserConfig & {
   test: {
     environment: string
@@ -26,6 +23,16 @@ const config = {
       }
     })
   ],
+  resolve: {
+    alias: {
+      stream: 'stream-browserify',
+      util: 'util',
+      buffer: 'buffer',
+      process: 'process/browser',
+      events: 'events',
+      string_decoder: 'string_decoder'
+    }
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
@@ -35,16 +42,21 @@ const config = {
     },
     sourcemap: true,
     rollupOptions: {
-      external: (id: string) => EXTERNAL_MODULE_PATTERNS.some((pattern) => pattern.test(id))
-        || [
-          'jszip',
-          'mammoth/mammoth.browser.js',
-          'marked',
-          'odf-kit/reader',
-          'pdfjs-dist/legacy/build/pdf.min.mjs',
-          'turndown',
-          'turndown-plugin-gfm'
-        ].includes(id)
+      plugins: [
+        inject({
+          Buffer: ['buffer', 'Buffer'],
+          process: 'process'
+        })
+      ],
+      external: [
+        'jszip',
+        'mammoth/mammoth.browser.js',
+        'marked',
+        'odf-kit/reader',
+        'pdfjs-dist/legacy/build/pdf.min.mjs',
+        'turndown',
+        'turndown-plugin-gfm'
+      ]
     }
   },
   test: {
