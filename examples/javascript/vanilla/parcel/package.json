@@ -17,10 +17,16 @@
   "dependencies": {
     "@interview-challenge-archive/document-markdown-reader": ">=0.0.1"
   },
+  "alias": {
+    "odf-kit/reader": "odf-kit/dist/reader/index.js"
+  },
   "devDependencies": {
     "assert": "^2.1.0",
     "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
     "parcel": "^2.12.0",
+    "process": "^0.11.10",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.5"
   },

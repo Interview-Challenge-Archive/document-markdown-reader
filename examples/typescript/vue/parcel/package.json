@@ -10,9 +10,17 @@
     "@interview-challenge-archive/document-markdown-reader": ">=0.0.1",
     "vue": "^3.4.0"
   },
+  "alias": {
+    "odf-kit/reader": "odf-kit/dist/reader/index.js"
+  },
   "devDependencies": {
     "@parcel/transformer-vue": "^2.11.0",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
     "parcel": "^2.11.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "string_decoder": "^1.3.0",
     "typescript": "^5.3.3"
   },
   "readmeMeta": {
