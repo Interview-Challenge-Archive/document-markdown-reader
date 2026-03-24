@@ -71,6 +71,7 @@ jobs:
           configuration: ".github/release-notes-config.json"
           token: ${{ secrets.GITHUB_TOKEN }}
           fromTag: ${{ steps.last_tag.outputs.last_tag }}
+          toTag: ${{ github.sha }}
 
       - name: Build release body
         if: steps.check_tag.outputs.exists == 'false'
