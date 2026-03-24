@@ -16,7 +16,6 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      '@jose.espana/docstream$': require.resolve('@jose.espana/docstream/dist/officeparser.browser.js'),
       'process/browser$': require.resolve('process/browser.js'),
     },
     fallback: {
@@ -30,12 +29,6 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  ignoreWarnings: [
-    {
-      module: /@jose\.espana[\\/]docstream[\\/]dist[\\/]officeparser\.browser\.js$/,
-      message: /Critical dependency:/,
-    },
-  ],
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
