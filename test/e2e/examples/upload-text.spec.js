@@ -6,7 +6,25 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const fixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
 
 test('uploads a text file', async ({ page }) => {
+  const startupErrors = []
+
+  page.on('pageerror', (error) => {
+    startupErrors.push(error.message)
+  })
+
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      startupErrors.push(message.text())
+    }
+  })
+
   await page.goto('/')
+
+  const utilInheritsError = startupErrors.find((message) => /util\.inherits is not a function/i.test(message))
+  expect(
+    utilInheritsError,
+    `Unexpected startup error detected:\n${startupErrors.join('\n')}`
+  ).toBeUndefined()
 
   const fileInput = page.locator('input[type="file"]').first()
   await expect(fileInput).toBeVisible({ timeout: 45_000 })
