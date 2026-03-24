@@ -63,6 +63,7 @@ npm run typecheck
 14. **New example documentation**: Every new example folder must include its own `README.md`, and it must follow the same structure/style as existing example READMEs in this repository.
 15. **PR-only workflow**: Never commit or push directly to `main`. If the current branch is `main` or `dev`, create a feature branch, push it, and open a pull request. If the current branch is already not `main` and not `dev`, do not create an extra branch unless explicitly requested. Merge to `main` only after explicit user approval.
 16. **Prefer marketplace actions in workflows**: When updating GitHub Actions workflows, prefer established GitHub Marketplace actions over custom inline shell logic when a suitable action exists.
+17. **Example dependency minimum version**: Every example `package.json` must define `@interview-challenge-archive/document-markdown-reader` with the minimum supported version for that work (currently `>=0.1.3`), not `>=0.0.1`.
 
 ## Pre-commit Checklist
 

@@ -104,6 +104,23 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install Playwright browser and system dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Vite example dependencies
+        working-directory: examples/javascript/vanilla/vite
+        run: |
+          npm pkg set "dependencies.@interview-challenge-archive/document-markdown-reader=file:../../../../"
+          npm install
+
+      - name: Run browser smoke test (detect util.inherits startup regressions)
+        env:
+          E2E_EXAMPLE_PATH: examples/javascript/vanilla/vite
+          E2E_BASE_URL: http://127.0.0.1:4173
+          E2E_PORT: 4173
+          CI: '1'
+        run: npm run test:e2e:examples -- --browser=chromium --reporter=line
+
       - name: Verify ESM build with node
         run: node -e "import('./dist/index.js').then(m => { if (typeof m.documentMarkdownReader === 'undefined') throw new Error('documentMarkdownReader export missing'); console.log('ESM build OK') })"
 
