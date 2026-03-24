@@ -18,3 +18,4 @@ examples/**/.vite/
 examples/**/.cache/
 examples/**/.turbo/
 examples/**/package-lock.json
+/package-lock.json
