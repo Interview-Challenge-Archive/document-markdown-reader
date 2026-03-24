@@ -5,7 +5,7 @@
       "labels": ["feature", "enhancement"]
     },
     {
-      "title": "🐛 Bug Fixes", 
+      "title": "🐛 Bug Fixes",
       "labels": ["bug", "fix"]
     },
     {
@@ -15,6 +15,10 @@
     {
       "title": "🔧 Maintenance",
       "labels": ["chore", "maintenance", "dependencies"]
+    },
+    {
+      "title": "📦 Other Changes",
+      "labels": []
     }
   ],
   "ignore_labels": ["skip-changelog", "no-release"],
@@ -22,8 +26,6 @@
     "order": "ASC"
   },
   "base_branches": ["main"],
-  "custom_issues": {
-    "regex": "#(\\d+)",
-    "template": "https://github.com/${{ github.repository }}/issues/$1"
-  }
+  "pr_template": "- #${{NUMBER}} ${{TITLE}} (@${{AUTHOR}})",
+  "empty_template": "No changes."
 }

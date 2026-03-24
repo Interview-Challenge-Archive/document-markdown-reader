@@ -58,9 +58,9 @@ jobs:
       - name: Get latest release tag
         if: steps.check_tag.outputs.exists == 'false'
         id: last_tag
-        uses: rmeneely/git-last-tag@v1
-        with:
-          tag_pattern: 'v[0-9]*.[0-9]*.[0-9]*'
+        run: |
+          LAST_TAG=$(git tag --sort=-version:refname --list 'v[0-9]*.[0-9]*.[0-9]*' | head -1)
+          echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
 
       - name: Generate Release Notes
         if: steps.check_tag.outputs.exists == 'false' && steps.last_tag.outputs.last_tag != ''
@@ -69,9 +69,26 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v6.1.1
         with:
           configuration: ".github/release-notes-config.json"
+          token: ${{ secrets.GITHUB_TOKEN }}
           fromTag: ${{ steps.last_tag.outputs.last_tag }}
+
+      - name: Build release body
+        if: steps.check_tag.outputs.exists == 'false'
+        id: release_body
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGELOG: ${{ steps.release_notes.outputs.changelog }}
+          LAST_TAG: ${{ steps.last_tag.outputs.last_tag }}
+          TAG: ${{ steps.package_info.outputs.tag }}
+        run: |
+          if [ -n "$CHANGELOG" ]; then
+            echo "body<<EOF" >> $GITHUB_OUTPUT
+            echo "$CHANGELOG" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          elif [ -n "$LAST_TAG" ]; then
+            echo "body=No pull request changes detected since $LAST_TAG." >> $GITHUB_OUTPUT
+          else
+            echo "body=Initial release $TAG." >> $GITHUB_OUTPUT
+          fi
 
       - name: Create GitHub Release
         if: steps.check_tag.outputs.exists == 'false'
@@ -79,7 +96,7 @@ jobs:
         with:
           tag: ${{ steps.package_info.outputs.tag }}
           name: Release ${{ steps.package_info.outputs.tag }}
-          body: ${{ steps.last_tag.outputs.last_tag != '' && steps.release_notes.outputs.changelog || format('Initial release for {0}.', steps.package_info.outputs.tag) }}
+          body: ${{ steps.release_body.outputs.body }}
           draft: false
           prerelease: false
 
