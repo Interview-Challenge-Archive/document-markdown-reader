@@ -1,9 +1,8 @@
 import { Service } from '@freshgum/typedi'
-import { Tokenize } from 'rtf-stream-parser'
 import type { ProcessTokensGlobalState } from 'rtf-stream-parser/dist/src/ProcessTokens.types'
 import type { FeatureHandler } from 'rtf-stream-parser/dist/src/features/types'
-import { RtfHtmlProcessor } from './RtfHtmlProcessor'
 import { HtmlEscapeService } from './HtmlEscapeService'
+import type { RtfHtmlProcessor } from './RtfHtmlProcessor'
 import type { RtfHtmlGroupState } from '../types/RtfToHtmlTypes'
 
 @Service({ id: RtfToHtmlService.SERVICE_ID }, [HtmlEscapeService.SERVICE_ID])
@@ -42,6 +41,10 @@ export class RtfToHtmlService {
 
   async convertToHtml(rtfValue: string | ArrayBuffer | Uint8Array): Promise<string> {
     const inputBuffer = this.toNodeBuffer(rtfValue)
+    const [{ Tokenize }, { RtfHtmlProcessor }] = await Promise.all([
+      import('rtf-stream-parser'),
+      import('./RtfHtmlProcessor')
+    ])
     const processor = new RtfHtmlProcessor(
       this.htmlEscapeService,
       this.formattingControls,
