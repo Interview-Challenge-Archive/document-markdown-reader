@@ -40,6 +40,7 @@ const config = {
           'jszip',
           'mammoth/mammoth.browser.js',
           'marked',
+          'odf-kit/reader',
           'pdfjs-dist/legacy/build/pdf.min.mjs',
           'turndown',
           'turndown-plugin-gfm'
