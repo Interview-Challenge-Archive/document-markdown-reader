@@ -57,10 +57,9 @@ jobs:
         uses: actions/setup-node@v6.3.0
         with:
           node-version-file: package.json
-          cache: npm
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build root package
         run: npm run build

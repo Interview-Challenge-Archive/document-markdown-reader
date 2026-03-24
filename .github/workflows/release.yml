@@ -53,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.check_tag.outputs.exists == 'false'
-        run: npm ci
+        run: npm install
 
       - name: Get latest release tag
         if: steps.check_tag.outputs.exists == 'false'

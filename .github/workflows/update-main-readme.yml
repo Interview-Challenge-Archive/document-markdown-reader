@@ -26,10 +26,9 @@ jobs:
         uses: actions/setup-node@v6.3.0
         with:
           node-version: lts/*
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Get supported formats
         id: get_formats
