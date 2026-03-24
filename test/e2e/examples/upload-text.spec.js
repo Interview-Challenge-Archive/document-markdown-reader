@@ -20,11 +20,20 @@ test('uploads a text file', async ({ page }) => {
 
   await page.goto('/')
 
-  const utilInheritsError = startupErrors.find((message) => /util\.inherits is not a function/i.test(message))
-  expect(
-    utilInheritsError,
-    `Unexpected startup error detected:\n${startupErrors.join('\n')}`
-  ).toBeUndefined()
+  const startupErrorMatchers = [
+    /util\.inherits is not a function/i,
+    /Module "stream" has been externalized for browser compatibility/i,
+    /Cannot access "stream\.Transform" in client code/i,
+    /Class extends value undefined is not a constructor or null/i
+  ]
+
+  for (const startupErrorMatcher of startupErrorMatchers) {
+    const startupError = startupErrors.find((message) => startupErrorMatcher.test(message))
+    expect(
+      startupError,
+      `Unexpected startup error detected:\n${startupErrors.join('\n')}`
+    ).toBeUndefined()
+  }
 
   const fileInput = page.locator('input[type="file"]').first()
   await expect(fileInput).toBeVisible({ timeout: 45_000 })

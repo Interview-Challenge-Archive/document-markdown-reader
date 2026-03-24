@@ -2,8 +2,8 @@ import { Service } from '@freshgum/typedi'
 import { Tokenize } from 'rtf-stream-parser'
 import type { ProcessTokensGlobalState } from 'rtf-stream-parser/dist/src/ProcessTokens.types'
 import type { FeatureHandler } from 'rtf-stream-parser/dist/src/features/types'
-import { RtfHtmlProcessor } from './RtfHtmlProcessor'
 import { HtmlEscapeService } from './HtmlEscapeService'
+import { RtfHtmlProcessor } from './RtfHtmlProcessor'
 import type { RtfHtmlGroupState } from '../types/RtfToHtmlTypes'
 
 @Service({ id: RtfToHtmlService.SERVICE_ID }, [HtmlEscapeService.SERVICE_ID])
