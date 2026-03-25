@@ -37,6 +37,12 @@ Examples are organized by language, framework, and build tool:
 
 ## TypeScript Examples
 
+### React
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Parcel](https://parceljs.org/) | [typescript/react/parcel](./typescript/react/parcel) |  |
+
 ### Vanilla (No Framework)
 
 | Build Tool | Path | Demo |
