@@ -77,6 +77,12 @@ Examples are organized by language, framework, and build tool:
 |------------|------|------|
 | [Vite](https://vitejs.dev/) | [typescript/lit/vite](./typescript/lit/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/lit/vite) |
 
+### Qwik
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [typescript/qwik/vite](./typescript/qwik/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/qwik/vite) |
+
 ### React
 
 | Build Tool | Path | Demo |
