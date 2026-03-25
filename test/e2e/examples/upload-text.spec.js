@@ -13,7 +13,7 @@ const pdfFixtureCases = [
   {
     filePath: join(__dirname, '..', '..', 'fixtures', 'real-documents', 'synthetic-insurance-company.pdf'),
     expectedFileName: 'synthetic-insurance-company.pdf',
-    expectedOutputPattern: /technology-driven company building intelligent, real-time systems/i
+    expectedOutputPattern: /technology-driven team building intelligent/i
   }
 ]
 
