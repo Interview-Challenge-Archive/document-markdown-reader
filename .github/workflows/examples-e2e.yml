@@ -78,6 +78,5 @@ jobs:
           E2E_EXAMPLE_PATH: ${{ matrix.example }}
           E2E_BASE_URL: http://127.0.0.1:4173
           E2E_PORT: 4173
-          E2E_REQUIRE_CONVERT_BUTTON: '1'
           CI: '1'
         run: npm run test:e2e:examples -- --browser=${{ matrix.browser }} --reporter=line

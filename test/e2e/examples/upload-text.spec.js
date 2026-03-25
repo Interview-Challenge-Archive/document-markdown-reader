@@ -3,10 +3,10 @@ import { fileURLToPath } from 'node:url'
 import { expect, test } from '@playwright/test'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const fixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
-const requireConvertButton = process.env.E2E_REQUIRE_CONVERT_BUTTON !== '0'
+const textFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
+const pdfFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.pdf')
 
-test('uploads a text file', async ({ page }) => {
+async function runUploadFlow(page, fixtureFilePath, expectedFileName, expectedOutputPattern = /Normal text section/i) {
   const startupErrors = []
 
   page.on('pageerror', (error) => {
@@ -40,7 +40,7 @@ test('uploads a text file', async ({ page }) => {
   await expect(fileInput).toBeVisible({ timeout: 45_000 })
   await fileInput.setInputFiles(fixtureFilePath)
   const uploadedFileName = await fileInput.evaluate((input) => input.files?.[0]?.name ?? '')
-  expect(uploadedFileName).toBe('sample.txt')
+  expect(uploadedFileName).toBe(expectedFileName)
 
   const readOutputText = async () => {
     return await page.evaluate(() => {
@@ -57,16 +57,22 @@ test('uploads a text file', async ({ page }) => {
     })
   }
 
-  if (requireConvertButton) {
-    expect(await readOutputText()).not.toContain('Normal text section')
-  }
+  expect(await readOutputText()).toBe('')
 
   const convertButtonById = page.locator('#convert-btn')
-  const convertButton = (await convertButtonById.count())
-    ? convertButtonById.first()
-    : page.getByRole('button', { name: /convert/i }).first()
-
+  const convertButton = convertButtonById.first()
   await expect(convertButton).toBeVisible()
   await convertButton.click()
-  await expect.poll(readOutputText).toContain('Normal text section')
+
+  if (expectedOutputPattern) {
+    await expect.poll(readOutputText).toMatch(expectedOutputPattern)
+  }
+}
+
+test('uploads a text file', async ({ page }) => {
+  await runUploadFlow(page, textFixtureFilePath, 'sample.txt')
+})
+
+test('uploads a PDF file', async ({ page }) => {
+  await runUploadFlow(page, pdfFixtureFilePath, 'sample.pdf', null)
 })
