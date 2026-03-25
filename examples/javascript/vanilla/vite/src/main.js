@@ -41,6 +41,7 @@ convertBtn.addEventListener('click', () => {
 
 documentMarkdownReaderPromise
   .then((documentMarkdownReader) => {
+    fileInput.setAttribute('accept', documentMarkdownReader.acceptedExtensions)
     console.log('Supported extensions:', documentMarkdownReader.supportedExtensions)
     console.log('HTML accept attribute:', documentMarkdownReader.acceptedExtensions)
   })
