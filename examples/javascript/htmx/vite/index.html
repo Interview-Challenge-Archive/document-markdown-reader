@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript htmx Vite</title>
+    <style>
+      .container {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      #convert-btn {
+        margin-left: 0.5rem;
+      }
+
+      #output {
+        white-space: pre-wrap;
+        background: #f5f5f5;
+        padding: 1rem;
+      }
+
+      #error {
+        color: #b00020;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Document Markdown Reader</h1>
+      <p>JavaScript + htmx + Vite example</p>
+
+      <input id="file-input" type="file" />
+      <button id="convert-btn" type="button" hx-on:click="window.handleConvert()">
+        Convert to Markdown
+      </button>
+
+      <p id="loading"></p>
+      <p id="error"></p>
+      <pre id="output"></pre>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
