@@ -28,6 +28,12 @@ Examples are organized by language, framework, and build tool:
 |------------|------|------|
 | [Vite](https://vitejs.dev/) | [javascript/lit/vite](./javascript/lit/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/lit/vite) |
 
+### Qwik
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [javascript/qwik/vite](./javascript/qwik/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/qwik/vite) |
+
 ### React
 
 | Build Tool | Path | Demo |
