@@ -1,0 +1,36 @@
+{
+  "name": "document-markdown-reader-typescript-react-parcel",
+  "version": "1.0.0",
+  "private": true,
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build src/index.html --dist-dir dist --public-url ./ --no-content-hash && node scripts/postbuild.cjs",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "dependencies": {
+    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "alias": {
+    "odf-kit/reader": "odf-kit/dist/reader/index.js"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "parcel": "^2.11.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "string_decoder": "^1.3.0",
+    "typescript": "^5.3.3"
+  },
+  "readmeMeta": {
+    "frameworkName": "React",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/",
+    "languageName": "TypeScript"
+  }
+}
