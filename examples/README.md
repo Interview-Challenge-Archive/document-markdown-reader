@@ -22,6 +22,12 @@ Examples are organized by language, framework, and build tool:
 | [Vite](https://vitejs.dev/) | [javascript/jquery/vite](./javascript/jquery/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/jquery/vite) |
 | [Webpack](https://webpack.js.org/) | [javascript/jquery/webpack](./javascript/jquery/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/jquery/webpack) |
 
+### Lit
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [javascript/lit/vite](./javascript/lit/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/lit/vite) |
+
 ### React
 
 | Build Tool | Path | Demo |
