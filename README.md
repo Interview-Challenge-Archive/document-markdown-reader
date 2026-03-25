@@ -49,7 +49,7 @@ Reads a document file and returns its content as Markdown.
 
 **Throws:**
 - `UnsupportedFormatError` - When the file format is not supported
-- `InvalidDocumentError` - When a DOCX/DOCM, ODT/FODT, Pages, or PDF file is invalid or corrupted
+- `InvalidDocumentError` - When a DOCX/DOCM, ODT, Pages, or PDF file is invalid or corrupted
 - `UnreadableDocumentError` - When a DOC, Pages, or PDF file content cannot be read
 
 
