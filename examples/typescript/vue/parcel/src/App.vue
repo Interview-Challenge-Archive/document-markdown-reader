@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
+import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const content = ref('');
 const loading = ref(false);
@@ -40,8 +40,7 @@ const handleFileChange = async (event: Event) => {
   content.value = '';
 
   try {
-    const reader = new DocumentMarkdownReader();
-    const markdown = await reader.read(file);
+    const markdown = await documentMarkdownReader.readDocument(file);
     content.value = markdown;
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to read document';
