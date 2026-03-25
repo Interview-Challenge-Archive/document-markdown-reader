@@ -1,5 +1,9 @@
 name: Generate Examples Matrix
 description: Generate a JSON matrix of example paths under examples/*/*/*.
+inputs:
+  changed-files-json:
+    description: Optional JSON array of changed file paths.
+    required: false
 outputs:
   matrix:
     description: JSON array of example paths.

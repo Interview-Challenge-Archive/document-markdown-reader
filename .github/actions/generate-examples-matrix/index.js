@@ -1,6 +1,52 @@
 import { appendFileSync, existsSync, readdirSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 
+function parseChangedFiles(value) {
+  if (!value) {
+    return []
+  }
+
+  try {
+    const parsed = JSON.parse(value)
+    if (!Array.isArray(parsed)) {
+      return []
+    }
+
+    return parsed
+      .filter((item) => typeof item === 'string')
+      .map((item) => item.replaceAll('\\', '/'))
+  } catch {
+    return []
+  }
+}
+
+function isFullRunTrigger(filePath) {
+  return (
+    filePath.startsWith('test/e2e/examples/') ||
+    filePath === 'playwright.config.js' ||
+    filePath === '.github/workflows/examples-e2e.yml'
+  )
+}
+
+function collectChangedExamples(changedFiles) {
+  const changedExamples = new Set()
+
+  for (const filePath of changedFiles) {
+    if (!filePath.startsWith('examples/')) {
+      continue
+    }
+
+    const parts = filePath.split('/')
+    if (parts.length < 4) {
+      continue
+    }
+
+    changedExamples.add(parts.slice(0, 4).join('/'))
+  }
+
+  return changedExamples
+}
+
 function collectExamples(repoRoot) {
   const examplesRoot = resolve(repoRoot, 'examples')
   const result = []
@@ -47,8 +93,32 @@ function setOutput(name, value) {
 
 function main() {
   const repoRoot = process.cwd()
-  const matrix = collectExamples(repoRoot)
-  setOutput('matrix', JSON.stringify(matrix))
+  const allExamples = collectExamples(repoRoot)
+  const changedFiles = parseChangedFiles(process.env.INPUT_CHANGED_FILES_JSON)
+
+  if (changedFiles.length === 0) {
+    setOutput('matrix', JSON.stringify(allExamples))
+    return
+  }
+
+  if (changedFiles.some(isFullRunTrigger)) {
+    setOutput('matrix', JSON.stringify(allExamples))
+    return
+  }
+
+  if (!changedFiles.every((filePath) => filePath.startsWith('examples/'))) {
+    setOutput('matrix', JSON.stringify(allExamples))
+    return
+  }
+
+  const changedExamples = collectChangedExamples(changedFiles)
+  if (changedExamples.size === 0) {
+    setOutput('matrix', JSON.stringify(allExamples))
+    return
+  }
+
+  const filteredExamples = allExamples.filter((examplePath) => changedExamples.has(examplePath))
+  setOutput('matrix', JSON.stringify(filteredExamples.length > 0 ? filteredExamples : allExamples))
 }
 
 main()
