@@ -26,6 +26,12 @@ Examples are organized by language, framework, and build tool:
 |------------|------|------|
 | [Parcel](https://parceljs.org/) | [javascript/react/parcel](./javascript/react/parcel) |  |
 
+### SolidJS
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [javascript/solidjs/vite](./javascript/solidjs/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/vite) |
+
 ### Vanilla (No Framework)
 
 | Build Tool | Path | Demo |
