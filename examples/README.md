@@ -42,6 +42,12 @@ Examples are organized by language, framework, and build tool:
 | [Vite](https://vitejs.dev/) | [javascript/solidjs/vite](./javascript/solidjs/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/vite) |
 | [Webpack](https://webpack.js.org/) | [javascript/solidjs/webpack](./javascript/solidjs/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/webpack) |
 
+### Svelte
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [javascript/svelte/vite](./javascript/svelte/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/svelte/vite) |
+
 ### Vanilla (No Framework)
 
 | Build Tool | Path | Demo |
