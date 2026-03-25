@@ -1,0 +1,35 @@
+{
+  "name": "typescript-vue-webpack",
+  "version": "1.0.0",
+  "description": "TypeScript Vue Webpack Example",
+  "scripts": {
+    "dev": "webpack serve --mode development --no-hot",
+    "start": "webpack serve --mode development --no-hot",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.4.0",
+    "buffer": "^6.0.3",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.0",
+    "vue-loader": "^17.4.2",
+    "vue-style-loader": "^4.1.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "readmeMeta": {
+    "frameworkName": "Vue",
+    "buildToolName": "Webpack",
+    "buildToolLink": "https://webpack.js.org/",
+    "languageName": "TypeScript"
+  }
+}
