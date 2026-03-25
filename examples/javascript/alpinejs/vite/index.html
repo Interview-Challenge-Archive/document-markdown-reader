@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Alpine.js Vite</title>
+    <style>
+      .container {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      #convert-btn {
+        margin-left: 0.5rem;
+      }
+
+      #output {
+        white-space: pre-wrap;
+        background: #f5f5f5;
+        padding: 1rem;
+      }
+
+      .error {
+        color: #b00020;
+      }
+    </style>
+  </head>
+  <body>
+    <main x-data="documentReader" class="container">
+      <h1>Document Markdown Reader</h1>
+      <p>JavaScript + Alpine.js + Vite example</p>
+
+      <input x-ref="fileInput" type="file" :accept="acceptedExtensions" :disabled="loading" />
+      <button id="convert-btn" type="button" @click="handleConvert" :disabled="loading">
+        Convert to Markdown
+      </button>
+
+      <p x-text="loading ? 'Loading document...' : ''"></p>
+      <p class="error" x-text="error"></p>
+      <pre id="output" x-text="markdown"></pre>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
