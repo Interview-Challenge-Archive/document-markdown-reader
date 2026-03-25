@@ -60,6 +60,7 @@ Examples are organized by language, framework, and build tool:
 | Build Tool | Path | Demo |
 |------------|------|------|
 | [Parcel](https://parceljs.org/) | [typescript/vue/parcel](./typescript/vue/parcel) |  |
+| [Vite](https://vitejs.dev/) | [typescript/vue/vite](./typescript/vue/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/vue/vite) |
 
 
 ## Running an Example
