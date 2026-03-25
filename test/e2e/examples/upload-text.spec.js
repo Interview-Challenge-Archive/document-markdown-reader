@@ -4,7 +4,18 @@ import { expect, test } from '@playwright/test'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const textFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
-const pdfFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.pdf')
+const pdfFixtureCases = [
+  {
+    filePath: join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.pdf'),
+    expectedFileName: 'sample.pdf',
+    expectedOutputPattern: /Normal text section/i
+  },
+  {
+    filePath: join(__dirname, '..', '..', 'fixtures', 'real-documents', 'synthetic-insurance-company.pdf'),
+    expectedFileName: 'synthetic-insurance-company.pdf',
+    expectedOutputPattern: /technology-driven company building intelligent, real-time systems/i
+  }
+]
 
 async function runUploadFlow(page, fixtureFilePath, expectedFileName, expectedOutputPattern = /Normal text section/i) {
   const startupErrors = []
@@ -73,6 +84,13 @@ test('uploads a text file', async ({ page }) => {
   await runUploadFlow(page, textFixtureFilePath, 'sample.txt')
 })
 
-test('uploads a PDF file', async ({ page }) => {
-  await runUploadFlow(page, pdfFixtureFilePath, 'sample.pdf', /Normal text section/i)
-})
+for (const pdfFixtureCase of pdfFixtureCases) {
+  test(`uploads PDF file ${pdfFixtureCase.expectedFileName}`, async ({ page }) => {
+    await runUploadFlow(
+      page,
+      pdfFixtureCase.filePath,
+      pdfFixtureCase.expectedFileName,
+      pdfFixtureCase.expectedOutputPattern
+    )
+  })
+}
