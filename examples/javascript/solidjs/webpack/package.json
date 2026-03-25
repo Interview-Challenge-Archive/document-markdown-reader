@@ -1,6 +1,7 @@
 {
   "name": "document-markdown-reader-javascript-solidjs-webpack",
   "version": "1.0.0",
+  "private": true,
   "description": "JavaScript SolidJS Webpack Example",
   "scripts": {
     "start": "webpack serve --mode development --no-hot",

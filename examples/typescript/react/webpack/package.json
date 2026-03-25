@@ -1,6 +1,7 @@
 {
   "name": "typescript-react-webpack",
   "version": "1.0.0",
+  "private": true,
   "description": "TypeScript React Webpack Example",
   "scripts": {
     "dev": "webpack serve --mode development --no-hot",

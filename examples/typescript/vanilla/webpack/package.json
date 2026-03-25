@@ -1,6 +1,7 @@
 {
   "name": "typescript-vanilla-webpack",
   "version": "1.0.0",
+  "private": true,
   "description": "TypeScript Vanilla Webpack Example",
   "scripts": {
     "start": "webpack serve --mode development --no-hot",
