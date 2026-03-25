@@ -74,5 +74,5 @@ test('uploads a text file', async ({ page }) => {
 })
 
 test('uploads a PDF file', async ({ page }) => {
-  await runUploadFlow(page, pdfFixtureFilePath, 'sample.pdf', null)
+  await runUploadFlow(page, pdfFixtureFilePath, 'sample.pdf', /Normal text section/i)
 })
