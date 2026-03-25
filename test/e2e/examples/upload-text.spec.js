@@ -42,24 +42,30 @@ async function runUploadFlow(page, fixtureFilePath, expectedFileName, expectedOu
   const uploadedFileName = await fileInput.evaluate((input) => input.files?.[0]?.name ?? '')
   expect(uploadedFileName).toBe(expectedFileName)
 
-  const convertButtonById = page.locator('#convert-btn')
-  if (await convertButtonById.count()) {
-    await convertButtonById.first().click()
-  } else {
-    const convertButtonByText = page.getByRole('button', { name: /convert/i })
-    if (await convertButtonByText.count()) {
-      await convertButtonByText.first().click()
-    }
+  const readOutputText = async () => {
+    return await page.evaluate(() => {
+      const selectors = ['#output', '#markdown', '.result pre', 'pre']
+
+      for (const selector of selectors) {
+        const element = globalThis.document.querySelector(selector)
+        if (element) {
+          return (element.textContent ?? '').trim()
+        }
+      }
+
+      return ''
+    })
   }
 
+  expect(await readOutputText()).toBe('')
+
+  const convertButtonById = page.locator('#convert-btn')
+  const convertButton = convertButtonById.first()
+  await expect(convertButton).toBeVisible()
+  await convertButton.click()
+
   if (expectedOutputPattern) {
-    await expect.poll(
-      async () => await page.locator('body').innerText(),
-      {
-        timeout: 45_000,
-        message: `Expected converted markdown output. Console/page errors:\n${startupErrors.join('\n')}`
-      }
-    ).toMatch(expectedOutputPattern)
+    await expect.poll(readOutputText).toMatch(expectedOutputPattern)
   }
 }
 

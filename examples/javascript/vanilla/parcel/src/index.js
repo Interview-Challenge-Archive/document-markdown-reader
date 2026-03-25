@@ -1,14 +1,19 @@
 import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const fileInput = document.getElementById('fileInput');
+const convertButton = document.getElementById('convert-btn');
 const loadingEl = document.getElementById('loading');
 const errorEl = document.getElementById('error');
 const resultEl = document.getElementById('result');
 const markdownEl = document.getElementById('markdown');
 
-fileInput.addEventListener('change', async (event) => {
-  const file = event.target.files?.[0];
-  if (!file) return;
+async function convertSelectedFile() {
+  const file = fileInput.files?.[0];
+  if (!file) {
+    errorEl.textContent = 'Please select a file first';
+    resultEl.style.display = 'none';
+    return;
+  }
 
   loadingEl.textContent = 'Loading...';
   errorEl.textContent = '';
@@ -23,4 +28,8 @@ fileInput.addEventListener('change', async (event) => {
   } finally {
     loadingEl.textContent = '';
   }
+}
+
+convertButton.addEventListener('click', () => {
+  void convertSelectedFile();
 });

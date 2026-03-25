@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "TypeScript Vanilla Webpack Example",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "webpack serve --mode development --no-hot",
     "build": "webpack --mode production"
   },
   "dependencies": {
