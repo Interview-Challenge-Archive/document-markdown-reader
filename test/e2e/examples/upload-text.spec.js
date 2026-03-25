@@ -4,6 +4,7 @@ import { expect, test } from '@playwright/test'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const fixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
+const requireConvertButton = process.env.E2E_REQUIRE_CONVERT_BUTTON !== '0'
 
 test('uploads a text file', async ({ page }) => {
   const startupErrors = []
@@ -41,13 +42,31 @@ test('uploads a text file', async ({ page }) => {
   const uploadedFileName = await fileInput.evaluate((input) => input.files?.[0]?.name ?? '')
   expect(uploadedFileName).toBe('sample.txt')
 
-  const convertButtonById = page.locator('#convert-btn')
-  if (await convertButtonById.count()) {
-    await convertButtonById.first().click()
-  } else {
-    const convertButtonByText = page.getByRole('button', { name: /convert/i })
-    if (await convertButtonByText.count()) {
-      await convertButtonByText.first().click()
-    }
+  const readOutputText = async () => {
+    return await page.evaluate(() => {
+      const selectors = ['#output', '#markdown', '.result pre', 'pre']
+
+      for (const selector of selectors) {
+        const element = globalThis.document.querySelector(selector)
+        if (element) {
+          return (element.textContent ?? '').trim()
+        }
+      }
+
+      return ''
+    })
   }
+
+  if (requireConvertButton) {
+    expect(await readOutputText()).not.toContain('Normal text section')
+  }
+
+  const convertButtonById = page.locator('#convert-btn')
+  const convertButton = (await convertButtonById.count())
+    ? convertButtonById.first()
+    : page.getByRole('button', { name: /convert/i }).first()
+
+  await expect(convertButton).toBeVisible()
+  await convertButton.click()
+  await expect.poll(readOutputText).toContain('Normal text section')
 })

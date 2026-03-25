@@ -21,6 +21,12 @@ input[type="file"] {
   box-sizing: border-box;
 }
 
+button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
 .loading {
   color: #666;
   padding: 20px;

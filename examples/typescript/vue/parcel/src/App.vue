@@ -7,9 +7,12 @@
       <input
         type="file"
         accept=".pdf,.docx,.odt,.pages,.html,.md,.txt,.rtf"
-        @change="handleFileChange"
+        @change="handleFileSelection"
         :disabled="loading"
       />
+      <button type="button" id="convert-btn" @click="handleConvert" :disabled="loading || !selectedFile">
+        Convert to Markdown
+      </button>
     </div>
 
     <p v-if="loading">Loading document...</p>
@@ -24,15 +27,22 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DocumentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
+import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 const content = ref('');
 const loading = ref(false);
 const error = ref('');
+const selectedFile = ref<File | null>(null);
 
-const handleFileChange = async (event: Event) => {
+const handleFileSelection = (event: Event) => {
   const target = event.target as HTMLInputElement;
-  const file = target.files?.[0];
+  selectedFile.value = target.files?.[0] ?? null;
+  error.value = '';
+  content.value = '';
+};
+
+const handleConvert = async () => {
+  const file = selectedFile.value;
   if (!file) return;
 
   loading.value = true;
@@ -40,8 +50,7 @@ const handleFileChange = async (event: Event) => {
   content.value = '';
 
   try {
-    const reader = new DocumentMarkdownReader();
-    const markdown = await reader.read(file);
+    const markdown = await documentMarkdownReader.readDocument(file);
     content.value = markdown;
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to read document';
