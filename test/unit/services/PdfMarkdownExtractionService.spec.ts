@@ -22,10 +22,15 @@ function createTextItem(
 
 function createExtractionService(
   getDocument: PdfJsModule['getDocument'],
-  version = '5.5.207'
+  version = '5.5.207',
+  globalWorkerOptions?: PdfJsModule['GlobalWorkerOptions']
 ): PdfMarkdownExtractionService {
   return new PdfMarkdownExtractionService({
-    getModule: () => ({ getDocument, version })
+    getModule: () => ({
+      getDocument,
+      version,
+      GlobalWorkerOptions: globalWorkerOptions
+    })
   } as unknown as PdfJsService)
 }
 
@@ -87,6 +92,7 @@ describe('PdfMarkdownExtractionService', () => {
     await expect(pdfMarkdownExtractionService.extractMarkdown(new ArrayBuffer(1))).rejects.toBeInstanceOf(
       UnreadablePdfError
     )
+    expect(getDocument).toHaveBeenCalledTimes(1)
     expect(pdfDocument.destroy).toHaveBeenCalledTimes(1)
   })
 
@@ -136,6 +142,90 @@ describe('PdfMarkdownExtractionService', () => {
     expect(String(secondCallOptions.cMapUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/cmaps\/$/)
     expect(String(secondCallOptions.standardFontDataUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/standard_fonts\/$/)
     expect(String(secondCallOptions.wasmUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/wasm\/$/)
+  })
+
+  it('retries unreadable PDFs with asset URLs in browser runtimes', async () => {
+    vi.stubGlobal('window', {})
+
+    const unreadablePdfDocument: PdfDocumentProxy = {
+      numPages: 1,
+      getPage: vi.fn(async () => ({
+        async getTextContent() {
+          return {
+            items: [createTextItem('   ', 0, 100, 10)]
+          }
+        }
+      })),
+      destroy: vi.fn(async () => {})
+    }
+    const recoveredPdfDocument: PdfDocumentProxy = {
+      numPages: 1,
+      getPage: vi.fn(async () => ({
+        async getTextContent() {
+          return {
+            items: [createTextItem('Recovered', 0, 100, 40)]
+          }
+        }
+      })),
+      destroy: vi.fn(async () => {})
+    }
+    const getDocument = vi.fn()
+      .mockReturnValueOnce({
+        promise: Promise.resolve(unreadablePdfDocument)
+      })
+      .mockReturnValueOnce({
+        promise: Promise.resolve(recoveredPdfDocument)
+      })
+    const pdfMarkdownExtractionService = createExtractionService(getDocument, '9.9.9')
+
+    try {
+      await expect(pdfMarkdownExtractionService.extractMarkdown(new ArrayBuffer(5))).resolves.toBe('Recovered')
+    } finally {
+      vi.unstubAllGlobals()
+    }
+
+    expect(getDocument).toHaveBeenCalledTimes(2)
+    const firstCallOptions = getDocument.mock.calls[0]?.[0] as Record<string, unknown>
+    const secondCallOptions = getDocument.mock.calls[1]?.[0] as Record<string, unknown>
+
+    expect(firstCallOptions.data).toBeInstanceOf(Uint8Array)
+    expect(secondCallOptions.data).toBeInstanceOf(Uint8Array)
+    expect(secondCallOptions.data).not.toBe(firstCallOptions.data)
+    expect(secondCallOptions).toEqual(expect.objectContaining({
+      cMapPacked: true
+    }))
+    expect(String(secondCallOptions.cMapUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/cmaps\/$/)
+    expect(String(secondCallOptions.standardFontDataUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/standard_fonts\/$/)
+    expect(String(secondCallOptions.wasmUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/wasm\/$/)
+  })
+
+  it('configures missing PDF.js worker source in browser runtimes', async () => {
+    vi.stubGlobal('window', {})
+
+    const globalWorkerOptions: NonNullable<PdfJsModule['GlobalWorkerOptions']> = {}
+    const pdfDocument: PdfDocumentProxy = {
+      numPages: 1,
+      getPage: vi.fn(async () => ({
+        async getTextContent() {
+          return {
+            items: [createTextItem('Ready', 0, 100, 25)]
+          }
+        }
+      })),
+      destroy: vi.fn(async () => {})
+    }
+    const getDocument = vi.fn().mockReturnValue({
+      promise: Promise.resolve(pdfDocument)
+    })
+    const pdfMarkdownExtractionService = createExtractionService(getDocument, '9.9.9', globalWorkerOptions)
+
+    try {
+      await expect(pdfMarkdownExtractionService.extractMarkdown(new ArrayBuffer(3))).resolves.toBe('Ready')
+    } finally {
+      vi.unstubAllGlobals()
+    }
+
+    expect(globalWorkerOptions.workerSrc).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/legacy\/build\/pdf\.worker\.min\.mjs$/)
   })
 
   it('ignores cleanup errors while still returning extracted markdown', async () => {

@@ -29,12 +29,26 @@ export class PdfMarkdownExtractionService {
    */
   async extractMarkdown(arrayBuffer: ArrayBuffer): Promise<string> {
     const pdfJs: PdfJsModule = this.pdfJsService.getModule()
+    this.configureBrowserWorkerIfNeeded(pdfJs)
     const pdfBytes = this.clonePdfBytes(arrayBuffer)
 
     try {
       return await this.extractMarkdownWithOptions(pdfJs, this.createBaseLoadOptions(pdfBytes))
     } catch (error) {
       if (error instanceof UnreadablePdfError) {
+        if (this.shouldRetryUnreadableWithPdfJsAssets()) {
+          try {
+            return await this.extractMarkdownWithOptions(pdfJs, {
+              ...this.createBaseLoadOptions(pdfBytes),
+              ...this.createPdfJsAssetLoadOptions(pdfJs)
+            })
+          } catch (retryError) {
+            if (retryError instanceof UnreadablePdfError) {
+              throw retryError
+            }
+          }
+        }
+
         throw error
       }
 
@@ -94,6 +108,24 @@ export class PdfMarkdownExtractionService {
   private resolvePdfJsVersion(pdfJs: PdfJsModule): string {
     const version = String(pdfJs?.version ?? '').trim()
     return version || '5.5.207'
+  }
+
+  private configureBrowserWorkerIfNeeded(pdfJs: PdfJsModule): void {
+    if (typeof window === 'undefined' || !pdfJs.GlobalWorkerOptions) {
+      return
+    }
+
+    const currentWorkerSrc = String(pdfJs.GlobalWorkerOptions.workerSrc ?? '').trim()
+    if (currentWorkerSrc) {
+      return
+    }
+
+    const version = this.resolvePdfJsVersion(pdfJs)
+    pdfJs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/legacy/build/pdf.worker.min.mjs`
+  }
+
+  private shouldRetryUnreadableWithPdfJsAssets(): boolean {
+    return typeof window !== 'undefined'
   }
 
   private shouldRetryWithPdfJsAssets(error: unknown): boolean {
