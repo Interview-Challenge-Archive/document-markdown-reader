@@ -49,6 +49,7 @@ Examples are organized by language, framework, and build tool:
 |------------|------|------|
 | [Parcel](https://parceljs.org/) | [typescript/react/parcel](./typescript/react/parcel) |  |
 | [Vite](https://vitejs.dev/) | [typescript/react/vite](./typescript/react/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/vite) |
+| [Webpack](https://webpack.js.org/) | [typescript/react/webpack](./typescript/react/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/webpack) |
 
 ### Vanilla (No Framework)
 
