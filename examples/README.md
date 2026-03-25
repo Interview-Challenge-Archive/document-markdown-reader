@@ -18,6 +18,8 @@ Examples are organized by language, framework, and build tool:
 
 | Build Tool | Path | Demo |
 |------------|------|------|
+| [Parcel](https://parceljs.org/) | [javascript/jquery/parcel](./javascript/jquery/parcel) |  |
+| [Vite](https://vitejs.dev/) | [javascript/jquery/vite](./javascript/jquery/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/jquery/vite) |
 | [Webpack](https://webpack.js.org/) | [javascript/jquery/webpack](./javascript/jquery/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/jquery/webpack) |
 
 ### React
@@ -30,7 +32,9 @@ Examples are organized by language, framework, and build tool:
 
 | Build Tool | Path | Demo |
 |------------|------|------|
+| [Parcel](https://parceljs.org/) | [javascript/solidjs/parcel](./javascript/solidjs/parcel) |  |
 | [Vite](https://vitejs.dev/) | [javascript/solidjs/vite](./javascript/solidjs/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/vite) |
+| [Webpack](https://webpack.js.org/) | [javascript/solidjs/webpack](./javascript/solidjs/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/solidjs/webpack) |
 
 ### Vanilla (No Framework)
 
@@ -56,6 +60,14 @@ Examples are organized by language, framework, and build tool:
 | [Parcel](https://parceljs.org/) | [typescript/react/parcel](./typescript/react/parcel) |  |
 | [Vite](https://vitejs.dev/) | [typescript/react/vite](./typescript/react/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/vite) |
 | [Webpack](https://webpack.js.org/) | [typescript/react/webpack](./typescript/react/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/webpack) |
+
+### SolidJS
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Parcel](https://parceljs.org/) | [typescript/solidjs/parcel](./typescript/solidjs/parcel) |  |
+| [Vite](https://vitejs.dev/) | [typescript/solidjs/vite](./typescript/solidjs/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/solidjs/vite) |
+| [Webpack](https://webpack.js.org/) | [typescript/solidjs/webpack](./typescript/solidjs/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/solidjs/webpack) |
 
 ### Vanilla (No Framework)
 
