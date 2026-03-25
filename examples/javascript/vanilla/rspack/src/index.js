@@ -7,6 +7,8 @@ const errorEl = document.getElementById('error');
 const resultEl = document.getElementById('result');
 const markdownEl = document.getElementById('markdown');
 
+fileInput.accept = documentMarkdownReader.acceptedExtensions;
+
 async function convertSelectedFile() {
   const file = fileInput.files?.[0];
   if (!file) {

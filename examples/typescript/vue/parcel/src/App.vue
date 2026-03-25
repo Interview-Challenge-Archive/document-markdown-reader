@@ -7,7 +7,7 @@
       <input
         ref="fileInputRef"
         type="file"
-        accept=".pdf,.docx,.odt,.pages,.html,.md,.txt,.rtf"
+        :accept="acceptedExtensions"
         :disabled="loading"
       />
       <button type="button" id="convert-btn" @click="handleConvert" :disabled="loading">
@@ -33,6 +33,7 @@ const content = ref('');
 const loading = ref(false);
 const error = ref('');
 const fileInputRef = ref<HTMLInputElement | null>(null);
+const acceptedExtensions = documentMarkdownReader.acceptedExtensions;
 
 const handleConvert = async () => {
   const file = fileInputRef.value?.files?.[0];

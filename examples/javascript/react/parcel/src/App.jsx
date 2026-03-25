@@ -33,7 +33,7 @@ function App() {
       <h1>Document Reader - React + JavaScript + Parcel</h1>
       
       <div className="upload-section">
-        <input ref={fileInputRef} type="file" accept=".pdf,.docx,.odt,.pages,.rtf,.html,.md,.txt" />
+        <input ref={fileInputRef} type="file" accept={documentMarkdownReader.acceptedExtensions} />
         <button id="convert-btn" type="button" onClick={handleConvert} disabled={isLoading}>
           Convert to Markdown
         </button>
