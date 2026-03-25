@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@builder.io/qwik": "^1.15.0",
-    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3"
+    "@interview-challenge-archive/document-markdown-reader": ">=0.2.0"
   },
   "devDependencies": {
     "vite": "^5.0.0",

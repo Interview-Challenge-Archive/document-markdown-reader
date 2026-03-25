@@ -8,7 +8,7 @@
     "build": "rspack build"
   },
   "dependencies": {
-    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3"
+    "@interview-challenge-archive/document-markdown-reader": ">=0.2.0"
   },
   "devDependencies": {
     "@rspack/cli": "^1.2.0",

@@ -8,7 +8,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "@interview-challenge-archive/document-markdown-reader": "file:../../../../",
+    "@interview-challenge-archive/document-markdown-reader": ">=0.2.0",
     "solid-js": "^1.8.0"
   },
   "devDependencies": {
