@@ -14,6 +14,12 @@ Examples are organized by language, framework, and build tool:
 
 ## JavaScript Examples
 
+### jQuery
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Webpack](https://webpack.js.org/) | [javascript/jquery/webpack](./javascript/jquery/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/jquery/webpack) |
+
 ### React
 
 | Build Tool | Path | Demo |
