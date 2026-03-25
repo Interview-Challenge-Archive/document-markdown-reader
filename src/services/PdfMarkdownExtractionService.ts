@@ -35,6 +35,19 @@ export class PdfMarkdownExtractionService {
       return await this.extractMarkdownWithOptions(pdfJs, this.createBaseLoadOptions(pdfBytes))
     } catch (error) {
       if (error instanceof UnreadablePdfError) {
+        if (this.shouldRetryUnreadableWithPdfJsAssets()) {
+          try {
+            return await this.extractMarkdownWithOptions(pdfJs, {
+              ...this.createBaseLoadOptions(pdfBytes),
+              ...this.createPdfJsAssetLoadOptions(pdfJs)
+            })
+          } catch (retryError) {
+            if (retryError instanceof UnreadablePdfError) {
+              throw retryError
+            }
+          }
+        }
+
         throw error
       }
 
@@ -94,6 +107,10 @@ export class PdfMarkdownExtractionService {
   private resolvePdfJsVersion(pdfJs: PdfJsModule): string {
     const version = String(pdfJs?.version ?? '').trim()
     return version || '5.5.207'
+  }
+
+  private shouldRetryUnreadableWithPdfJsAssets(): boolean {
+    return typeof window !== 'undefined'
   }
 
   private shouldRetryWithPdfJsAssets(error: unknown): boolean {
