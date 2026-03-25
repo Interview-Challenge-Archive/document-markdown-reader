@@ -1,6 +1,7 @@
 {
   "name": "typescript-vue-parcel",
   "version": "1.0.0",
+  "private": true,
   "description": "TypeScript + Vue + Parcel example",
   "scripts": {
     "start": "parcel src/index.html",

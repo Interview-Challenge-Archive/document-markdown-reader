@@ -1,6 +1,7 @@
 {
   "name": "javascript-jquery-parcel",
   "version": "1.0.0",
+  "private": true,
   "description": "JavaScript jQuery Parcel Example",
   "source": "src/index.html",
   "targets": {

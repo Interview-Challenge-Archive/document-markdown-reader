@@ -1,6 +1,7 @@
 {
   "name": "javascript-vue-webpack",
   "version": "1.0.0",
+  "private": true,
   "description": "JavaScript Vue Webpack Example",
   "scripts": {
     "start": "webpack serve --mode development --no-hot",
