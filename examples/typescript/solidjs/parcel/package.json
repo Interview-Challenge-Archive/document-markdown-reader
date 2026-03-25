@@ -1,0 +1,37 @@
+{
+  "name": "document-markdown-reader-typescript-solidjs-parcel",
+  "version": "1.0.0",
+  "private": true,
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build src/index.html --dist-dir dist --public-url ./ --no-content-hash",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "dependencies": {
+    "@interview-challenge-archive/document-markdown-reader": "file:../../../../",
+    "solid-js": "^1.8.0"
+  },
+  "alias": {
+    "odf-kit/reader": "odf-kit/dist/reader/index.js",
+    "solid-js": "solid-js/dist/solid.js",
+    "solid-js/web": "solid-js/web/dist/web.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "babel-preset-solid": "^1.8.0",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "parcel": "^2.11.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "string_decoder": "^1.3.0",
+    "typescript": "^5.3.3"
+  },
+  "readmeMeta": {
+    "frameworkName": "SolidJS",
+    "buildToolName": "Parcel",
+    "buildToolLink": "https://parceljs.org/",
+    "languageName": "TypeScript"
+  }
+}
