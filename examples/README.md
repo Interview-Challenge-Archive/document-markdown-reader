@@ -65,6 +65,12 @@ Examples are organized by language, framework, and build tool:
 
 ## TypeScript Examples
 
+### Lit
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [typescript/lit/vite](./typescript/lit/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/lit/vite) |
+
 ### React
 
 | Build Tool | Path | Demo |
