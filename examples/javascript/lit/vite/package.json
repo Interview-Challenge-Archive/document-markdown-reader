@@ -1,0 +1,25 @@
+{
+  "name": "javascript-lit-vite",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vite-plugin-node-polyfills": "^0.25.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "Lit",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/",
+    "languageName": "JavaScript"
+  }
+}
