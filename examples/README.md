@@ -26,6 +26,7 @@ Examples are organized by language, framework, and build tool:
 | Build Tool | Path | Demo |
 |------------|------|------|
 | [Vite](https://vitejs.dev/) | [javascript/htmx/vite](./javascript/htmx/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/htmx/vite) |
+| [Webpack](https://webpack.js.org/) | [javascript/htmx/webpack](./javascript/htmx/webpack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/htmx/webpack) |
 
 ### jQuery
 
