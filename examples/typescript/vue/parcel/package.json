@@ -7,7 +7,7 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "@interview-challenge-archive/document-markdown-reader": ">=0.1.3",
+    "@interview-challenge-archive/document-markdown-reader": ">=0.2.0",
     "vue": "^3.4.0"
   },
   "alias": {
