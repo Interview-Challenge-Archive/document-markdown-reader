@@ -1,0 +1,26 @@
+{
+  "name": "document-markdown-reader-javascript-solidjs-vite",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@interview-challenge-archive/document-markdown-reader": "file:../../../../",
+    "solid-js": "^1.8.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vite-plugin-node-polyfills": "^0.25.0",
+    "vite-plugin-solid": "^2.10.0"
+  },
+  "readmeMeta": {
+    "frameworkName": "SolidJS",
+    "buildToolName": "Vite",
+    "buildToolLink": "https://vitejs.dev/",
+    "languageName": "JavaScript"
+  }
+}
