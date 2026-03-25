@@ -3,9 +3,10 @@ import { fileURLToPath } from 'node:url'
 import { expect, test } from '@playwright/test'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const fixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
+const textFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.txt')
+const pdfFixtureFilePath = join(__dirname, '..', '..', 'fixtures', 'real-documents', 'sample.pdf')
 
-test('uploads a text file', async ({ page }) => {
+async function runUploadFlow(page, fixtureFilePath, expectedFileName, expectedOutputPattern = /Normal text section/i) {
   const startupErrors = []
 
   page.on('pageerror', (error) => {
@@ -39,7 +40,7 @@ test('uploads a text file', async ({ page }) => {
   await expect(fileInput).toBeVisible({ timeout: 45_000 })
   await fileInput.setInputFiles(fixtureFilePath)
   const uploadedFileName = await fileInput.evaluate((input) => input.files?.[0]?.name ?? '')
-  expect(uploadedFileName).toBe('sample.txt')
+  expect(uploadedFileName).toBe(expectedFileName)
 
   const convertButtonById = page.locator('#convert-btn')
   if (await convertButtonById.count()) {
@@ -50,4 +51,22 @@ test('uploads a text file', async ({ page }) => {
       await convertButtonByText.first().click()
     }
   }
+
+  if (expectedOutputPattern) {
+    await expect.poll(
+      async () => await page.locator('body').innerText(),
+      {
+        timeout: 45_000,
+        message: `Expected converted markdown output. Console/page errors:\n${startupErrors.join('\n')}`
+      }
+    ).toMatch(expectedOutputPattern)
+  }
+}
+
+test('uploads a text file', async ({ page }) => {
+  await runUploadFlow(page, textFixtureFilePath, 'sample.txt')
+})
+
+test('uploads a PDF file', async ({ page }) => {
+  await runUploadFlow(page, pdfFixtureFilePath, 'sample.pdf', null)
 })

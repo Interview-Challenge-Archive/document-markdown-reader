@@ -13,6 +13,8 @@ type PositionedText = {
   width: number
 }
 
+type PdfLoadOptions = Record<string, unknown>
+
 @Service({ id: PdfMarkdownExtractionService.SERVICE_ID }, [PdfJsService.SERVICE_ID])
 export class PdfMarkdownExtractionService {
   static readonly SERVICE_ID = 'PdfMarkdownExtractionService'
@@ -27,16 +29,86 @@ export class PdfMarkdownExtractionService {
    */
   async extractMarkdown(arrayBuffer: ArrayBuffer): Promise<string> {
     const pdfJs: PdfJsModule = this.pdfJsService.getModule()
+    const pdfBytes = this.clonePdfBytes(arrayBuffer)
+
+    try {
+      return await this.extractMarkdownWithOptions(pdfJs, this.createBaseLoadOptions(pdfBytes))
+    } catch (error) {
+      if (error instanceof UnreadablePdfError) {
+        throw error
+      }
+
+      if (this.shouldRetryWithPdfJsAssets(error)) {
+        try {
+          const assetLoadOptions = this.createPdfJsAssetLoadOptions(pdfJs)
+          return await this.extractMarkdownWithOptions(pdfJs, {
+            ...this.createBaseLoadOptions(pdfBytes),
+            ...assetLoadOptions
+          })
+        } catch (retryError) {
+          if (retryError instanceof UnreadablePdfError) {
+            throw retryError
+          }
+
+          throw this.createInvalidPdfError(retryError)
+        }
+      }
+
+      throw this.createInvalidPdfError(error)
+    }
+  }
+
+  private createInvalidPdfError(cause: unknown): InvalidPdfError {
+    const invalidPdfError = new InvalidPdfError()
+    ;(invalidPdfError as Error & { cause?: unknown }).cause = cause
+    return invalidPdfError
+  }
+
+  private clonePdfBytes(arrayBuffer: ArrayBuffer): Uint8Array {
+    return new Uint8Array(arrayBuffer.slice(0))
+  }
+
+  private createBaseLoadOptions(pdfBytes: Uint8Array): PdfLoadOptions {
+    return {
+      data: pdfBytes.slice(),
+      useSystemFonts: true
+    }
+  }
+
+  private createPdfJsAssetLoadOptions(pdfJs: PdfJsModule): PdfLoadOptions {
+    const version = this.resolvePdfJsVersion(pdfJs)
+    const assetBaseUrl = this.ensureTrailingSlash(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/`)
+
+    return {
+      cMapUrl: `${assetBaseUrl}cmaps/`,
+      cMapPacked: true,
+      standardFontDataUrl: `${assetBaseUrl}standard_fonts/`,
+      wasmUrl: `${assetBaseUrl}wasm/`
+    }
+  }
+
+  private ensureTrailingSlash(urlValue: string): string {
+    return urlValue.endsWith('/') ? urlValue : `${urlValue}/`
+  }
+
+  private resolvePdfJsVersion(pdfJs: PdfJsModule): string {
+    const version = String(pdfJs?.version ?? '').trim()
+    return version || '5.5.207'
+  }
+
+  private shouldRetryWithPdfJsAssets(error: unknown): boolean {
+    if (!(error instanceof Error)) {
+      return false
+    }
+
+    return /standardFontDataUrl|cMapUrl|wasmUrl|Unable to load (?:font data|(?:binary )?CMap|wasm data)/i.test(error.message)
+  }
+
+  private async extractMarkdownWithOptions(pdfJs: PdfJsModule, options: PdfLoadOptions): Promise<string> {
     let pdfDocument: PdfDocumentProxy | undefined
 
     try {
-      const loadingTask = pdfJs.getDocument({
-        data: arrayBuffer,
-        disableWorker: true,
-        isEvalSupported: false,
-        useSystemFonts: true
-      })
-
+      const loadingTask = pdfJs.getDocument(options)
       pdfDocument = await loadingTask.promise
       const pageTexts: string[] = []
 
@@ -57,12 +129,6 @@ export class PdfMarkdownExtractionService {
       }
 
       return extractedText
-    } catch (error) {
-      if (error instanceof UnreadablePdfError) {
-        throw error
-      }
-
-      throw new InvalidPdfError()
     } finally {
       try {
         await pdfDocument?.destroy?.()

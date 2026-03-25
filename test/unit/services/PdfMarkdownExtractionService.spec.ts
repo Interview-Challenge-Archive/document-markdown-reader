@@ -20,9 +20,12 @@ function createTextItem(
   }
 }
 
-function createExtractionService(getDocument: PdfJsModule['getDocument']): PdfMarkdownExtractionService {
+function createExtractionService(
+  getDocument: PdfJsModule['getDocument'],
+  version = '5.5.207'
+): PdfMarkdownExtractionService {
   return new PdfMarkdownExtractionService({
-    getModule: () => ({ getDocument })
+    getModule: () => ({ getDocument, version })
   } as unknown as PdfJsService)
 }
 
@@ -96,6 +99,43 @@ describe('PdfMarkdownExtractionService', () => {
     await expect(pdfMarkdownExtractionService.extractMarkdown(new ArrayBuffer(3))).rejects.toBeInstanceOf(
       InvalidPdfError
     )
+  })
+
+  it('retries with PDF.js asset URLs when browser font or CMap data is required', async () => {
+    const pdfDocument: PdfDocumentProxy = {
+      numPages: 1,
+      getPage: vi.fn(async () => ({
+        async getTextContent() {
+          return {
+            items: [createTextItem('Recovered', 0, 100, 40)]
+          }
+        }
+      })),
+      destroy: vi.fn(async () => {})
+    }
+    const getDocument = vi.fn()
+      .mockReturnValueOnce({
+        promise: Promise.reject(new Error('Ensure that the `standardFontDataUrl` API parameter is provided.'))
+      })
+      .mockReturnValueOnce({
+        promise: Promise.resolve(pdfDocument)
+      })
+    const pdfMarkdownExtractionService = createExtractionService(getDocument, '9.9.9')
+
+    await expect(pdfMarkdownExtractionService.extractMarkdown(new ArrayBuffer(5))).resolves.toBe('Recovered')
+    expect(getDocument).toHaveBeenCalledTimes(2)
+    const firstCallOptions = getDocument.mock.calls[0]?.[0] as Record<string, unknown>
+    const secondCallOptions = getDocument.mock.calls[1]?.[0] as Record<string, unknown>
+
+    expect(secondCallOptions).toEqual(expect.objectContaining({
+      cMapPacked: true
+    }))
+    expect(firstCallOptions.data).toBeInstanceOf(Uint8Array)
+    expect(secondCallOptions.data).toBeInstanceOf(Uint8Array)
+    expect(secondCallOptions.data).not.toBe(firstCallOptions.data)
+    expect(String(secondCallOptions.cMapUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/cmaps\/$/)
+    expect(String(secondCallOptions.standardFontDataUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/standard_fonts\/$/)
+    expect(String(secondCallOptions.wasmUrl ?? '')).toMatch(/pdfjs-dist(?:@9\.9\.9)?\/wasm\/$/)
   })
 
   it('ignores cleanup errors while still returning extracted markdown', async () => {
