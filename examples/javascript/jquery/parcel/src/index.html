@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript jQuery Parcel</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      #convert-btn {
+        margin-left: 0.5rem;
+      }
+
+      #output {
+        white-space: pre-wrap;
+        background: #f5f5f5;
+        padding: 1rem;
+      }
+
+      #error {
+        color: #b00020;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Document Markdown Reader</h1>
+    <p>JavaScript + jQuery + Parcel example</p>
+
+    <input type="file" id="file-input" />
+    <button type="button" id="convert-btn">Convert to Markdown</button>
+
+    <p id="loading"></p>
+    <p id="error"></p>
+    <pre id="output"></pre>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
