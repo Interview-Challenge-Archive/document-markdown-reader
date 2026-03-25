@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { documentMarkdownReader } from '@interview-challenge-archive/document-markdown-reader';
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
   const [markdown, setMarkdown] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  function handleFileSelection(event) {
-    const input = event.target;
-    const file = input.files?.[0];
-
-    setSelectedFile(file ?? null);
-    setError('');
-    setMarkdown('');
-  }
-
   async function handleConvert() {
+    const selectedFile = fileInputRef.current?.files?.[0];
     if (!selectedFile) {
       setError('Please select a file first');
+      setMarkdown('');
       return;
     }
 
@@ -40,8 +33,8 @@ function App() {
       <h1>Document Reader - React + JavaScript + Parcel</h1>
       
       <div className="upload-section">
-        <input type="file" onChange={handleFileSelection} accept=".pdf,.docx,.odt,.pages,.rtf,.html,.md,.txt" />
-        <button id="convert-btn" type="button" onClick={handleConvert} disabled={isLoading || !selectedFile}>
+        <input ref={fileInputRef} type="file" accept=".pdf,.docx,.odt,.pages,.rtf,.html,.md,.txt" />
+        <button id="convert-btn" type="button" onClick={handleConvert} disabled={isLoading}>
           Convert to Markdown
         </button>
       </div>
