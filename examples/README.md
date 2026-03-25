@@ -48,6 +48,7 @@ Examples are organized by language, framework, and build tool:
 | Build Tool | Path | Demo |
 |------------|------|------|
 | [Parcel](https://parceljs.org/) | [typescript/react/parcel](./typescript/react/parcel) |  |
+| [Vite](https://vitejs.dev/) | [typescript/react/vite](./typescript/react/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/typescript/react/vite) |
 
 ### Vanilla (No Framework)
 
