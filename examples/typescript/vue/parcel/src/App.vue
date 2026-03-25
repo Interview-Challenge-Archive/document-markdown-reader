@@ -5,12 +5,12 @@
 
     <div>
       <input
+        ref="fileInputRef"
         type="file"
         accept=".pdf,.docx,.odt,.pages,.html,.md,.txt,.rtf"
-        @change="handleFileSelection"
         :disabled="loading"
       />
-      <button type="button" id="convert-btn" @click="handleConvert" :disabled="loading || !selectedFile">
+      <button type="button" id="convert-btn" @click="handleConvert" :disabled="loading">
         Convert to Markdown
       </button>
     </div>
@@ -32,18 +32,15 @@ import { documentMarkdownReader } from '@interview-challenge-archive/document-ma
 const content = ref('');
 const loading = ref(false);
 const error = ref('');
-const selectedFile = ref<File | null>(null);
-
-const handleFileSelection = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  selectedFile.value = target.files?.[0] ?? null;
-  error.value = '';
-  content.value = '';
-};
+const fileInputRef = ref<HTMLInputElement | null>(null);
 
 const handleConvert = async () => {
-  const file = selectedFile.value;
-  if (!file) return;
+  const file = fileInputRef.value?.files?.[0];
+  if (!file) {
+    error.value = 'Please select a file first';
+    content.value = '';
+    return;
+  }
 
   loading.value = true;
   error.value = '';
