@@ -28,6 +28,12 @@ Examples are organized by language, framework, and build tool:
 | [Rspack](https://rspack.dev/) | [javascript/vanilla/rspack](./javascript/vanilla/rspack) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/rspack) |
 | [Vite](https://vitejs.dev/) | [javascript/vanilla/vite](./javascript/vanilla/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vanilla/vite) |
 
+### Vue
+
+| Build Tool | Path | Demo |
+|------------|------|------|
+| [Vite](https://vitejs.dev/) | [javascript/vue/vite](./javascript/vue/vite) | [![StackBlitz](https://img.shields.io/badge/try_on-stackblitz-blue?logo=stackblitz)](https://stackblitz.com/github/Interview-Challenge-Archive/document-markdown-reader/tree/main/examples/javascript/vue/vite) |
+
 ## TypeScript Examples
 
 ### Vanilla (No Framework)
