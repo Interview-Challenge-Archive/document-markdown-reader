@@ -1,5 +1,6 @@
 import { Service } from '@freshgum/typedi'
 import MarkdownIt from 'markdown-it'
+import { parse as parseHtml } from 'node-html-parser'
 import TurndownService from 'turndown'
 import { gfm } from 'turndown-plugin-gfm'
 
@@ -85,7 +86,7 @@ export class MarkdownItService {
   }
 
   htmlToMarkdown(value: string | null | undefined): string {
-    const normalizedValue = String(value ?? '').trim()
+    const normalizedValue = this.stripStyleAttributes(String(value ?? '')).trim()
 
     if (!normalizedValue) {
       return ''
@@ -96,6 +97,12 @@ export class MarkdownItService {
     } catch {
       return this.extractPlainTextFromHtml(normalizedValue)
     }
+  }
+
+  private stripStyleAttributes(html: string): string {
+    const root = parseHtml(html)
+    root.querySelectorAll('[style]').forEach((el) => el.removeAttribute('style'))
+    return root.toString()
   }
 
   private extractPlainTextFromHtml(value: string): string {
