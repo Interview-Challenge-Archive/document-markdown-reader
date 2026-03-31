@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   DOCUMENT_IMPORT_STRATEGY_SERVICE_ID,
   DocumentImportStrategy
-} from '../../../src/strategies/DocumentImportStrategy'
+} from '../../../src/strategies/document/DocumentImportStrategy'
 import type { DocumentFileLike } from '../../../src/types/DocumentFileLike'
 
 class TestDocumentImportStrategy extends DocumentImportStrategy {

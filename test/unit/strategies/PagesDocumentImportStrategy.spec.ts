@@ -6,7 +6,7 @@ import type { MarkdownItService } from '../../../src/services/MarkdownItService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
 import type { PdfMarkdownExtractionService } from '../../../src/services/PdfMarkdownExtractionService'
 import type { ZipArchiveService } from '../../../src/services/ZipArchiveService'
-import { PagesDocumentImportStrategy } from '../../../src/strategies/PagesDocumentImportStrategy'
+import { PagesDocumentImportStrategy } from '../../../src/strategies/document/PagesDocumentImportStrategy'
 import { createTextFile, createZipArchive } from './_test-helpers'
 
 describe('PagesDocumentImportStrategy', () => {

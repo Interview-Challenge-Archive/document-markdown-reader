@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { FileExtensionService } from '../../../src/services/FileExtensionService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
-import { MarkdownDocumentImportStrategy } from '../../../src/strategies/MarkdownDocumentImportStrategy'
+import { MarkdownDocumentImportStrategy } from '../../../src/strategies/document/MarkdownDocumentImportStrategy'
 import { createTextFile } from './_test-helpers'
 
 describe('MarkdownDocumentImportStrategy', () => {

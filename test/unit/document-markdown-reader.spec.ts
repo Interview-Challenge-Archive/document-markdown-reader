@@ -11,11 +11,11 @@ import { OpenDocumentConversionService } from '../../src/services/OpenDocumentCo
 import { PdfMarkdownExtractionService } from '../../src/services/PdfMarkdownExtractionService'
 import { ZipArchiveService } from '../../src/services/ZipArchiveService'
 import { documentMarkdownReader } from '../../src/index'
-import { OpenDocumentImportStrategy } from '../../src/strategies/OpenDocumentImportStrategy'
-import { PagesDocumentImportStrategy } from '../../src/strategies/PagesDocumentImportStrategy'
-import { PdfDocumentImportStrategy } from '../../src/strategies/PdfDocumentImportStrategy'
-import { RtfDocumentImportStrategy } from '../../src/strategies/RtfDocumentImportStrategy'
-import { WordDocumentImportStrategy } from '../../src/strategies/WordDocumentImportStrategy'
+import { OpenDocumentImportStrategy } from '../../src/strategies/document/OpenDocumentImportStrategy'
+import { PagesDocumentImportStrategy } from '../../src/strategies/document/PagesDocumentImportStrategy'
+import { PdfDocumentImportStrategy } from '../../src/strategies/document/PdfDocumentImportStrategy'
+import { RtfDocumentImportStrategy } from '../../src/strategies/document/RtfDocumentImportStrategy'
+import { WordDocumentImportStrategy } from '../../src/strategies/document/WordDocumentImportStrategy'
 import type { DocumentFileLike } from '../../src/index'
 
 describe('document-markdown-reader', () => {

@@ -1,7 +1,7 @@
 import { Service } from '@freshgum/typedi'
-import type { DocumentFileLike } from '../types/DocumentFileLike'
-import { FileExtensionService } from '../services/FileExtensionService'
-import { MimeTypeService } from '../services/MimeTypeService'
+import type { DocumentFileLike } from '../../types/DocumentFileLike'
+import { FileExtensionService } from '../../services/FileExtensionService'
+import { MimeTypeService } from '../../services/MimeTypeService'
 import { DOCUMENT_IMPORT_STRATEGY_SERVICE_ID, DocumentImportStrategy } from './DocumentImportStrategy'
 
 @Service(

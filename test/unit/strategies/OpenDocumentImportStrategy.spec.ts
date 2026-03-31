@@ -3,7 +3,7 @@ import { InvalidOdtError } from '../../../src/errors/InvalidOdtError'
 import { FileExtensionService } from '../../../src/services/FileExtensionService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
 import type { OpenDocumentConversionService } from '../../../src/services/OpenDocumentConversionService'
-import { OpenDocumentImportStrategy } from '../../../src/strategies/OpenDocumentImportStrategy'
+import { OpenDocumentImportStrategy } from '../../../src/strategies/document/OpenDocumentImportStrategy'
 import { createTextFile } from './_test-helpers'
 
 describe('OpenDocumentImportStrategy', () => {

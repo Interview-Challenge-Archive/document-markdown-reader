@@ -1,9 +1,9 @@
-import type { DocumentFileLike } from '../types/DocumentFileLike'
+import type { DocumentFileLike } from '../../types/DocumentFileLike'
 import { Service } from '@freshgum/typedi'
-import { FileExtensionService } from '../services/FileExtensionService'
-import { MarkdownItService } from '../services/MarkdownItService'
-import { MimeTypeService } from '../services/MimeTypeService'
-import { RtfToHtmlService } from '../services/RtfToHtmlService'
+import { FileExtensionService } from '../../services/FileExtensionService'
+import { MarkdownItService } from '../../services/MarkdownItService'
+import { MimeTypeService } from '../../services/MimeTypeService'
+import { RtfToHtmlService } from '../../services/RtfToHtmlService'
 import { DOCUMENT_IMPORT_STRATEGY_SERVICE_ID, DocumentImportStrategy } from './DocumentImportStrategy'
 
 @Service(

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { FileExtensionService } from '../../../src/services/FileExtensionService'
 import type { MarkdownItService } from '../../../src/services/MarkdownItService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
-import { PlainTextDocumentImportStrategy } from '../../../src/strategies/PlainTextDocumentImportStrategy'
+import { PlainTextDocumentImportStrategy } from '../../../src/strategies/document/PlainTextDocumentImportStrategy'
 import { createTextFile } from './_test-helpers'
 
 describe('PlainTextDocumentImportStrategy', () => {

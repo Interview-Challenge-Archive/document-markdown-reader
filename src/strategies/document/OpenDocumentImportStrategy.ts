@@ -1,9 +1,9 @@
 import { Service } from '@freshgum/typedi'
-import { InvalidOdtError } from '../errors/InvalidOdtError'
-import { FileExtensionService } from '../services/FileExtensionService'
-import { MimeTypeService } from '../services/MimeTypeService'
-import { OpenDocumentConversionService } from '../services/OpenDocumentConversionService'
-import type { DocumentFileLike } from '../types/DocumentFileLike'
+import { InvalidOdtError } from '../../errors/InvalidOdtError'
+import { FileExtensionService } from '../../services/FileExtensionService'
+import { MimeTypeService } from '../../services/MimeTypeService'
+import { OpenDocumentConversionService } from '../../services/OpenDocumentConversionService'
+import type { DocumentFileLike } from '../../types/DocumentFileLike'
 import { DOCUMENT_IMPORT_STRATEGY_SERVICE_ID, DocumentImportStrategy } from './DocumentImportStrategy'
 
 @Service(

@@ -1,4 +1,5 @@
-import type { DocumentFileLike } from '../types/DocumentFileLike'
+import type { DocumentFileLike } from '../../types/DocumentFileLike'
+import type { DocumentReadOptions } from '../../types/DocumentReadOptions'
 
 export const DOCUMENT_IMPORT_STRATEGY_SERVICE_ID = 'document-import-strategy'
 
@@ -19,5 +20,5 @@ export abstract class DocumentImportStrategy {
    * @throws {UnreadablePagesError} When the Pages file content cannot be read
    * @throws {UnreadablePdfError} When the PDF file content cannot be read
    */
-  abstract read(file: DocumentFileLike): Promise<string>
+  abstract read(file: DocumentFileLike, options?: DocumentReadOptions): Promise<string>
 }
