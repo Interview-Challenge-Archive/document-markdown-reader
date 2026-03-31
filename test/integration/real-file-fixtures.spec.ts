@@ -17,6 +17,7 @@ type FixtureCase = {
   mimeType: string
   supportsRichFormatting: boolean
   expectsMarkdownListSyntax: boolean
+  supportsLinks: boolean
 }
 
 const NORMAL_TEXT = 'Normal text section.'
@@ -24,56 +25,102 @@ const BOLD_TEXT = 'Bold text section'
 const ITALIC_TEXT = 'Italic text section'
 const LIST_ITEM_ONE = 'First list item'
 const LIST_ITEM_TWO = 'Second list item'
+const LINK_TEXT = 'Example link'
+const LINK_URL = 'https://example.com/docs'
+const LINK_MARKDOWN = `[${LINK_TEXT}](${LINK_URL})`
 
 const FIXTURE_CASES: ReadonlyArray<FixtureCase> = [
   {
     fileName: 'sample.doc',
     mimeType: 'application/msword',
     supportsRichFormatting: false,
-    expectsMarkdownListSyntax: false
+    expectsMarkdownListSyntax: false,
+    supportsLinks: false
   },
   {
     fileName: 'sample.docx',
     mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     supportsRichFormatting: true,
-    expectsMarkdownListSyntax: true
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
   },
   {
     fileName: 'sample.docm',
     mimeType: 'application/vnd.ms-word.document.macroenabled.12',
     supportsRichFormatting: true,
-    expectsMarkdownListSyntax: true
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
   },
-  { fileName: 'sample.htm', mimeType: 'text/html', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
-  { fileName: 'sample.html', mimeType: 'text/html', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
+  {
+    fileName: 'sample.htm',
+    mimeType: 'text/html',
+    supportsRichFormatting: true,
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
+  },
+  {
+    fileName: 'sample.html',
+    mimeType: 'text/html',
+    supportsRichFormatting: true,
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
+  },
   {
     fileName: 'sample.markdown',
     mimeType: 'text/x-markdown',
     supportsRichFormatting: true,
-    expectsMarkdownListSyntax: true
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
   },
-  { fileName: 'sample.md', mimeType: 'text/markdown', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
-  { fileName: 'sample.mdx', mimeType: 'text/x-mdx', supportsRichFormatting: true, expectsMarkdownListSyntax: true },
+  {
+    fileName: 'sample.md',
+    mimeType: 'text/markdown',
+    supportsRichFormatting: true,
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
+  },
+  {
+    fileName: 'sample.mdx',
+    mimeType: 'text/x-mdx',
+    supportsRichFormatting: true,
+    expectsMarkdownListSyntax: true,
+    supportsLinks: true
+  },
   {
     fileName: 'sample.odt',
     mimeType: 'application/vnd.oasis.opendocument.text',
     supportsRichFormatting: true,
-    expectsMarkdownListSyntax: false
+    expectsMarkdownListSyntax: false,
+    supportsLinks: true
   },
   {
     fileName: 'sample.pages',
     mimeType: 'application/vnd.apple.pages',
     supportsRichFormatting: false,
-    expectsMarkdownListSyntax: false
+    expectsMarkdownListSyntax: false,
+    supportsLinks: false
   },
-  { fileName: 'sample.pdf', mimeType: 'application/pdf', supportsRichFormatting: false, expectsMarkdownListSyntax: false },
+  {
+    fileName: 'sample.pdf',
+    mimeType: 'application/pdf',
+    supportsRichFormatting: false,
+    expectsMarkdownListSyntax: false,
+    supportsLinks: false
+  },
   {
     fileName: 'sample.rtf',
     mimeType: 'application/rtf',
     supportsRichFormatting: true,
-    expectsMarkdownListSyntax: false
+    expectsMarkdownListSyntax: false,
+    supportsLinks: false
   },
-  { fileName: 'sample.txt', mimeType: 'text/plain', supportsRichFormatting: false, expectsMarkdownListSyntax: false }
+  {
+    fileName: 'sample.txt',
+    mimeType: 'text/plain',
+    supportsRichFormatting: false,
+    expectsMarkdownListSyntax: false,
+    supportsLinks: false
+  }
 ]
 
 describe('document-markdown-reader real fixture coverage', () => {
@@ -93,6 +140,10 @@ describe('document-markdown-reader real fixture coverage', () => {
 
       if (fixtureCase.supportsRichFormatting) {
         assertRichFormatting(markdown, fixtureCase.expectsMarkdownListSyntax)
+      }
+
+      if (fixtureCase.supportsLinks) {
+        assertLinks(markdown)
       }
     })
   }
@@ -118,6 +169,12 @@ function assertRichFormatting(markdown: string, expectsMarkdownListSyntax: boole
     expect(normalizedMarkdown).toMatch(/(^|\n)(?:-\s+|\\-\s+)First list item($|\n)/)
     expect(normalizedMarkdown).toMatch(/(^|\n)(?:-\s+|\\-\s+)Second list item($|\n)/)
   }
+}
+
+function assertLinks(markdown: string): void {
+  const normalizedMarkdown = textNormalizationService.unescapeMarkdownControlCharacters(markdown)
+
+  expect(normalizedMarkdown).toContain(LINK_MARKDOWN)
 }
 
 async function createFixtureFileLike(fileName: string, mimeType: string): Promise<DocumentFileLike> {
