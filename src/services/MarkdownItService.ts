@@ -85,7 +85,7 @@ export class MarkdownItService {
   }
 
   htmlToMarkdown(value: string | null | undefined): string {
-    const normalizedValue = String(value ?? '').trim()
+    const normalizedValue = this.stripStyleAttributes(String(value ?? '')).trim()
 
     if (!normalizedValue) {
       return ''
@@ -96,6 +96,12 @@ export class MarkdownItService {
     } catch {
       return this.extractPlainTextFromHtml(normalizedValue)
     }
+  }
+
+  private stripStyleAttributes(html: string): string {
+    return html
+      .replace(/\s*style\s*=\s*"(?:[^"\\]|\\.)*"/gi, '')
+      .replace(/\s*style\s*=\s*'(?:[^'\\]|\\.)*'/gi, '')
   }
 
   private extractPlainTextFromHtml(value: string): string {
