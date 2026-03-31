@@ -1,5 +1,6 @@
 import { Service } from '@freshgum/typedi'
 import MarkdownIt from 'markdown-it'
+import { parse as parseHtml } from 'node-html-parser'
 import TurndownService from 'turndown'
 import { gfm } from 'turndown-plugin-gfm'
 
@@ -99,9 +100,9 @@ export class MarkdownItService {
   }
 
   private stripStyleAttributes(html: string): string {
-    return html
-      .replace(/\s*style\s*=\s*"(?:[^"\\]|\\.)*"/gi, '')
-      .replace(/\s*style\s*=\s*'(?:[^'\\]|\\.)*'/gi, '')
+    const root = parseHtml(html)
+    root.querySelectorAll('[style]').forEach((el) => el.removeAttribute('style'))
+    return root.toString()
   }
 
   private extractPlainTextFromHtml(value: string): string {
