@@ -3,7 +3,7 @@ import { UnsupportedFormatError } from '../../../src/errors/UnsupportedFormatErr
 import { DocumentReadStrategyResolver } from '../../../src/resolvers/DocumentReadStrategyResolver'
 import { FileExtensionService } from '../../../src/services/FileExtensionService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
-import type { DocumentImportStrategy } from '../../../src/strategies/DocumentImportStrategy'
+import type { DocumentImportStrategy } from '../../../src/strategies/document/DocumentImportStrategy'
 import type { DocumentFileLike } from '../../../src/types/DocumentFileLike'
 
 type TestStrategyConfig = {

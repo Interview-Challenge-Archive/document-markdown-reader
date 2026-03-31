@@ -18,6 +18,7 @@ type FixtureCase = {
   supportsRichFormatting: boolean
   expectsMarkdownListSyntax: boolean
   supportsLinks: boolean
+  supportsImages: boolean
 }
 
 const NORMAL_TEXT = 'Normal text section.'
@@ -28,6 +29,7 @@ const LIST_ITEM_TWO = 'Second list item'
 const LINK_TEXT = 'Example link'
 const LINK_URL = 'https://example.com/docs'
 const LINK_MARKDOWN = `[${LINK_TEXT}](${LINK_URL})`
+const IMAGE_ALT = 'Sample image'
 
 const FIXTURE_CASES: ReadonlyArray<FixtureCase> = [
   {
@@ -35,91 +37,104 @@ const FIXTURE_CASES: ReadonlyArray<FixtureCase> = [
     mimeType: 'application/msword',
     supportsRichFormatting: false,
     expectsMarkdownListSyntax: false,
-    supportsLinks: false
+    supportsLinks: false,
+    supportsImages: false
   },
   {
     fileName: 'sample.docx',
     mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.docm',
     mimeType: 'application/vnd.ms-word.document.macroenabled.12',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.htm',
     mimeType: 'text/html',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: true
   },
   {
     fileName: 'sample.html',
     mimeType: 'text/html',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: true
   },
   {
     fileName: 'sample.markdown',
     mimeType: 'text/x-markdown',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.md',
     mimeType: 'text/markdown',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.mdx',
     mimeType: 'text/x-mdx',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: true,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.odt',
     mimeType: 'application/vnd.oasis.opendocument.text',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: false,
-    supportsLinks: true
+    supportsLinks: true,
+    supportsImages: false
   },
   {
     fileName: 'sample.pages',
     mimeType: 'application/vnd.apple.pages',
     supportsRichFormatting: false,
     expectsMarkdownListSyntax: false,
-    supportsLinks: false
+    supportsLinks: false,
+    supportsImages: false
   },
   {
     fileName: 'sample.pdf',
     mimeType: 'application/pdf',
     supportsRichFormatting: false,
     expectsMarkdownListSyntax: false,
-    supportsLinks: false
+    supportsLinks: false,
+    supportsImages: false
   },
   {
     fileName: 'sample.rtf',
     mimeType: 'application/rtf',
     supportsRichFormatting: true,
     expectsMarkdownListSyntax: false,
-    supportsLinks: false
+    supportsLinks: false,
+    supportsImages: false
   },
   {
     fileName: 'sample.txt',
     mimeType: 'text/plain',
     supportsRichFormatting: false,
     expectsMarkdownListSyntax: false,
-    supportsLinks: false
+    supportsLinks: false,
+    supportsImages: false
   }
 ]
 
@@ -144,6 +159,10 @@ describe('document-markdown-reader real fixture coverage', () => {
 
       if (fixtureCase.supportsLinks) {
         assertLinks(markdown)
+      }
+
+      if (fixtureCase.supportsImages) {
+        assertImages(markdown)
       }
     })
   }
@@ -177,6 +196,10 @@ function assertLinks(markdown: string): void {
   expect(normalizedMarkdown).toContain(LINK_MARKDOWN)
 }
 
+function assertImages(markdown: string): void {
+  expect(markdown).toContain(`![${IMAGE_ALT}](data:image/png;base64,`)
+}
+
 async function createFixtureFileLike(fileName: string, mimeType: string): Promise<DocumentFileLike> {
   const filePath = resolve(FIXTURE_DIRECTORY_PATH, fileName)
   const fileBuffer = await readFile(filePath)
@@ -195,3 +218,4 @@ async function createFixtureFileLike(fileName: string, mimeType: string): Promis
     }
   }
 }
+

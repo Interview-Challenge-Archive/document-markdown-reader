@@ -2,6 +2,7 @@ import type { ContainerInstance } from '@freshgum/typedi'
 import { DocumentReadStrategyResolver } from './resolvers/DocumentReadStrategyResolver'
 import type { SupportedFormat } from './resolvers/DocumentReadStrategyResolver'
 import type { DocumentFileLike } from './types/DocumentFileLike'
+import type { DocumentReadOptions } from './types/DocumentReadOptions'
 
 export class DocumentMarkdownReader {
   constructor(private readonly container: ContainerInstance) {}
@@ -34,9 +35,9 @@ export class DocumentMarkdownReader {
    * @throws {UnreadablePagesError} When the Pages file content cannot be read
    * @throws {UnreadablePdfError} When the PDF file content cannot be read
    */
-  async readDocument(file: DocumentFileLike): Promise<string> {
+  async readDocument(file: DocumentFileLike, options?: DocumentReadOptions): Promise<string> {
     const importStrategy = this.resolver.resolve(file)
 
-    return await importStrategy.read(file)
+    return await importStrategy.read(file, options)
   }
 }

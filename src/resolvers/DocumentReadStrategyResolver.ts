@@ -4,7 +4,7 @@ import { MimeTypeService } from '../services/MimeTypeService'
 import {
   DOCUMENT_IMPORT_STRATEGY_SERVICE_ID,
   type DocumentImportStrategy
-} from '../strategies/DocumentImportStrategy'
+} from '../strategies/document/DocumentImportStrategy'
 import type { DocumentFileLike } from '../types/DocumentFileLike'
 import { UnsupportedFormatError } from '../errors/UnsupportedFormatError'
 

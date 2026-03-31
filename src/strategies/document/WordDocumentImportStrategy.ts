@@ -1,12 +1,14 @@
-import type { DocumentFileLike } from '../types/DocumentFileLike'
+import type { DocumentFileLike } from '../../types/DocumentFileLike'
+import type { DocumentReadOptions } from '../../types/DocumentReadOptions'
 import { Service } from '@freshgum/typedi'
-import { InvalidDocxError } from '../errors/InvalidDocxError'
-import { UnreadableDocError } from '../errors/UnreadableDocError'
-import { FileExtensionService } from '../services/FileExtensionService'
-import { MarkdownItService } from '../services/MarkdownItService'
-import { MammothConversionService } from '../services/MammothConversionService'
-import { MimeTypeService } from '../services/MimeTypeService'
-import { ZipArchiveService } from '../services/ZipArchiveService'
+import { InvalidDocxError } from '../../errors/InvalidDocxError'
+import { UnreadableDocError } from '../../errors/UnreadableDocError'
+import { FileExtensionService } from '../../services/FileExtensionService'
+import { MarkdownItService } from '../../services/MarkdownItService'
+import { MammothConversionService } from '../../services/MammothConversionService'
+import { MimeTypeService } from '../../services/MimeTypeService'
+import { ZipArchiveService } from '../../services/ZipArchiveService'
+import { DataUrlImageStoringStrategy } from '../images/DataUrlImageStoringStrategy'
 import { DOCUMENT_IMPORT_STRATEGY_SERVICE_ID, DocumentImportStrategy } from './DocumentImportStrategy'
 
 const WORD_BINARY_TEXT_DECODER = new TextDecoder('latin1')
@@ -50,7 +52,7 @@ export class WordDocumentImportStrategy extends DocumentImportStrategy {
    * @throws {InvalidDocxError} When the DOCX/DOCM file is invalid or corrupted
    * @throws {UnreadableDocError} When the DOC file content cannot be read
    */
-  async read(file: DocumentFileLike): Promise<string> {
+  async read(file: DocumentFileLike, options?: DocumentReadOptions): Promise<string> {
     const extension = this.fileExtensionService.resolveFileExtension(file?.name)
     const wordArrayBuffer = await file.arrayBuffer()
     const shouldParseAsOpenXml = extension === 'docx'
@@ -58,8 +60,15 @@ export class WordDocumentImportStrategy extends DocumentImportStrategy {
       || this.zipArchiveService.looksLikeZipArchive(wordArrayBuffer)
 
     if (shouldParseAsOpenXml) {
+      const imageStoringStrategy = options?.images ?? new DataUrlImageStoringStrategy()
+      const imageConverter = (buffer: ArrayBuffer, contentType: string): Promise<string> =>
+        imageStoringStrategy.storeImage(buffer, contentType)
+
       try {
-        const normalizedDocxHtml = await this.mammothConversionService.convertToHtml(wordArrayBuffer)
+        const normalizedDocxHtml = await this.mammothConversionService.convertToHtml(
+          wordArrayBuffer,
+          imageConverter
+        )
 
         if (normalizedDocxHtml) {
           return this.markdownItService.htmlToMarkdown(normalizedDocxHtml)

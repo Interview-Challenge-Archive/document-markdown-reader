@@ -3,7 +3,7 @@ import { FileExtensionService } from '../../../src/services/FileExtensionService
 import type { MarkdownItService } from '../../../src/services/MarkdownItService'
 import { MimeTypeService } from '../../../src/services/MimeTypeService'
 import type { RtfToHtmlService } from '../../../src/services/RtfToHtmlService'
-import { RtfDocumentImportStrategy } from '../../../src/strategies/RtfDocumentImportStrategy'
+import { RtfDocumentImportStrategy } from '../../../src/strategies/document/RtfDocumentImportStrategy'
 import { createTextFile } from './_test-helpers'
 
 describe('RtfDocumentImportStrategy', () => {
