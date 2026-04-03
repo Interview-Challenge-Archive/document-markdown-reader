@@ -9,7 +9,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "@interview-challenge-archive/document-markdown-reader": ">=0.2.0",
+    "@interview-challenge-archive/document-markdown-reader": "file:../../../../",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
