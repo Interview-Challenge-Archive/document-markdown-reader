@@ -64,6 +64,7 @@ npm run typecheck
 15. **PR-only workflow**: Never commit or push directly to `main`. If the current branch is `main` or `dev`, create a feature branch, push it, and open a pull request. If the current branch is already not `main` and not `dev`, do not create an extra branch unless explicitly requested. Merge to `main` only after explicit user approval.
 16. **Prefer marketplace actions in workflows**: When updating GitHub Actions workflows, prefer established GitHub Marketplace actions over custom inline shell logic when a suitable action exists.
 17. **Example dependency minimum version**: Every example `package.json` must define `@interview-challenge-archive/document-markdown-reader` with the minimum supported version for that work (currently `>=0.1.3`), not `>=0.0.1`.
+18. **Example dependency format**: In example `package.json` files, always use version ranges like `"@interview-challenge-archive/document-markdown-reader": ">=0.2.0"`. Do NOT commit local file references like `"file:../../../../"` - these are only for local CI validation and should not be committed to the repository.
 
 ## Pre-commit Checklist
 
