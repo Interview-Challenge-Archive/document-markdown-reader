@@ -51,7 +51,7 @@
     "mammoth": "^1.12.0",
     "markdown-it": "^14.1.1",
     "node-html-parser": "^7.1.0",
-    "odf-kit": "^0.8.1",
+    "odf-kit": "^0.13.1",
     "pdfjs-dist": "^5.5.207",
     "reflect-metadata": "^0.2.2",
     "rtf-stream-parser": "^3.8.1",
