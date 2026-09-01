@@ -49,7 +49,7 @@
     "iconv-lite": "^0.7.2",
     "jszip": "^3.10.1",
     "mammoth": "^1.12.0",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^15.0.1",
     "node-html-parser": "^7.1.0",
     "odf-kit": "^0.13.1",
     "pdfjs-dist": "^6.0.227",
