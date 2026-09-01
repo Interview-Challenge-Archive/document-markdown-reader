@@ -54,7 +54,7 @@
     "odf-kit": "^0.13.1",
     "pdfjs-dist": "^6.0.227",
     "reflect-metadata": "^0.2.2",
-    "rtf-stream-parser": "^3.8.1",
+    "rtf-stream-parser": "^4.0.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2"
   },
