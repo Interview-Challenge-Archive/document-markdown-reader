@@ -80,7 +80,7 @@
     "unplugin-swc": "^1.5.9",
     "util": "^0.12.5",
     "vite": "^8.0.1",
-    "vitest": "^4.1.0"
+    "vitest": "^5.0.2"
   },
   "engines": {
     "node": ">=20"
